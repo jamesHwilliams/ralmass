@@ -1,0 +1,52 @@
+#' Clean attribute tables written from ArcGIS.
+#'
+#' The function will remove commas used as thousand seperator, re-arrange columns and add missing ones. 
+#' The attribute table should contain (as a minimum):
+#' \itemize{
+#'   \item COUNT. The number of cells with the same VALUE
+#'   \item LINK. This is the actual element type codes used in ALMaSS
+#'   \item VALUE. The polygon ID
+#' }
+#'
+#' @param AttrTable data.frame An attribute table containing at least the tree columns: COUNT, LINK & VALUE
+#' @param Soiltype Logical. Should the output contain dummy variable for soiltype?
+#' @return A clean version of the attribute table with the correct dimension for use in ALMaSS.
+#' @export
+#' @examples
+#' data(polyref)
+#' str(polyref)
+#' tail(polyref)  # Note the issues with commas
+#' poly2 = CleanAttrTable(polyref)
+#' str(poly2)  # Only the three needed columns and in the right order
+#' tail(poly2)  # Comma issue gone
+CleanAttrTable = function(AttrTable, Soiltype = TRUE) {
+	if(!is.data.frame(AttrTable)){
+		cat('Hmm, expected a data.frame, but got something else.\n')
+		cat('Try class() on your object and see ?CleanAttrTable')
+		return()
+	}
+	AttrTable$COUNT = gsub(pattern = ',', replacement = '', x = AttrTable$COUNT, fixed = TRUE)
+	AttrTable$LINK = gsub(pattern = ',', replacement = '', x = AttrTable$LINK, fixed = TRUE)
+	AttrTable$VALUE = gsub(pattern = ',', replacement = '', x = AttrTable$VALUE, fixed = TRUE)
+	AttrTable$COUNT = as.numeric(AttrTable$COUNT)
+	AttrTable$LINK = as.numeric(AttrTable$LINK)
+	AttrTable$VALUE = as.numeric(AttrTable$VALUE)
+
+	# Remove unwanted columns and add missing ones:
+	AttrTable = AttrTable[-match('OBJECTID', names(AttrTable))]
+	names(AttrTable)  # VALUE = polygon ID, COUNT = number of cells in the polygon, LINK = ALMaSS element type code
+	names(AttrTable) = c('PolygonID', 'NumberOfCells', 'ElementType')
+
+	# Rearrange order of columns
+	AttrTable = AttrTable[c(3,1,2)]
+	# Add the farmref column (will be overwritten later...)
+	AttrTable$Farmref = rep(-1, nrow(AttrTable))
+	# Add the minus one column (just has to be there...)
+	AttrTable$MinusOne = rep(-1, nrow(AttrTable))
+
+	if(Soiltype){
+	# Add missing columns (The minus one column and soiltype which here is just a dummy)
+		AttrTable$Soiltype = rep(-1, nrow(AttrTable))
+	}
+	return(AttrTable)
+}
