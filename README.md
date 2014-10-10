@@ -8,5 +8,5 @@ ALMaSS it self is hosted on ccpforge. See more on the [ALMaSS project page](http
 ## Installation
 ```s
 library(devtools)
-install_github(LDalby/ralmass)
+install_github('LDalby/ralmass')
 ```
