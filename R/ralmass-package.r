@@ -1,6 +1,6 @@
-#' DalbyTools.
+#' ralmass.
 #'
-#' @name DalbyTools
+#' @name ralmass
 #' @docType package
 #' @import stringr
 #' @import RColorBrewer
