@@ -5,6 +5,8 @@ It also provides functions to handle output from ALMaSS simulations.
 
 ALMaSS it self is hosted on ccpforge. See more on the [ALMaSS project page](http://ccpforge.cse.rl.ac.uk/gf/project/almass/).
 
+*ralmass* is under development. Use with caution.
+
 ## Installation
 ```s
 library(devtools)
