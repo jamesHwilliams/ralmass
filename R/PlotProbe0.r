@@ -26,10 +26,8 @@ PlotProbe0 = function(data, seasons = TRUE, lty = 'l', add = FALSE, species = 'D
 
 		m.pch = 15
 		f.pch = 19
-	}
-	else {
-		cat('PlotPrbe0 only implemented for Dormouse at the moment - sorry!')
-	}
+	
+	
   BreedingSeaStart = 120
   BreedingSeaEnd = 243
   HibernationStart = 300
@@ -87,5 +85,47 @@ if(add) {
     lines(Julian.day, Juvenile.female, type = lty, col = jf.col,las = 1, bty = 'l', pch = f.pch)
   })
 }
+}
+
+if(species == 'Goose') {
+    col = c(brewer.pal(9, 'Blues')[c(9, 7)], brewer.pal(9, 'Greens')[c(9, 7)], brewer.pal(9, 'Reds')[c(9, 7)])
+    names(data) = c('Greylag', 'GreylagB', 'PinkFeet', 'PinkFeetB', 'Barny', 'BarnyB')
+
+    xlimits = c(data[1,1]-1, data[nrow(data),1]+1)
+    ylimits = c(0, max(data[,'Greylag'], data[,'GreylagB'], data[,'PinkFeet'], data[,'PinkFeetB'], data[,'Barny'], data[,'BarnyB']))
+    xcoord = 0.8 * xlimits[2]
+    ycoord =  ylimits[2]
+    nyears = data[nrow(data),1]/365
+
+    gl.col = col[1]
+    glb.col = col[2]
+    pf.col = col[3]
+    pfb.col = col[4]
+    b.col = col[5]
+    bb.col = col[6]
+
+ with(data, {
+      plot(Julian.day, Greylag, type = 'n', las = 1, bty = 'l', ylim = ylimits, xlim = xlimits, ylab = 'Individuals', xlab = 'Julian day')
+      # Lines
+      lines(Julian.day, Male, type = lty, col = m.col, las = 1, bty = 'l', pch = m.pch)
+      lines(Julian.day, Female, type = lty, col = f.col, las = 1, bty = 'l', pch = f.pch)
+      lines(Julian.day, Juvenile.male, type = lty, col = jm.col, las = 1, bty = 'l', pch = m.pch)
+      lines(Julian.day, Juvenile.female, type = lty, col = jf.col,las = 1, bty = 'l', pch = f.pch)
+      for(i in 1:nyears){
+        abline(v = i*365, col = 'grey', lty = 2)
+      }
+
+      legend(0, max(ylimits)*1.15, legend = c('Greylag', 'GreylagB', 'PinkFeet', 'PinkFeetB', 'Barny', 'BarnyB'),
+       pch = 16, col = col, bty = 'n', cex = 0.8, xpd = NA,
+       text.width = c(strwidth('Greylag'), strwidth('GreylagB'), strwidth('PinkFeet'), strwidth('PinkFeetB'), strwidth('Barny'), strwidth('BarnyB')),
+       horiz = TRUE)
+    }
+
+}
+
+else {
+    cat('PlotPrbe0 not implemented for the species you requested - sorry!')
+  }
+
 }
 
