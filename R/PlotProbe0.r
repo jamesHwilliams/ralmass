@@ -88,11 +88,11 @@ if(add) {
 }
 
 if(species == 'Goose') {
-    col = c(brewer.pal(9, 'Blues')[c(9, 7)], brewer.pal(9, 'Greens')[c(9, 7)], brewer.pal(9, 'Reds')[c(9, 7)])
-    names(data) = c('Greylag', 'GreylagB', 'PinkFeet', 'PinkFeetB', 'Barny', 'BarnyB')
+    col = c(brewer.pal(9, 'Blues')[c(8, 6)], brewer.pal(8, 'Greens')[c(8, 6)], brewer.pal(8, 'Reds')[c(8, 6)])
+    setnames(data, c('Julian.day', 'Greylag', 'GreylagB', 'PinkFeet', 'PinkFeetB', 'Barny', 'BarnyB'))
 
-    xlimits = c(data[1,1]-1, data[nrow(data),1]+1)
-    ylimits = c(0, max(data[,'Greylag'], data[,'GreylagB'], data[,'PinkFeet'], data[,'PinkFeetB'], data[,'Barny'], data[,'BarnyB']))
+    xlimits = range(data[,Julian.day])+c(-1,1)
+    ylimits = c(0, max(data[,Greylag], data[,GreylagB], data[,PinkFeet], data[,PinkFeetB], data[,Barny], data[,BarnyB]))
     xcoord = 0.8 * xlimits[2]
     ycoord =  ylimits[2]
     nyears = data[nrow(data),1]/365
@@ -107,20 +107,21 @@ if(species == 'Goose') {
  with(data, {
       plot(Julian.day, Greylag, type = 'n', las = 1, bty = 'l', ylim = ylimits, xlim = xlimits, ylab = 'Individuals', xlab = 'Julian day')
       # Lines
-      lines(Julian.day, Male, type = lty, col = m.col, las = 1, bty = 'l', pch = m.pch)
-      lines(Julian.day, Female, type = lty, col = f.col, las = 1, bty = 'l', pch = f.pch)
-      lines(Julian.day, Juvenile.male, type = lty, col = jm.col, las = 1, bty = 'l', pch = m.pch)
-      lines(Julian.day, Juvenile.female, type = lty, col = jf.col,las = 1, bty = 'l', pch = f.pch)
+      lines(Julian.day, Greylag, type = lty, col = gl.col, las = 1, bty = 'l')
+      lines(Julian.day, GreylagB, type = lty, col = glb.col, las = 1, bty = 'l')
+      lines(Julian.day, PinkFeet, type = lty, col = pf.col, las = 1, bty = 'l')
+      lines(Julian.day, PinkFeetB, type = lty, col = pfb.col,las = 1, bty = 'l')
+      lines(Julian.day, Barny, type = lty, col = b.col,las = 1, bty = 'l')
+      lines(Julian.day, BarnyB, type = lty, col = bb.col,las = 1, bty = 'l')
       for(i in 1:nyears){
         abline(v = i*365, col = 'grey', lty = 2)
       }
 
       legend(0, max(ylimits)*1.15, legend = c('Greylag', 'GreylagB', 'PinkFeet', 'PinkFeetB', 'Barny', 'BarnyB'),
        pch = 16, col = col, bty = 'n', cex = 0.8, xpd = NA,
-       text.width = c(strwidth('Greylag'), strwidth('GreylagB'), strwidth('PinkFeet'), strwidth('PinkFeetB'), strwidth('Barny'), strwidth('BarnyB')),
+       #text.width = c(strwidth('Greylag'), strwidth('GreylagB'), strwidth('PinkFeet'), strwidth('PinkFeetB'), strwidth('Barny'), strwidth('BarnyB')),
        horiz = TRUE)
-    }
-
+    })
 }
 
 else {
