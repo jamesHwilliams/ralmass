@@ -127,10 +127,9 @@ if(species == 'Goose') {
         abline(v = i*365, col = 'grey', lty = 2)
       }
 
-      legend(0, max(ylimits)*1.15, legend = c('Pinkfoot family', 'Pinkfoot nonbreeder', 'Barnacle family', 'Barnacle nonbreeder', 'Greylag', 'Greylag nonbreeder'),
+      legend(0, max(ylimits)*1.15, legend = c('Pinkfoot family', 'Pinkfoot nonbreeder', 'Barnacle family', 'Barnacle nonbreeder', 'Greylag family', 'Greylag nonbreeder'),
        pch = 16, col = col, bty = 'n', cex = 0.8, xpd = NA,
-       #text.width = c(strwidth('Pinkfoot family'), strwidth('Pinkfoot nonbreeder'), strwidth('Barnacle family'), strwidth('Barnacle nonbreeder'), strwidth('Greylag family'), strwidth('Greylag nonbreeder')),
-       horiz = TRUE)
+       ncol = 3)
     })
 }
 
