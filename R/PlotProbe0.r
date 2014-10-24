@@ -1,6 +1,8 @@
 #' Plot results from probe0
 #'
-#' Plot the results from probe0 
+#' Plot the results from probe0
+#' Note: you should read the results file using the fread function in the data.table package
+#' It is very fast - you will not regret it. 
 #' 
 #' @param data data.frame The raw output from probe0 or probe from ALMaSS
 #' @param seasons logical Should breeding season and hibernation polygons be added to the plot?
