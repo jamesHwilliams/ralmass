@@ -9,9 +9,14 @@ PlotProbe0(data, seasons = TRUE, lty = "l", add = FALSE,
 \arguments{
 \item{data}{data.frame The raw output from probe0 or probe from ALMaSS}
 
-\item{seasons}{logical Should breeding season and hibernation polygons be added to the plot?}
+\item{seasons}{logical Should breeding season and hibernation polygons be added to the plot?
+(dormouse specific)}
 
 \item{lty}{character Either 'l' = lines, 'b' both lines and point.}
+
+\item{add}{Should the plot be added to an already existing plot in the plot window?}
+
+\item{species}{What species is the plot for? (currenly only "Dormouse" and "Goose" available)}
 }
 \value{
 A nice plot

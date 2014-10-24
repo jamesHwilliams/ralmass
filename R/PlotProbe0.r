@@ -3,8 +3,11 @@
 #' Plot the results from probe0 
 #' 
 #' @param data data.frame The raw output from probe0 or probe from ALMaSS
-#' @param seasons logical Should breeding season and hibernation polygons be added to the plot? 
+#' @param seasons logical Should breeding season and hibernation polygons be added to the plot?
+#' (dormouse specific)
 #' @param lty character Either 'l' = lines, 'b' both lines and point.
+#' @param add Should the plot be added to an already existing plot in the plot window?
+#' @param species What species is the plot for? (currenly only "Dormouse" and "Goose" available)
 #' @return A nice plot
 #' @export
 PlotProbe0 = function(data, seasons = TRUE, lty = 'l', add = FALSE, species = 'Dormouse') {
