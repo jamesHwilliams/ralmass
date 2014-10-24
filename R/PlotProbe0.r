@@ -99,7 +99,7 @@ if(add) {
 
 if(species == 'Goose') {
     col = c(brewer.pal(9, 'Blues')[c(8, 6)], brewer.pal(8, 'Greens')[c(8, 6)], brewer.pal(8, 'Reds')[c(8, 6)])
-    setnames(data, c('Julian.day', 'Pinkfoot.family', 'Pinkfoot.nonbreeder', 'Barnacle.family', 'Barnacle.nonbreeder', 'Greylag.family', 'Barnacle.nonbreeder'))
+    setnames(data, c('Julian.day', 'Pinkfoot.family', 'Pinkfoot.nonbreeder', 'Barnacle.family', 'Barnacle.nonbreeder', 'Greylag.family', 'Greylag.nonbreeder'))
 
     xlimits = range(data[,Julian.day])+c(-1,1)
     ylimits = c(0, max(data[,Pinkfoot.family], data[,Pinkfoot.nonbreeder], data[,Barnacle.family], data[,Barnacle.nonbreeder], data[,Greylag.family], data[,Greylag.nonbreeder]))
