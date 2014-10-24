@@ -11,13 +11,18 @@
 #' @return A nice plot
 #' @export
 PlotProbe0 = function(data, seasons = TRUE, lty = 'l', add = FALSE, species = 'Dormouse') {
-	if(species == 'Dormouse')
+	if(!is.data.table(data))
+    { cat('You appear to have loaded your results file using read.table().\n')
+      cat('please use the fread function in the package data.table')
+      return()
+    }
+  if(species == 'Dormouse')
 	{
 		col = brewer.pal(4, 'Set1')
-		names(data) = c('Julian.day', 'Juvenile.male', 'Juvenile.female', 'Male', 'Female')
+		setnames(data, c('Julian.day', 'Juvenile.male', 'Juvenile.female', 'Male', 'Female'))
 
 		xlimits = c(data[1,1]-1, data[nrow(data),1]+1)
-		ylimits = c(0, max(data[,'Male'], data[,'Female'], data[,'Juvenile.male'], data[,'Juvenile.female']))
+		ylimits = c(0, max(data[,Male], data[,Female], data[,Juvenile.male], data[,Juvenile.female]))
 		xcoord = 0.8 * xlimits[2]
 		ycoord =  ylimits[2]
 		nyears = data[nrow(data),1]/365
@@ -92,10 +97,10 @@ if(add) {
 
 if(species == 'Goose') {
     col = c(brewer.pal(9, 'Blues')[c(8, 6)], brewer.pal(8, 'Greens')[c(8, 6)], brewer.pal(8, 'Reds')[c(8, 6)])
-    setnames(data, c('Julian.day', 'Greylag', 'GreylagB', 'PinkFeet', 'PinkFeetB', 'Barny', 'BarnyB'))
+    setnames(data, c('Julian.day', 'Pinkfoot.family', 'Pinkfoot.nonbreeder', 'Barnacle.family', 'Barnacle.nonbreeder', 'Greylag.family', 'Barnacle.nonbreeder'))
 
     xlimits = range(data[,Julian.day])+c(-1,1)
-    ylimits = c(0, max(data[,Greylag], data[,GreylagB], data[,PinkFeet], data[,PinkFeetB], data[,Barny], data[,BarnyB]))
+    ylimits = c(0, max(data[,Pinkfoot.family], data[,Pinkfoot.nonbreeder], data[,Barnacle.family], data[,Barnacle.nonbreeder], data[,Greylag.family], data[,Greylag.nonbreeder]))
     xcoord = 0.8 * xlimits[2]
     ycoord =  ylimits[2]
     nyears = data[nrow(data),1]/365
@@ -108,21 +113,21 @@ if(species == 'Goose') {
     bb.col = col[6]
 
  with(data, {
-      plot(Julian.day, Greylag, type = 'n', las = 1, bty = 'l', ylim = ylimits, xlim = xlimits, ylab = 'Individuals', xlab = 'Julian day')
+      plot(Julian.day, Pinkfoot.family, type = 'n', las = 1, bty = 'l', ylim = ylimits, xlim = xlimits, ylab = 'Individuals', xlab = 'Julian day')
       # Lines
-      lines(Julian.day, Greylag, type = lty, col = gl.col, las = 1, bty = 'l')
-      lines(Julian.day, GreylagB, type = lty, col = glb.col, las = 1, bty = 'l')
-      lines(Julian.day, PinkFeet, type = lty, col = pf.col, las = 1, bty = 'l')
-      lines(Julian.day, PinkFeetB, type = lty, col = pfb.col,las = 1, bty = 'l')
-      lines(Julian.day, Barny, type = lty, col = b.col,las = 1, bty = 'l')
-      lines(Julian.day, BarnyB, type = lty, col = bb.col,las = 1, bty = 'l')
+      lines(Julian.day, Pinkfoot.family, type = lty, col = gl.col, las = 1, bty = 'l')
+      lines(Julian.day, Pinkfoot.nonbreeder, type = lty, col = glb.col, las = 1, bty = 'l')
+      lines(Julian.day, Barnacle.family, type = lty, col = pf.col, las = 1, bty = 'l')
+      lines(Julian.day, Barnacle.nonbreeder, type = lty, col = pfb.col,las = 1, bty = 'l')
+      lines(Julian.day, Greylag.family, type = lty, col = b.col,las = 1, bty = 'l')
+      lines(Julian.day, Greylag.nonbreeder, type = lty, col = bb.col,las = 1, bty = 'l')
       for(i in 1:nyears){
         abline(v = i*365, col = 'grey', lty = 2)
       }
 
-      legend(0, max(ylimits)*1.15, legend = c('Greylag', 'GreylagB', 'PinkFeet', 'PinkFeetB', 'Barny', 'BarnyB'),
+      legend(0, max(ylimits)*1.15, legend = c('Pinkfoot family', 'Pinkfoot nonbreeder', 'Barnacle family', 'Barnacle nonbreeder', 'Greylag', 'Greylag nonbreeder'),
        pch = 16, col = col, bty = 'n', cex = 0.8, xpd = NA,
-       #text.width = c(strwidth('Greylag'), strwidth('GreylagB'), strwidth('PinkFeet'), strwidth('PinkFeetB'), strwidth('Barny'), strwidth('BarnyB')),
+       #text.width = c(strwidth('Pinkfoot family'), strwidth('Pinkfoot nonbreeder'), strwidth('Barnacle family'), strwidth('Barnacle nonbreeder'), strwidth('Greylag family'), strwidth('Greylag nonbreeder')),
        horiz = TRUE)
     })
 }
