@@ -13,4 +13,5 @@ LazyData: true
 Imports:
     stringr,
     RColorBrewer,
-    plyr
+    plyr,
+    data.table
