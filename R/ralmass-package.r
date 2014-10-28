@@ -6,4 +6,6 @@
 #' @import RColorBrewer
 #' @import plyr
 #' @import data.table
+#' @import sp
+#' @import rgdal
 NULL

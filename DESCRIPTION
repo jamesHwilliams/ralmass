@@ -5,7 +5,6 @@ Version: 0.1
 Authors@R: "Lars Dalby <lada@dmu.dk> [aut, cre]"
 Description: Package containing a selection of functions that I often use when
     handling and analyzing data for and from ALMaSS
-    Hopefully it will expand over time
 Depends:
     R (>= 3.1.1)
 License: What license is it under?
@@ -14,4 +13,6 @@ Imports:
     stringr,
     RColorBrewer,
     plyr,
-    data.table
+    data.table,
+    sp,
+    rgdal
