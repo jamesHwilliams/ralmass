@@ -3,10 +3,12 @@
 \alias{CalcPseudoCentroid}
 \title{Calculate pseudo centroid for polygons}
 \usage{
-CalcPseudoCentroid(data)
+CalcPseudoCentroid(data, project = TRUE)
 }
 \arguments{
 \item{data}{data.frame The raw file from the bird database}
+
+\item{project}{logical Should the input coordinates be projected to UTM?}
 }
 \value{
 data.frame A data.frame with the polygon id and the pseudo centroid
