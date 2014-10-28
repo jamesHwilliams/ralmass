@@ -23,6 +23,6 @@ CalcPseudoCentroid = function(data)
 
 	polygons = lapply(polygons, FUN = GetMean)
 	polygons = unlist(polygons)
-	polygons = data.frame('PolyID' = data[,PolyID], 'long' = polygons[which(1:length(polygons) %% 2 == 0)], 'lat' = polygons[which(1:length(polygons) %% 2 != 0)]))
+	polygons = data.frame('PolyID' = data[,PolyID], 'long' = polygons[which(1:length(polygons) %% 2 == 0)], 'lat' = polygons[which(1:length(polygons) %% 2 != 0)])
 	return(polygons)
 }
