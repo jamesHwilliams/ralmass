@@ -23,17 +23,22 @@ if(map == 'VejlerneTest' | map == 'VejlerneTest.lsb')
 	dimx = 10000
 	dimy = 7000
 }
-if(map == 'VejlerneBigMap' | map == 'VejlerneBigMap.lsb') {
+
+if(map == 'VejlerneBigMap' | map == 'VejlerneBigMap.lsb')
+{
 	x = 484378
 	y = 6335161
 	dimx = 36000
 	dimy = 24000
 }	
-	data$ALong = floor(data[,long]-x)
-	data$ALat = floor(y-data[,lat])
-if(subset) {
+
+data$ALong = floor(data[,long]-x)
+data$ALat = floor(y-data[,lat])
+
+if(subset) 
+{
 	data = data[which(data$ALong >= 0 && data$ALong <= dimx),]
 	data = data[which(data$ALat >= 0 && data$ALat <= dimy),]
 }
-	return(data)
+return(data)
 }
