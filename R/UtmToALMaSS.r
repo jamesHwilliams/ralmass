@@ -20,14 +20,20 @@ if(map == 'VejlerneTest' | map == 'VejlerneTest.lsb')
 {
 	x = 494505
 	y = 6327722
+	dimx = 10000
+	dimy = 7000
 }
 if(map == 'VejlerneBigMap' | map == 'VejlerneBigMap.lsb') {
 	x = 484378
 	y = 6335161
+	dimx = 36000
+	dimy = 24000
 }	
-	data$ALong = floor(x-data[,long])
+	data$ALong = floor(data[,long]-x)
 	data$ALat = floor(y-data[,lat])
-	data = data[which(data$ALong >= 0 && data$ALong <= x),]
-	data = data[which(data$ALat >= 0 && data$ALat <= y),]
+if(subset) {
+	data = data[which(data$ALong >= 0 && data$ALong <= dimx),]
+	data = data[which(data$ALat >= 0 && data$ALat <= dimy),]
+}
 	return(data)
 }
