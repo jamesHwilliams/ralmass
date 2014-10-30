@@ -37,8 +37,8 @@ data$ALat = floor(y-data[,lat])
 
 if(subset) 
 {
-	data = data[which(data$ALong >= 0 && data$ALong <= dimx),]
-	data = data[which(data$ALat >= 0 && data$ALat <= dimy),]
+	data = data[which(data$ALong >= 0 & data$ALong <= dimx),]
+	data = data[which(data$ALat >= 0 & data$ALat <= dimy),]
 }
 return(data)
 }
