@@ -26,7 +26,8 @@ data.frame A data.frame with the ALMaSS coordinates
 }
 \description{
 Convert UTM coordinates into coordinates that can be used in
-in ALMaSS directly. Useful when importing field data into ALMaSS
+in ALMaSS directly (also works the other way around). Useful when importing
+ field data into ALMaSS
 }
 \details{
 For Vejlerne there are currently two working maps: VejlerneTest

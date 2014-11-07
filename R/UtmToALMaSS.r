@@ -1,7 +1,8 @@
 #' Convert UTM coordinates to ALMaSS map coordinates
 #'
 #' Convert UTM coordinates into coordinates that can be used in
-#' in ALMaSS directly. Useful when importing field data into ALMaSS
+#' in ALMaSS directly (also works the other way around). Useful when importing
+#'  field data into ALMaSS
 #' 
 #' For Vejlerne there are currently two working maps: VejlerneTest
 #' (10000*7000) and VejlerneBigMap (36000*24000).
