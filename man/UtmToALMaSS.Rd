@@ -3,7 +3,7 @@
 \alias{UtmToALMaSS}
 \title{Convert UTM coordinates to ALMaSS map coordinates}
 \usage{
-UtmToALMaSS(data, long, lat, map, subset = TRUE)
+UtmToALMaSS(data, long, lat, map, subset = TRUE, toalmass = TRUE)
 }
 \arguments{
 \item{data}{data.frame The data frame with the coordinates}
@@ -14,7 +14,11 @@ UtmToALMaSS(data, long, lat, map, subset = TRUE)
 
 \item{map}{character The name of the map used in ALMaSS}
 
-\item{map}{logical Should the output only contain locations within the
+\item{subset}{logical Should the output only contain locations within the
+ALMaSS map? Ignored when toalmass = FALSE}
+
+\item{toalmass}{logical Do you want to convert to ALMaSS coordinates. Use FALSE if
+if you want to convert ALMaSS map coordinates back to UTM
 specified map?}
 }
 \value{
