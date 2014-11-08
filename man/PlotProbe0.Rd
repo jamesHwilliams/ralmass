@@ -3,11 +3,11 @@
 \alias{PlotProbe0}
 \title{Plot results from probe0}
 \usage{
-PlotProbe0(data, seasons = TRUE, lty = "l", add = FALSE,
+PlotProbe0(data, seasons = FALSE, lty = "l", add = FALSE,
   species = "Dormouse")
 }
 \arguments{
-\item{data}{data.frame The raw output from probe0 or probe from ALMaSS}
+\item{data}{data.table The raw output from probe0 or probe from ALMaSS}
 
 \item{seasons}{logical Should breeding season and hibernation polygons be added to the plot?
 (dormouse specific)}
@@ -16,7 +16,7 @@ PlotProbe0(data, seasons = TRUE, lty = "l", add = FALSE,
 
 \item{add}{Should the plot be added to an already existing plot in the plot window?}
 
-\item{species}{What species is the plot for? (currenly only "Dormouse" and "Goose" available)}
+\item{species}{What species is the plot for? (currenly only "Dormouse", "Goose", "Hare" available)}
 }
 \value{
 A nice plot
@@ -25,5 +25,10 @@ A nice plot
 Plot the results from probe0
 Note: you should read the results file using the fread function in the data.table package
 It is very fast - you will not regret it.
+}
+\details{
+If the species you simulated does not use all 6 columns in the probe0.res
+file, you should get rid of the redundant columns before calling this
+function.
 }
 

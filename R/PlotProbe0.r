@@ -4,15 +4,19 @@
 #' Note: you should read the results file using the fread function in the data.table package
 #' It is very fast - you will not regret it. 
 #' 
-#' @param data data.frame The raw output from probe0 or probe from ALMaSS
+#' If the species you simulated does not use all 6 columns in the probe0.res
+#' file, you should get rid of the redundant columns before calling this
+#' function.
+#' 
+#' @param data data.table The raw output from probe0 or probe from ALMaSS
 #' @param seasons logical Should breeding season and hibernation polygons be added to the plot?
 #' (dormouse specific)
 #' @param lty character Either 'l' = lines, 'b' both lines and point.
 #' @param add Should the plot be added to an already existing plot in the plot window?
-#' @param species What species is the plot for? (currenly only "Dormouse" and "Goose" available)
+#' @param species What species is the plot for? (currenly only "Dormouse", "Goose", "Hare" available)
 #' @return A nice plot
 #' @export
-PlotProbe0 = function(data, seasons = TRUE, lty = 'l', add = FALSE, species = 'Dormouse') {
+PlotProbe0 = function(data, seasons = FALSE, lty = 'l', add = FALSE, species = 'Dormouse') {
 	if(!is.data.table(data))
     { cat('You appear to have loaded your results file using read.table().\n')
       cat('please use the fread function in the package data.table')
@@ -133,8 +137,42 @@ if(species == 'Goose') {
     })
 }
 
+if(species == 'Hare') 
+{
+    col = brewer.pal(5, 'Set1')
+    setnames(data, c('Julian.day', 'Infant', 'Young', 'Juvenile', 'Male', 'Female'))
+
+    xlimits = range(data[,Julian.day])+c(-1,1)
+    ylimits = c(0, max(data[,Infant], data[,Young], data[,Juvenile], data[,Male], data[,Female]))
+    xcoord = 0.8 * xlimits[2]
+    ycoord =  ylimits[2]
+    nyears = data[nrow(data),1]/365
+
+    infant.col = col[5]
+    young.col = col[4]
+    juvenile.col = col[3]
+    male.col = col[2]
+    female.col = col[1]
+
+ with(data, {
+      plot(Julian.day, Juvenile, type = 'n', las = 1, bty = 'l', ylim = ylimits, xlim = xlimits, ylab = 'Individuals', xlab = 'Julian day')
+      # Lines
+      lines(Julian.day, Infant, type = lty, col = infant.col, las = 1, bty = 'l')
+      lines(Julian.day, Young, type = lty, col = young.col, las = 1, bty = 'l')
+      lines(Julian.day, Juvenile, type = lty, col = juvenile.col, las = 1, bty = 'l')
+      lines(Julian.day, Male, type = lty, col = male.col, las = 1, bty = 'l')
+      lines(Julian.day, Female, type = lty, col = female.col, las = 1, bty = 'l')
+      for(i in 1:nyears){
+        abline(v = i*365, col = 'grey', lty = 2)
+      }
+
+      legend(0, max(ylimits)*1.15, legend = c('Infant', 'Young', 'Juvenile', 'Male', 'Female'),
+       pch = 16, col = col[5:1], bty = 'n', cex = 0.8, xpd = NA, horiz = TRUE)
+    })
+}
+
 else {
-    cat('PlotPrbe0 not implemented for the species you requested - sorry!')
+    cat('PlotProbe0 not implemented for the species you requested - sorry!')
   }
 
 }
