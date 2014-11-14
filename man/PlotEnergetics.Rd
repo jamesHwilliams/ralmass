@@ -3,19 +3,23 @@
 \alias{PlotEnergetics}
 \title{Plot energy output from the ALMaSS Goose Management model}
 \usage{
-PlotEnergetics(data, type = "mean", species = "all")
+PlotEnergetics(data, species = "all")
 }
 \arguments{
 \item{data}{data.table The raw output from the file GooseEnergeticsData.txt}
 
-\item{type}{character Currently only accepts "mean".}
-
 \item{species}{character What species to plot? Defaults to "all"}
+
+\item{type}{character Currently only accepts "mean".}
 }
 \value{
 A nice plot
 }
 \description{
 Plot the results from the energy probe
+}
+\details{
+The energetics output can be very large, so please use the fread function
+ when loading the data.
 }
 
