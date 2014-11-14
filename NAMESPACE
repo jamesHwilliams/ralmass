@@ -3,6 +3,7 @@
 export(CalcPseudoCentroid)
 export(ClassifyFields)
 export(CleanAttrTable)
+export(PlotEnergetics)
 export(PlotProbe0)
 export(PlotTerritoryProbe)
 export(SummarizeCIPE)
