@@ -8,7 +8,7 @@
 #'   \item VALUE. The polygon ID
 #' }
 #'
-#' @param AttrTable data.frame An attribute table containing at least the tree columns: COUNT, LINK & VALUE
+#' @param AttrTable data.table An attribute table containing at least the tree columns: COUNT, LINK & VALUE
 #' @param Soiltype Logical. Should the output contain dummy variable for soiltype?
 #' @return A clean version of the attribute table with the correct dimension for use in ALMaSS.
 #' @export
@@ -25,20 +25,20 @@ CleanAttrTable = function(AttrTable, Soiltype = TRUE) {
 		cat('Try class() on your object and see ?CleanAttrTable')
 		return()
 	}
-	AttrTable$COUNT = gsub(pattern = ',', replacement = '', x = AttrTable$COUNT, fixed = TRUE)
-	AttrTable$LINK = gsub(pattern = ',', replacement = '', x = AttrTable$LINK, fixed = TRUE)
-	AttrTable$VALUE = gsub(pattern = ',', replacement = '', x = AttrTable$VALUE, fixed = TRUE)
-	AttrTable$COUNT = as.numeric(AttrTable$COUNT)
-	AttrTable$LINK = as.numeric(AttrTable$LINK)
-	AttrTable$VALUE = as.numeric(AttrTable$VALUE)
 
-	# Remove unwanted columns and add missing ones:
-	AttrTable = AttrTable[-match('OBJECTID', names(AttrTable))]
-	names(AttrTable)  # VALUE = polygon ID, COUNT = number of cells in the polygon, LINK = ALMaSS element type code
-	names(AttrTable) = c('PolygonID', 'NumberOfCells', 'ElementType')
+	AttrTable[,OBJECTID:=NULL]
+	# VALUE = polygon ID, COUNT = number of cells in the polygon, LINK = ALMaSS element type code
+	setnames(AttrTable, c('PolygonID', 'NumberOfCells', 'ElementType'))
 
-	# Rearrange order of columns
-	AttrTable = AttrTable[c(3,1,2)]
+	AttrTable$NumberOfCells = gsub(pattern = ',', replacement = '', x = AttrTable$NumberOfCells, fixed = TRUE)
+	AttrTable$ElementType = gsub(pattern = ',', replacement = '', x = AttrTable$ElementType, fixed = TRUE)
+	AttrTable$PolygonID = gsub(pattern = ',', replacement = '', x = AttrTable$PolygonID, fixed = TRUE)
+	AttrTable$NumberOfCells = as.numeric(AttrTable$NumberOfCells)
+	AttrTable$ElementType = as.numeric(AttrTable$ElementType)
+	AttrTable$PolygonID = as.numeric(AttrTable$PolygonID)
+
+	# Rearrange columns
+	setcolorder(AttrTable,c('ElementType', 'NumberOfCells', 'PolygonID'))
 	# Add the farmref column (will be overwritten later...)
 	AttrTable$Farmref = rep(-1, nrow(AttrTable))
 	# Add the minus one column (just has to be there...)
