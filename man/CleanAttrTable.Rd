@@ -6,7 +6,7 @@
 CleanAttrTable(AttrTable, Soiltype = TRUE)
 }
 \arguments{
-\item{AttrTable}{data.frame An attribute table containing at least the tree columns: COUNT, LINK & VALUE}
+\item{AttrTable}{data.table An attribute table containing at least the tree columns: COUNT, LINK & VALUE}
 
 \item{Soiltype}{Logical. Should the output contain dummy variable for soiltype?}
 }

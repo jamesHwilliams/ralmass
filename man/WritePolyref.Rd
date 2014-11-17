@@ -6,7 +6,7 @@
 WritePolyref(Table, PathToFile)
 }
 \arguments{
-\item{Table}{data.frame An attribute table}
+\item{Table}{data.frame or data.table An attribute table}
 
 \item{PathToFile}{The path to the where the file is written (including the name and extension of the file, usually .txt)}
 }

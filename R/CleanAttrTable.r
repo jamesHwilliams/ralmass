@@ -30,19 +30,19 @@ CleanAttrTable = function(AttrTable, Soiltype = TRUE) {
 	# VALUE = polygon ID, COUNT = number of cells in the polygon, LINK = ALMaSS element type code
 	setnames(AttrTable, c('PolygonID', 'NumberOfCells', 'ElementType'))
 
-	AttrTable$NumberOfCells = gsub(pattern = ',', replacement = '', x = AttrTable$NumberOfCells, fixed = TRUE)
-	AttrTable$ElementType = gsub(pattern = ',', replacement = '', x = AttrTable$ElementType, fixed = TRUE)
-	AttrTable$PolygonID = gsub(pattern = ',', replacement = '', x = AttrTable$PolygonID, fixed = TRUE)
+	AttrTable$NumberOfCells = gsub(pattern = ',', replacement = '', x = AttrTable$NumberOfCells, fixed = FALSE)
+	AttrTable$ElementType = gsub(pattern = ',', replacement = '', x = AttrTable$ElementType, fixed = FALSE)
+	AttrTable$PolygonID = gsub(pattern = ',', replacement = '', x = AttrTable$PolygonID, fixed = FALSE)
 	AttrTable$NumberOfCells = as.numeric(AttrTable$NumberOfCells)
 	AttrTable$ElementType = as.numeric(AttrTable$ElementType)
 	AttrTable$PolygonID = as.numeric(AttrTable$PolygonID)
 
 	# Rearrange columns
-	setcolorder(AttrTable,c('ElementType', 'NumberOfCells', 'PolygonID'))
+	setcolorder(AttrTable,c('ElementType', 'PolygonID', 'NumberOfCells'))
 	# Add the farmref column (will be overwritten later...)
 	AttrTable$Farmref = rep(-1, nrow(AttrTable))
 	# Add the minus one column (just has to be there...)
-	AttrTable$MinusOne = rep(-1, nrow(AttrTable))
+	AttrTable$IncludedElement = rep(-1, nrow(AttrTable))
 
 	if(Soiltype){
 	# Add missing columns (The minus one column and soiltype which here is just a dummy)
