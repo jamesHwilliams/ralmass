@@ -26,13 +26,13 @@ PlotProbe0 = function(data, seasons = FALSE, lty = 'l', add = FALSE, species = '
   if(species == 'Dormouse')
 	{
 		col = brewer.pal(4, 'Set1')
-		setnames(data, c('Julian.day', 'Juvenile.male', 'Juvenile.female', 'Male', 'Female'))
+		setnames(data, c('Julian.day', 'Juvenile.male', 'Juvenile.female', 'Male', 'Female', 'NotUsed', 'NotUsed2'))
 
-		xlimits = c(data[1,1]-1, data[nrow(data),1]+1)
+		xlimits = range(data[,Julian.day])+c(-1,1)
 		ylimits = c(0, max(data[,Male], data[,Female], data[,Juvenile.male], data[,Juvenile.female]))
 		xcoord = 0.8 * xlimits[2]
 		ycoord =  ylimits[2]
-		nyears = data[nrow(data),1]/365
+		nyears = max(data[,Julian.day])/365
 
 		m.col = col[2]
 		f.col = col[1]
@@ -172,7 +172,7 @@ if(species == 'Hare')
     })
 }
 
-else {
+if(!species %in% c('Dormouse', 'Goose', 'Hare')) {
     cat('PlotProbe0 not implemented for the species you requested - sorry!')
   }
 
