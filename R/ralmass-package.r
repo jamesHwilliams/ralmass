@@ -8,5 +8,4 @@
 #' @import data.table
 #' @import sp
 #' @import rgdal
-#' @import lubridate
 NULL
