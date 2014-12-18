@@ -42,7 +42,7 @@ CleanAttrTable = function(AttrTable, Soiltype = TRUE) {
 	# Add the farmref column (will be overwritten later...)
 	AttrTable$Farmref = rep(-1, nrow(AttrTable))
 	# Add the minus one column (just has to be there...)
-	AttrTable$IncludedElement = rep(-1, nrow(AttrTable))
+	AttrTable$UnsprayedMarginRef = rep(-1, nrow(AttrTable))
 
 	if(Soiltype){
 	# Add missing columns (The minus one column and soiltype which here is just a dummy)
