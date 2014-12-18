@@ -4,7 +4,7 @@
 \alias{WritePolyref}
 \title{Write polyref file}
 \usage{
-WritePolyref(Table, PathToFile)
+WritePolyref(Table, PathToFile, Headers = TRUE)
 }
 \arguments{
 \item{Table}{data.frame or data.table An attribute table}
