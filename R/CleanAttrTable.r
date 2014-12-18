@@ -28,17 +28,17 @@ CleanAttrTable = function(AttrTable, Soiltype = TRUE) {
 
 	AttrTable[,OBJECTID:=NULL]
 	# VALUE = polygon ID, COUNT = number of cells in the polygon, LINK = ALMaSS element type code
-	setnames(AttrTable, c('PolygonID', 'NumberOfCells', 'ElementType'))
+	setnames(AttrTable, c('PolyType', 'Area', 'PolyType'))
 
-	AttrTable$NumberOfCells = gsub(pattern = ',', replacement = '', x = AttrTable$NumberOfCells, fixed = FALSE)
-	AttrTable$ElementType = gsub(pattern = ',', replacement = '', x = AttrTable$ElementType, fixed = FALSE)
-	AttrTable$PolygonID = gsub(pattern = ',', replacement = '', x = AttrTable$PolygonID, fixed = FALSE)
-	AttrTable$NumberOfCells = as.numeric(AttrTable$NumberOfCells)
-	AttrTable$ElementType = as.numeric(AttrTable$ElementType)
-	AttrTable$PolygonID = as.numeric(AttrTable$PolygonID)
+	AttrTable$Area = gsub(pattern = ',', replacement = '', x = AttrTable$Area, fixed = FALSE)
+	AttrTable$PolyType = gsub(pattern = ',', replacement = '', x = AttrTable$PolyType, fixed = FALSE)
+	AttrTable$PolyType = gsub(pattern = ',', replacement = '', x = AttrTable$PolyType, fixed = FALSE)
+	AttrTable$Area = as.numeric(AttrTable$Area)
+	AttrTable$PolyType = as.numeric(AttrTable$PolyType)
+	AttrTable$PolyType = as.numeric(AttrTable$PolyType)
 
 	# Rearrange columns
-	setcolorder(AttrTable,c('ElementType', 'PolygonID', 'NumberOfCells'))
+	setcolorder(AttrTable,c('PolyType', 'PolyType', 'Area'))
 	# Add the farmref column (will be overwritten later...)
 	AttrTable$Farmref = rep(-1, nrow(AttrTable))
 	# Add the minus one column (just has to be there...)

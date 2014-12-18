@@ -7,9 +7,9 @@
 #' @return A tab separated text file formatted according to the requirements for a polygon reference file for ALMaSS.
 #' @export
 
-WritePolyref = function(Table, PathToFile){
+WritePolyref = function(Table, PathToFile, Headers = TRUE){
 	filecon = file(PathToFile, open = 'wt')
 	cat(paste(nrow(Table)), '\n',  file = filecon)
-	write.table(Table, file = filecon, sep = '\t', append = TRUE, row.names = FALSE, col.names = FALSE, quote = FALSE)
+	write.table(Table, file = filecon, sep = '\t', append = TRUE, row.names = FALSE, col.names = Headers, quote = FALSE)
 	close(filecon)
 }
