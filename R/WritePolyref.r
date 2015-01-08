@@ -12,15 +12,19 @@ WritePolyref = function(Table, PathToFile, Headers = TRUE, Type = 'Poly'){
 	{
 		cat('Oops! Looks like you are asking for stuff you cant get...')
 	}
-	if(Type == 'Poly')
-	{
-		Table[,`:=`(Openness = -1, CentroidX = -1, CentroidY = -1)]
-	}
 	filecon = file(PathToFile, open = 'wt')
 	cat(paste(nrow(Table)), '\n',  file = filecon)
 	ScipenDefault = getOption('scipen')
 	options(scipen = 99)  # To avoid scientific notation in the resulting file
-	write.table(Table, file = filecon, sep = '\t', append = TRUE, row.names = FALSE, col.names = Headers, quote = FALSE)
+	if(Type == 'Poly')
+	{
+		Table[,`:=`(Openness = -1, CentroidX = -1, CentroidY = -1)]
+	    write.table(Table, file = filecon, sep = '\t', append = TRUE, row.names = FALSE, col.names = Headers, quote = FALSE)
+			}
+	if(Type == 'Farm') 
+	{
+		write.table(Table, file = filecon, sep = '\t', append = TRUE, row.names = FALSE, col.names = FALSE, quote = FALSE)
+	}
 	close(filecon)
 	options(scipen = ScipenDefault)  # Reset scipen option to default
 }
