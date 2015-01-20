@@ -15,4 +15,5 @@ Imports:
     plyr,
     data.table,
     sp,
-    rgdal
+    rgdal,
+    lubridate
