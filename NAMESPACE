@@ -3,6 +3,7 @@
 export(CalcPseudoCentroid)
 export(ClassifyFields)
 export(CleanAttrTable)
+export(ConvertSimDay)
 export(PlotEnergetics)
 export(PlotProbe0)
 export(PlotTerritoryProbe)
