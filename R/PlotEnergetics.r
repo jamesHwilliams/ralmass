@@ -45,19 +45,19 @@ PlotEnergetics = function(data, species = 'all')
       xlab = xlab, ylab = ylab, main = 'Greylag', xlim = xlim, 
       ylim = c(min(data['GLF',Weight])-1, max(data['GLF',Weight])+1))
     lines(data['GLF', Day], data['GLF', Weight])
-    lines(data['GLF', Day], data['GLNB', Weight])
+    lines(data['GLNB', Day], data['GLNB', Weight])
   # Pinkfoot
     plot(data['PFF', Day], data['PFF', Weight], type = 'n',
       xlab = xlab, ylab = ylab, main = 'Pinkfoot', xlim = xlim, 
       ylim = c(min(data['PFF' ,Weight])-1, max(data['PFF' ,Weight])+1))
     lines(data['PFF', Day], data['PFF', Weight])
-    lines(data['PFF', Day], data['PFNB', Weight])
+    lines(data['PFNB', Day], data['PFNB', Weight])
   # Barnacle
     plot(data['BGF', Day], data['BGF', Weight], type = 'n',
       xlab = xlab, ylab = ylab, main = 'Barnacle', xlim = xlim, 
       ylim = c(min(data['BGF' ,Weight])-1, max(data['BGF' ,Weight])+1))
     lines(data['BGF', Day], data['BGF', Weight])
-    lines(data['BGF', Day], data['BGNB', Weight])
+    lines(data['BGNB', Day], data['BGNB', Weight])
   }
 
 if(species != 'all') 
