@@ -15,6 +15,12 @@ PlotGooseForage = function(data, species = 'Pinkfoot', type = NULL){
 		cat('Please specify type as either:\n')
 		cat('Grass, Grain or Combined (character).\n')
 	}
+	if(!type %in% c('Grass', 'grass', 'Grain', 'grain', 'combined', 'Combined')) 
+	{
+		cat('Looks like you asked for a type you cant get.\n')
+		cat('Please specify type as either:\n')
+		cat('Grass, Grain or Combined (character).\n')
+	}
 
 	theme_update(
 		panel.background = element_blank(),
