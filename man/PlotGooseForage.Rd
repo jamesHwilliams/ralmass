@@ -4,10 +4,14 @@
 \alias{PlotGooseForage}
 \title{Plot forage available to geese}
 \usage{
-PlotGooseForage(data)
+PlotGooseForage(data, species = "Pinkfoot", type = NULL)
 }
 \arguments{
 \item{data}{data.frame or data.table The ALMaSS data file GooseFieldForageData.txt}
+
+\item{species}{character One of the goose species ('Pinkfoot', 'Barnacle', 'Greylag') defaults to 'Pinkfoot'}
+
+\item{type}{character What forage should be plotted ('Grass', 'Grain' or 'Combined'). No default.}
 }
 \value{
 A nice plot
