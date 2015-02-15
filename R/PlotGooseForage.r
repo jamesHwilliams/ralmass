@@ -22,27 +22,27 @@ PlotGooseForage = function(data, species = 'Pinkfoot', type = NULL){
 		cat('Grass, Grain or Combined (character).\n')
 	}
 
-	theme_update(
-		panel.background = element_blank(),
-		axis.text.x = element_text(colour = "black", face = "plain", size = 10),
-		axis.text.y = element_text(colour = "black", face = "plain", size = 10),
-		axis.title.x = element_text(colour = "black", face = "plain", size = 12),
-		axis.title.y = element_text(colour = "black", face = "plain", angle = 90, size = 12),
-		panel.grid.minor = element_blank(),
-		panel.grid.major = element_blank(),
-		panel.background = element_blank(),
-		axis.line = element_line(size = 0.5),
-		axis.ticks = element_line(colour = "black", size = 0.5)
+	ggplot2::theme_update(
+		panel.background = ggplot2::element_blank(),
+		axis.text.x = ggplot2::element_text(colour = "black", face = "plain", size = 10),
+		axis.text.y = ggplot2::element_text(colour = "black", face = "plain", size = 10),
+		axis.title.x = ggplot2::element_text(colour = "black", face = "plain", size = 12),
+		axis.title.y = ggplot2::element_text(colour = "black", face = "plain", angle = 90, size = 12),
+		panel.grid.minor = ggplot2::element_blank(),
+		panel.grid.major = ggplot2::element_blank(),
+		panel.background = ggplot2::element_blank(),
+		axis.line = ggplot2::element_line(size = 0.5),
+		axis.ticks = ggplot2::element_line(colour = "black", size = 0.5)
 		)
 	col = rgb(0,0,0, alpha = 0.2)
 	column = paste('Grass', species, sep = '')
 
-	grass = ggplot(data, aes_string('Day', column, group = 'Polyref')) + geom_line(colour = col) + ylab('Grazing forage available')
-	grain = ggplot(data, aes(Day, Grain, group = Polyref)) + geom_line(colour = col) + ylab('Grain forage available')
+	grass = ggplot2::ggplot(data, ggplot2::aes_string('Day', column, group = 'Polyref')) + ggplot2::geom_line(colour = col) + ggplot2::ylab('Grazing forage available') + ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))
+	grain = ggplot2::ggplot(data, ggplot2::aes(Day, Grain, group = Polyref)) + ggplot2::geom_line(colour = col) + ggplot2::ylab('Grain forage available') + ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))
 
 	if(type == 'combined' | type == 'Combined') 
 	{
-	grid.arrange(grass, grain, nrow = 1, ncol = 2)
+	gridExtra::grid.arrange(grass, grain, nrow = 1, ncol = 2)
 	}
 	if(type == 'grain' | type == 'Grain') 
 	{
