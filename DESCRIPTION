@@ -2,7 +2,7 @@ Package: ralmass
 Title: Collection of functions used to prepare and analyze data for and from
     ALMaSS
 Version: 0.1
-Authors@R: "Lars Dalby <lada@dmu.dk> [aut, cre]"
+Authors@R: "Lars Dalby <lars@bios.au.dk> [aut, cre]"
 Description: Package containing a selection of functions that I often use when
     handling and analyzing data for and from ALMaSS
 Depends:
