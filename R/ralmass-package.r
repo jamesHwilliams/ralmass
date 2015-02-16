@@ -8,6 +8,5 @@
 #' @import data.table
 #' @import sp
 #' @import rgdal
-#' @import lubridate
 #' @import gridExtra
 NULL
