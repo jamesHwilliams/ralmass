@@ -9,7 +9,7 @@
 PlotWeather = function(file, subset = NULL){
 	weather = fread(file, skip = 1)
 	setnames(weather, c('Year', 'Month', 'Day', 'Temp', 'Wind', 'Rain'))
-	weather[,Julian:=ymd(paste(weather[,Year],weather[,Month],weather[,Day], sep = '-'))]
+	weather[,Julian:=lubridate::ymd(paste(weather[,Year],weather[,Month],weather[,Day], sep = '-'))]
 	if(!is.null(subset)) 
 	{
 	if(min(subset) < min(weather[,Year]) | max(subset) > max(weather[,Year]))
@@ -18,11 +18,11 @@ PlotWeather = function(file, subset = NULL){
 	}
 		if(length(subset) > 1) 
 		{
-			weather = weather[year(Julian) >= min(subset) & year(Julian) <= max(subset)]
+			weather = weather[lubridate::year(Julian) >= min(subset) & lubridate::year(Julian) <= max(subset)]
 		}
 		else
 		{
-			weather = weather[year(Julian) == subset]
+			weather = weather[lubridate::year(Julian) == subset]
 		}
 	}
 	par(mfrow = c(3,1), las = 1, bty = 'l', mar =  c(2, 4, 2, 1) + 0.1)
