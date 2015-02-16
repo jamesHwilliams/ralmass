@@ -7,5 +7,5 @@
 #' @export
 ConvertSimDay = function(DayNumber, Origin = '1990-01-01') {
 	origin = '1990-01-01'
-    return(ymd(origin) + days(DayNumber))
+    return(lubridate::ymd(origin) + lubridate::days(DayNumber))
 }
