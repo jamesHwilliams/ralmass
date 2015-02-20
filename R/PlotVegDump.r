@@ -13,31 +13,52 @@
 #' @return A nice plot
 #' @export
 PlotVegDump = function(data, drop = TRUE) {
-start = 0
-end = 365
-by = 50
-if(drop) 
-{
-data = data[Year > 0]
-}
+	start = 0
+	end = nrow(data)
+# Initial year is an internal set-up year - normally discarded
+	if(drop) 
+	{
+		data = data[Year > 0,]
+	}
+# Adjust tick mark and label spacing
+	if(end >= 730) 
+	{
+		by = 100
+	}
+	if(end < 730) 
+	{
+		by = 50
+	}
 
-yrng = range(data[,Height])
-xrng = range(data[Grazed == 1,Day])
+	data[,Julian:=1:end]
 
-scale = scale_x_continuous(breaks = seq(start, end, by = by)) 
-theme = theme_bw()
+	yrng = range(data[,Height])
+# xrng = range(data[Grazed == 1,Julian])
 
-h = ggplot(data, aes(Day, Height)) + geom_line() + scale + theme 
-h = h + annotate('rect', xmin = xrng[1], xmax = xrng[2], ymin = -Inf, ymax = +Inf, alpha = .2) + 
-annotate('text', x = xrng[1] + (xrng[2] - xrng[1])/2, y = yrng[2]-1, label = 'grazed',  colour = 'darkgrey')
-gg = ggplot(data, aes(Day, GooseGrazing)) + geom_line() + scale + theme
-d = ggplot(data, aes(Day, Digestability)) + geom_line() + scale + theme
-db = ggplot(data, aes(Day, DeadBiomass)) + geom_line() + scale + theme
-gb = ggplot(data, aes(Day, GreenBiomass)) + geom_line() + scale + theme
-lat = ggplot(data, aes(Day, LATotal)) + geom_line() + scale + theme
-lag = ggplot(data, aes(Day, LAGreen)) + geom_line() + scale + theme
-w = ggplot(data, aes(Day, WeedBiomass)) + geom_line() + scale + theme
-b = ggplot(data, aes(Day, Biomass)) + geom_line() + scale + theme
+	scale = scale_x_continuous(breaks = seq(start, end, by = by)) 
+	theme = theme_bw()
+# Annotation to indicate grazing
+	ones = data[,Grazed]
+	asdf  = ones[-1]-ones[-length(ones)]
+	cows = data.frame(start = data[which(asdf == 1)+1,Julian], end = data[which(asdf == -1), Julian])
 
-grid.arrange(h, gg, d, db, gb, lat, lag, w, b, nrow = 3, ncol = 3)
+	years = nrow(data)/365
+
+	h = ggplot(data, aes(Julian, Height)) + geom_line() + scale + theme 
+	for (i in 1:years) {
+		xrng = cows[i,]
+		h = h + annotate('rect', xmin = xrng$start, xmax = xrng$end, ymin = -Inf, ymax = +Inf, alpha = .2) + 
+		annotate('text', x = xrng$start + (xrng$end - xrng$start)/2, y = yrng[2]-1, label = 'grazed',  colour = 'darkgrey')
+	}
+
+	gg = ggplot(data, aes(Julian, GooseGrazing)) + geom_line() + scale + theme
+	d = ggplot(data, aes(Julian, Digestability)) + geom_line() + scale + theme
+	db = ggplot(data, aes(Julian, DeadBiomass)) + geom_line() + scale + theme
+	gb = ggplot(data, aes(Julian, GreenBiomass)) + geom_line() + scale + theme
+	lat = ggplot(data, aes(Julian, LATotal)) + geom_line() + scale + theme
+	lag = ggplot(data, aes(Julian, LAGreen)) + geom_line() + scale + theme
+	w = ggplot(data, aes(Julian, WeedBiomass)) + geom_line() + scale + theme
+	b = ggplot(data, aes(Julian, Biomass)) + geom_line() + scale + theme
+
+	grid.arrange(h, gg, d, db, gb, lat, lag, w, b, nrow = 3, ncol = 3)
 }
