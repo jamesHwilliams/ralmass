@@ -30,6 +30,7 @@ PlotEnergetics = function(data, species = 'all')
   setkey(data, 'Goose Type')
   data = data[,mean(Weight),by=c('Goose Type', 'Day')]
   setnames(data, 'V1', 'Weight')
+  setkey(data, 'Goose Type')
 
 # Set global par:
   par(las = 1, bty = 'l')
