@@ -19,6 +19,7 @@ PlotVegDump = function(data, drop = TRUE) {
 	if(drop) 
 	{
 		data = data[Year > 0,]
+		end = nrow(data)
 	}
 # Adjust tick mark and label spacing
 	if(end >= 730) 
@@ -37,21 +38,21 @@ PlotVegDump = function(data, drop = TRUE) {
 
 	scale = scale_x_continuous(breaks = seq(start, end, by = by)) 
 	theme = theme_bw()
+
+	h = ggplot(data, aes(Julian, Height)) + geom_line() + scale + theme 
+
 # Annotation to indicate grazing
 	ones = data[,Grazed]
 	if(length(ones[which(ones > 0)]) > 0) 
 	{
-	asdf  = ones[-1]-ones[-length(ones)]
-	cows = data.frame(start = data[which(asdf == 1)+1,Julian], end = data[which(asdf == -1), Julian])
-	}
-
-	years = nrow(data)/365
-
-	h = ggplot(data, aes(Julian, Height)) + geom_line() + scale + theme 
-	for (i in 1:years) {
-		xrng = cows[i,]
-		h = h + annotate('rect', xmin = xrng$start, xmax = xrng$end, ymin = -Inf, ymax = +Inf, alpha = .2) + 
-		annotate('text', x = xrng$start + (xrng$end - xrng$start)/2, y = yrng[2]-1, label = 'grazed',  colour = 'darkgrey')
+		asdf  = ones[-1]-ones[-length(ones)]
+		cows = data.frame(start = data[which(asdf == 1)+1,Julian], end = data[which(asdf == -1), Julian])
+	    years = nrow(data)/365
+		for (i in 1:years) {
+			xrng = cows[i,]
+			h = h + annotate('rect', xmin = xrng$start, xmax = xrng$end, ymin = -Inf, ymax = +Inf, alpha = .2) + 
+			annotate('text', x = xrng$start + (xrng$end - xrng$start)/2, y = yrng[2]-1, label = 'grazed',  colour = 'darkgrey')
+		}
 	}
 
 	gg = ggplot(data, aes(Julian, GooseGrazing)) + geom_line() + scale + theme
