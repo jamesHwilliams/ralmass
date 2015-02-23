@@ -39,8 +39,11 @@ PlotVegDump = function(data, drop = TRUE) {
 	theme = theme_bw()
 # Annotation to indicate grazing
 	ones = data[,Grazed]
+	if(length(ones[which(ones > 0)]) > 0) 
+	{
 	asdf  = ones[-1]-ones[-length(ones)]
 	cows = data.frame(start = data[which(asdf == 1)+1,Julian], end = data[which(asdf == -1), Julian])
+	}
 
 	years = nrow(data)/365
 
