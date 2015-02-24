@@ -4,10 +4,12 @@
 \alias{PlotVegDump}
 \title{Plot ouput from VegDump}
 \usage{
-PlotVegDump(data)
+PlotVegDump(data, drop = TRUE)
 }
 \arguments{
 \item{data}{data.table The raw VegDump.txt from ALMaSS}
+
+\item{drop}{bool Skip the first start up year (recommended and default)}
 }
 \value{
 A nice plot

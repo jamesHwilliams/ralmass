@@ -8,9 +8,10 @@
 #' @param data data.table The raw output from the file GooseEnergeticsData.txt
 #' @param type character Currently only accepts "mean".
 #' @param species character What species to plot? Defaults to "all"
+#' @param package character Base- or ggplot2-type ? Defaults to "ggplot2"
 #' @return A nice plot
 #' @export
-PlotEnergetics = function(data, species = 'all')
+PlotEnergetics = function(data, species = 'all', package = 'ggplot2')
 {
  if(!is.data.table(data))
  {
@@ -29,6 +30,7 @@ PlotEnergetics = function(data, species = 'all')
 
 setkey(data, 'Goose Type')
 data[,SimDate:=as.Date(Day - 1, origin = as.Date(paste(Year+1989,"-01-01", sep = '')))]
+data[,geesePA:= c(0, cumsum(diff(SimDate) != 1))]
 data = data[,mean(Weight), by = c('Goose Type', 'SimDate', 'Year')]
 setnames(data, 'V1', 'Weight')
 setkey(data, 'Goose Type')
@@ -38,7 +40,7 @@ par(las = 1, bty = 'l')
 xlab = 'SimDay'
 ylab = 'Grams'
 
-if(species == 'all') 
+if(species == 'all' & package == 'base') 
 {
   par(mfrow = c(3,1), mar = c(5, 5, 4, 2) + 0.1, mgp = c(4, 1, 0))
   xlim = c(min(data[,SimDate]), max(data[,SimDate]))
@@ -69,7 +71,15 @@ if(species == 'all')
   }
 }
 
-if(species != 'all') 
+if(species == 'all' & package == 'ggplot2') 
+{
+g = ggplot(data['GLF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
+p = ggplot(data['PFF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
+b = ggplot(data['BGF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
+grid.arrange(g, p, b, nrow = 3, ncol = 1)
+}
+
+if(species != 'all' & package == 'base') 
 {
   par(mfrow = c(1,1), mar = c(5, 5, 4, 2) + 0.1, mgp = c(4, 1, 0))
   plot(data[species, Day], data[species, Weight], xlab = xlab, ylab = ylab,
@@ -78,4 +88,3 @@ if(species != 'all')
 # Reset par
 par(mfrow = c(1,1), mar = c(5, 4, 4, 2) + 0.1, mgp = c(3, 1, 0))
 }
-

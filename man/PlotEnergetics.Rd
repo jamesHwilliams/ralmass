@@ -4,12 +4,14 @@
 \alias{PlotEnergetics}
 \title{Plot energy output from the ALMaSS Goose Management model}
 \usage{
-PlotEnergetics(data, species = "all")
+PlotEnergetics(data, species = "all", package = "ggplot2")
 }
 \arguments{
 \item{data}{data.table The raw output from the file GooseEnergeticsData.txt}
 
 \item{species}{character What species to plot? Defaults to "all"}
+
+\item{package}{character Base- or ggplot2-type ? Defaults to "ggplot2"}
 
 \item{type}{character Currently only accepts "mean".}
 }
