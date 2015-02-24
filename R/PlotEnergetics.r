@@ -30,8 +30,8 @@ PlotEnergetics = function(data, species = 'all', package = 'ggplot2')
 
 setkey(data, 'Goose Type')
 data[,SimDate:=as.Date(Day - 1, origin = as.Date(paste(Year+1989,"-01-01", sep = '')))]
+data = data[,mean(Weight), by = c('Goose Type', 'SimDate')]
 data[,geesePA:= c(0, cumsum(diff(SimDate) != 1))]
-data = data[,mean(Weight), by = c('Goose Type', 'SimDate', 'Year')]
 setnames(data, 'V1', 'Weight')
 setkey(data, 'Goose Type')
 
@@ -73,10 +73,10 @@ if(species == 'all' & package == 'base')
 
 if(species == 'all' & package == 'ggplot2') 
 {
-g = ggplot(data['GLF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
-p = ggplot(data['PFF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
-b = ggplot(data['BGF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
-grid.arrange(g, p, b, nrow = 3, ncol = 1)
+  g = ggplot(data['GLF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
+  p = ggplot(data['PFF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
+  b = ggplot(data['BGF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
+  grid.arrange(g, p, b, nrow = 3, ncol = 1)
 }
 
 if(species != 'all' & package == 'base') 
