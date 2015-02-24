@@ -13,53 +13,61 @@
 PlotEnergetics = function(data, species = 'all')
 {
  if(!is.data.table(data))
-    {
-     cat('You appear to have loaded your results file using read.table().\n')
-     cat('please use the fread function in the package data.table')
-     return()
-    }
-    if(!species %in% c('all', 'PFF', 'PFNB', 'BGF', 'BGNB', 'GLF', 'GLNB'))
-    {
-      cat('\n')
-      cat('Something is not right with the species argument.\n')
-      cat('Please provide one of these: \n')
-      cat('all', 'PFF', 'PFNB', 'BGF', 'BGNB', 'GLF', 'GLNB\n')
-      return()
-    }
+ {
+   cat('You appear to have loaded your results file using read.table().\n')
+   cat('please use the fread function in the package data.table')
+   return()
+ }
+ if(!species %in% c('all', 'PFF', 'PFNB', 'BGF', 'BGNB', 'GLF', 'GLNB'))
+ {
+  cat('\n')
+  cat('Something is not right with the species argument.\n')
+  cat('Please provide one of these: \n')
+  cat('all', 'PFF', 'PFNB', 'BGF', 'BGNB', 'GLF', 'GLNB\n')
+  return()
+}
 
-  setkey(data, 'Goose Type')
-  data = data[,mean(Weight),by=c('Goose Type', 'Day')]
-  setnames(data, 'V1', 'Weight')
-  setkey(data, 'Goose Type')
+setkey(data, 'Goose Type')
+data[,SimDate:=as.Date(Day - 1, origin = as.Date(paste(Year+1989,"-01-01", sep = '')))]
+data = data[,mean(Weight), by = c('Goose Type', 'SimDate', 'Year')]
+setnames(data, 'V1', 'Weight')
+setkey(data, 'Goose Type')
 
 # Set global par:
-  par(las = 1, bty = 'l')
-  xlab = 'Day'
-  ylab = 'Grams'
-  
-  if(species == 'all') 
-  {
-    par(mfrow = c(3,1), mar = c(5, 5, 4, 2) + 0.1, mgp = c(4, 1, 0))
-    xlim = c(min(data[,Day]), max(data[,Day]))
+par(las = 1, bty = 'l')
+xlab = 'SimDay'
+ylab = 'Grams'
+
+if(species == 'all') 
+{
+  par(mfrow = c(3,1), mar = c(5, 5, 4, 2) + 0.1, mgp = c(4, 1, 0))
+  xlim = c(min(data[,SimDate]), max(data[,SimDate]))
   # Greylag
-    plot(data['GLF', Day], data['GLF', Weight], type = 'n',
-      xlab = xlab, ylab = ylab, main = 'Greylag', xlim = xlim, 
-      ylim = c(min(data['GLF',Weight])-1, max(data['GLF',Weight])+1))
-    lines(data['GLF', Day], data['GLF', Weight])
-    lines(data['GLNB', Day], data['GLNB', Weight])
-  # Pinkfoot
-    plot(data['PFF', Day], data['PFF', Weight], type = 'n',
-      xlab = xlab, ylab = ylab, main = 'Pinkfoot', xlim = xlim, 
-      ylim = c(min(data['PFF' ,Weight])-1, max(data['PFF' ,Weight])+1))
-    lines(data['PFF', Day], data['PFF', Weight])
-    lines(data['PFNB', Day], data['PFNB', Weight])
-  # Barnacle
-    plot(data['BGF', Day], data['BGF', Weight], type = 'n',
-      xlab = xlab, ylab = ylab, main = 'Barnacle', xlim = xlim, 
-      ylim = c(min(data['BGF' ,Weight])-1, max(data['BGF' ,Weight])+1))
-    lines(data['BGF', Day], data['BGF', Weight])
-    lines(data['BGNB', Day], data['BGNB', Weight])
+  years = max(data[,Year])
+  plot(data['GLF', SimDate], data['GLF', Weight], type = 'n',
+    xlab = xlab, ylab = ylab, main = 'Greylag', xlim = xlim, 
+    ylim = c(min(data['GLF',Weight])-1, max(data['GLF',Weight])+1))
+  for (i in 1:years) {
+    lines(data[Year == i,]['GLF', SimDate], data[Year == i,]['GLF', Weight])
+    lines(data[Year == i,]['GLNB', SimDate], data[Year == i,]['GLNB', Weight])
   }
+  # Pinkfoot
+  plot(data['PFF', SimDate], data['PFF', Weight], type = 'n',
+    xlab = xlab, ylab = ylab, main = 'Pinkfoot', xlim = xlim, 
+    ylim = c(min(data['PFF' ,Weight])-1, max(data['PFF' ,Weight])+1))
+  for (i in 1:years) {
+    lines(data[Year == i,]['PFF', SimDate], data[Year == i,]['PFF', Weight])
+    lines(data[Year == i,]['PFNB', SimDate], data[Year == i,]['PFNB', Weight])
+  }
+  # Barnacle
+  plot(data['BGF', SimDate], data['BGF', Weight], type = 'n',
+    xlab = xlab, ylab = ylab, main = 'Barnacle', xlim = xlim, 
+    ylim = c(min(data['BGF' ,Weight])-1, max(data['BGF' ,Weight])+1))
+  for (i in 1:years) {
+    lines(data[Year == i,]['BGF', SimDate], data[Year == i,]['BGF', Weight])
+    lines(data[Year == i,]['BGNB', SimDate], data[Year == i,]['BGNB', Weight])
+  }
+}
 
 if(species != 'all') 
 {
