@@ -111,7 +111,7 @@ if(species == 'Goose') {
     type = rep(c('PFF', 'PFNB', 'BGF', 'BGNB', 'GLF', 'GLNB'), each = nrow(data))
     prb = data.table::data.table('Time' = time, 'Numbers' = num, 'Type' = type)
 
-    ggplot2::ggplot(prb, aes(Time, Numbers)) + geom_line(aes(color = Type)) + theme_bw()
+    return(ggplot2::ggplot(prb, aes(Time, Numbers)) + geom_line(aes(color = Type)) + theme_bw())
     }
 if(package == 'base') 
 {
