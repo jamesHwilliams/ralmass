@@ -15,15 +15,16 @@
 #' @param lty character Either 'l' = lines, 'b' both lines and point.
 #' @param add Should the plot be added to an already existing plot in the plot window?
 #' @param species What species is the plot for? (currenly only "Dormouse", "Goose", "Hare" available)
+#' @param package What package to use for plotting? Either 'base' or 'ggplot2'
 #' @return A nice plot
 #' @export
-PlotProbe0 = function(data, seasons = FALSE, lty = 'l', add = FALSE, species = 'Dormouse') {
+PlotProbe0 = function(data, seasons = FALSE, lty = 'l', add = FALSE, species = 'Dormouse', package = 'ggplot2') {
 	if(!is.data.table(data))
     { cat('You appear to have loaded your results file using read.table().\n')
       cat('please use the fread function in the package data.table')
       return()
     }
-  if(species == 'Dormouse')
+  if(species == 'Dormouse' & package == 'base')
 	{
 		col = brewer.pal(4, 'Set1')
 		setnames(data, c('Julian.day', 'Juvenile.male', 'Juvenile.female', 'Male', 'Female', 'NotUsed', 'NotUsed2'))
@@ -103,6 +104,17 @@ if(add) {
 }
 
 if(species == 'Goose') {
+    if(package == 'ggplot2') 
+    {
+    time = rep(data[,V1],ncol(data)-1)
+    num = c(data[,V2], data[,V3], data[,V4], data[,V5], data[,V6], data[,V7])
+    type = rep(c('PFF', 'PFNB', 'BGF', 'BGNB', 'GLF', 'GLNB'), each = nrow(data))
+    prb = data.table::data.table('Time' = time, 'Numbers' = num, 'Type' = type)
+
+    ggplot2::ggplot(prb, aes(Time, Numbers)) + geom_line(aes(color = Type)) + theme_bw()
+    }
+if(package == 'base') 
+{
     col = c(brewer.pal(9, 'Blues')[c(8, 6)], brewer.pal(8, 'Greens')[c(8, 6)], brewer.pal(8, 'Reds')[c(8, 6)])
     setnames(data, c('Julian.day', 'Pinkfoot.family', 'Pinkfoot.nonbreeder', 'Barnacle.family', 'Barnacle.nonbreeder', 'Greylag.family', 'Greylag.nonbreeder'))
 
@@ -137,8 +149,9 @@ if(species == 'Goose') {
        ncol = 3)
     })
 }
+}
 
-if(species == 'Hare') 
+if(species == 'Hare' & package == 'base') 
 {
     col = brewer.pal(5, 'Set1')
     setnames(data, c('Julian.day', 'Infant', 'Young', 'Juvenile', 'Male', 'Female'))

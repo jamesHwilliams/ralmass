@@ -5,7 +5,7 @@
 \title{Plot results from probe0}
 \usage{
 PlotProbe0(data, seasons = FALSE, lty = "l", add = FALSE,
-  species = "Dormouse")
+  species = "Dormouse", package = "ggplot2")
 }
 \arguments{
 \item{data}{data.table The raw output from probe0 or probe from ALMaSS}
@@ -18,6 +18,8 @@ PlotProbe0(data, seasons = FALSE, lty = "l", add = FALSE,
 \item{add}{Should the plot be added to an already existing plot in the plot window?}
 
 \item{species}{What species is the plot for? (currenly only "Dormouse", "Goose", "Hare" available)}
+
+\item{package}{What package to use for plotting? Either 'base' or 'ggplot2'}
 }
 \value{
 A nice plot
