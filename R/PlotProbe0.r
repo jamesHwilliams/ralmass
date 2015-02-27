@@ -103,17 +103,16 @@ if(add) {
 }
 }
 
-if(species == 'Goose') {
-    if(package == 'ggplot2') 
-    {
+if(species == 'Goose' & package == 'ggplot2') {
     time = rep(data[,V1],ncol(data)-1)
     num = c(data[,V2], data[,V3], data[,V4], data[,V5], data[,V6], data[,V7])
     type = rep(c('PFF', 'PFNB', 'BGF', 'BGNB', 'GLF', 'GLNB'), each = nrow(data))
     prb = data.table::data.table('Time' = time, 'Numbers' = num, 'Type' = type)
 
-    return(ggplot2::ggplot(prb, aes(Time, Numbers)) + geom_line(aes(color = Type)) + theme_bw())
+    print(ggplot2::ggplot(prb, aes(Time, Numbers)) + geom_line(aes(color = Type)) + theme_bw())
     }
-if(package == 'base') 
+
+if(species == 'Goose' & package == 'base') 
 {
     col = c(brewer.pal(9, 'Blues')[c(8, 6)], brewer.pal(8, 'Greens')[c(8, 6)], brewer.pal(8, 'Reds')[c(8, 6)])
     setnames(data, c('Julian.day', 'Pinkfoot.family', 'Pinkfoot.nonbreeder', 'Barnacle.family', 'Barnacle.nonbreeder', 'Greylag.family', 'Greylag.nonbreeder'))
@@ -149,7 +148,7 @@ if(package == 'base')
        ncol = 3)
     })
 }
-}
+
 
 if(species == 'Hare' & package == 'base') 
 {
