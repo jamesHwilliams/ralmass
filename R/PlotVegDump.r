@@ -38,11 +38,12 @@ PlotVegDump = function(data, drop = TRUE) {
 
 	scale = scale_x_continuous(breaks = seq(start, end, by = by)) 
 	theme = theme_bw()
-
-	h = ggplot(data, aes(Julian, Height)) + geom_line() + scale + theme 
+	data[,tovNum:=as.factor(tovNum)]
+	h = ggplot(data, aes(Julian, Height)) + geom_line(aes(color = tovNum)) + scale + theme 
 
 # Annotation to indicate grazing
 	ones = data[,Grazed]
+	ones[ones != 0] = 1
 	if(length(ones[which(ones > 0)]) > 0) 
 	{
 		asdf  = ones[-1]-ones[-length(ones)]
