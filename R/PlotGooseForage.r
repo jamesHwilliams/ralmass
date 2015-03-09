@@ -8,7 +8,7 @@
 #' @return A nice plot
 #' @export
 
-PlotGooseForage = function(data, species = 'Pinkfoot', type = NULL){
+PlotGooseForage = function(data, species = 'Pinkfoot', type = NULL, plottype = 'points'){
 	if(is.null(type) | !is.character(type)) 
 	{
 		cat('type appears to be missing.\n')
@@ -36,9 +36,17 @@ PlotGooseForage = function(data, species = 'Pinkfoot', type = NULL){
 		)
 	col = rgb(0,0,0, alpha = 0.2)
 	column = paste('Grass', species, sep = '')
-
+if(plottype == 'Line' | plottype == 'line') 
+{
 	grass = ggplot2::ggplot(data, ggplot2::aes_string('Day', column, group = 'Polyref')) + ggplot2::geom_line(colour = col) + ggplot2::ylab('Grazing forage available') + ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))
 	grain = ggplot2::ggplot(data, ggplot2::aes(Day, Grain, group = Polyref)) + ggplot2::geom_line(colour = col) + ggplot2::ylab('Grain forage available') + ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))
+}
+
+if(plottype == 'Point' | plottype == 'point') 
+{
+	grass = ggplot2::ggplot(data, ggplot2::aes_string('Day', column, group = 'Polyref')) + ggplot2::geom_point(colour = col, size = 1) + ggplot2::ylab('Grazing forage available') + ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))
+	grain = ggplot2::ggplot(data, ggplot2::aes(Day, Grain, group = Polyref)) + ggplot2::geom_point(colour = col, size = 1) + ggplot2::ylab('Grain forage available') + ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))
+}
 
 	if(type == 'combined' | type == 'Combined') 
 	{
