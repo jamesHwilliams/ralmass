@@ -7,7 +7,10 @@
 #' @export
 
 PlotGoosePopulation = function(data){
-melted = reshape2::melt(popn, id.vars = c('DayInYear', 'Day', 'Month', 'Year', 'Time'),
+data[,SimDate:=as.Date(DayInYear, origin = as.Date(paste(Year,"-01-01", sep = '')))]
+data[,c('Day', 'Month', 'Year', 'Time'):=NULL]
+
+melted = reshape2::melt(data, id.vars = c('SimDate'),
  variable.name = 'GooseType', value.name = 'Numbers')
 
 ggplot2::theme_update(
@@ -23,7 +26,7 @@ ggplot2::theme_update(
 	axis.ticks = ggplot2::element_line(colour = "black", size = 0.5)
 )
 
-pop = ggplot2::ggplot(melted, ggplot2::aes(Day, Numbers, group = GooseType)) +
+pop = ggplot2::ggplot(melted, ggplot2::aes(DayInYear, Numbers, group = GooseType)) +
  ggplot2::geom_line(aes(colour = GooseType)) + ggplot2::ylab('Numbers') +
  ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))
 return(pop)
