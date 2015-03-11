@@ -26,9 +26,8 @@ ggplot2::theme_update(
 	axis.ticks = ggplot2::element_line(colour = "black", size = 0.5)
 )
 
-pop = ggplot2::ggplot(melted, ggplot2::aes(DayInYear, Numbers, group = GooseType)) +
- ggplot2::geom_line(aes(colour = GooseType)) + ggplot2::ylab('Numbers') +
- ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))
+pop = ggplot2::ggplot(melted, ggplot2::aes(SimDate, Numbers, group = GooseType)) +
+	ggplot2::geom_line(aes(colour = GooseType)) + ggplot2::ylab('Numbers')
 return(pop)
 }
 
