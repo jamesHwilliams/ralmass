@@ -12,7 +12,7 @@ data[,c('Day', 'Month', 'Year', 'Time', 'DayInYear'):=NULL]
 
 melted = reshape2::melt(data, id.vars = c('SimDate'),
  variable.name = 'GooseType', value.name = 'Numbers')
-
+melted = melted[Numbers != 0,]
 ggplot2::theme_update(
 	panel.background = ggplot2::element_blank(),
 	axis.text.x = ggplot2::element_text(colour = "black", face = "plain", size = 10),
@@ -27,7 +27,7 @@ ggplot2::theme_update(
 )
 
 pop = ggplot2::ggplot(melted, ggplot2::aes(SimDate, Numbers, group = GooseType)) +
-	ggplot2::geom_line(aes(colour = GooseType)) + ggplot2::ylab('Numbers')
+	ggplot2::geom_line(aes(colour = GooseType)) + ggplot2::geom_point(aes(colour = GooseType))  + ggplot2::ylab('Numbers')
 return(pop)
 }
 
