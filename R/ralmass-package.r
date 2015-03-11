@@ -9,4 +9,6 @@
 #' @import sp
 #' @import rgdal
 #' @import gridExtra
+#' @import reshape2
+#' @import ggplot2
 NULL

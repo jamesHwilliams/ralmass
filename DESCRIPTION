@@ -3,8 +3,8 @@ Title: Collection of functions used to prepare and analyze data for and from
     ALMaSS
 Version: 0.1
 Authors@R: "Lars Dalby <lars@bios.au.dk> [aut, cre]"
-Description: Package containing a selection of functions that I often use when
-    handling and analyzing data for and from ALMaSS
+Description: Package with functions to handle and analyze data
+ for and from ALMaSS
 Depends:
     R (>= 3.1.1)
 License: What license is it under?
@@ -16,4 +16,5 @@ Imports:
     data.table,
     sp,
     rgdal,
-    gridExtra
+    gridExtra,
+    reshape2
