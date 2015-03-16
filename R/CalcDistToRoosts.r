@@ -15,10 +15,20 @@
 CalcDistToForageLocation = function(roost, fields, polyref, species)
 {
 	setnames(roost, c('Type', 'CentroidX', 'CentroidY'))
-	if(species == 'Barnacle' | species == 'barnacle') 
+	if(tolower(species) == 'pinkfoot') 
+	{
+		ForagePolys = unique(fields[Barnacle != 0,Polyref])
+		roost = roost[Type == 0,]
+	}
+	if(tolower(species) == 'barnacle') 
 	{
 		ForagePolys = unique(fields[Barnacle != 0,Polyref])
 		roost = roost[Type == 1,]
+	}
+	if(tolower(species) == 'greylag') 
+	{
+		ForagePolys = unique(fields[Barnacle != 0,Polyref])
+		roost = roost[Type == 2,]
 	}
 	FieldsInUse = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
 	TheList = list()
