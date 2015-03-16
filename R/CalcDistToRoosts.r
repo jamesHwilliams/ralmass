@@ -12,7 +12,7 @@
 #' @return list A list holding a data.table with distances for each roost
 #' @export
 
-CalcDistToForageLocation = function(roost, fields, polyref, species)
+CalcDistToRoosts = function(roost, fields, polyref, species)
 {
 	setnames(roost, c('Type', 'CentroidX', 'CentroidY'))
 	if(tolower(species) == 'pinkfoot') 
