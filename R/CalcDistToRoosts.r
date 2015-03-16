@@ -34,7 +34,7 @@ CalcDistToRoosts = function(roost, fields, polyref, species)
 	TheList = list()
 	for(i in 1:nrow(roost))
 	{
-		TheDistances = dist(rbind(roost[1,c('CentroidX', 'CentroidY'), with = FALSE], FieldsInUse))[1:nrow(FieldsInUse)+1]
+		TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], FieldsInUse))[1:nrow(FieldsInUse)+1]
 		TheList[[i]] = data.table('DistToRoost' = TheDistances)
 	}
 	return(TheList)
