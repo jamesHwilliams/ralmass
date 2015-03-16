@@ -17,7 +17,7 @@ CalcDistToRoosts = function(roost, fields, polyref, species)
 	setnames(roost, c('Type', 'CentroidX', 'CentroidY'))
 	if(tolower(species) == 'pinkfoot') 
 	{
-		ForagePolys = unique(fields[Barnacle != 0,Polyref])
+		ForagePolys = unique(fields[Pinkfoot != 0,Polyref])
 		roost = roost[Type == 0,]
 	}
 	if(tolower(species) == 'barnacle') 
@@ -27,14 +27,14 @@ CalcDistToRoosts = function(roost, fields, polyref, species)
 	}
 	if(tolower(species) == 'greylag') 
 	{
-		ForagePolys = unique(fields[Barnacle != 0,Polyref])
+		ForagePolys = unique(fields[Greylag != 0,Polyref])
 		roost = roost[Type == 2,]
 	}
 	FieldsInUse = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
 	TheList = list()
 	for(i in 1:nrow(roost))
 	{
-		TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], FieldsInUse))[1:nrow(FieldsInUse)+1]
+		TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], FieldsInUse))[1:nrow(FieldsInUse)]
 		TheList[[i]] = data.table('DistToRoost' = TheDistances)
 	}
 	return(TheList)
