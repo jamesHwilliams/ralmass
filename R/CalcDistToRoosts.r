@@ -9,7 +9,8 @@
 #' @param polyref data.table The object with the polyref file
 #' @param species character The species for which the distances should be 
 #' calculated for. Either 'Barnacle', 'Pinkfoot' or 'Greylag'
-#' @return list A list holding a data.table with distances for each roost
+#' @return data.table A data.table with the polyrefnumber, distances for
+#' each roost and a column with the shortest distance.
 #' @export
 
 CalcDistToRoosts = function(roost, fields, polyref, species)

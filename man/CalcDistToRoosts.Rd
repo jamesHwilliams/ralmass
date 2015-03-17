@@ -17,7 +17,8 @@ CalcDistToRoosts(roost, fields, polyref, species)
 calculated for. Either 'Barnacle', 'Pinkfoot' or 'Greylag'}
 }
 \value{
-list A list holding a data.table with distances for each roost
+data.table A data.table with the polyrefnumber, distances for
+each roost and a column with the shortest distance.
 }
 \description{
 Calculate the distance from fields to goose roosts (in this case)
