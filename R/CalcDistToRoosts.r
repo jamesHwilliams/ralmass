@@ -30,12 +30,14 @@ CalcDistToRoosts = function(roost, fields, polyref, species)
 		ForagePolys = unique(fields[Greylag != 0,Polyref])
 		roost = roost[Type == 2,]
 	}
-	FieldsInUse = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
-	TheList = list()
+	Fields = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
+	DT = data.table(polyref[PolyRefNum %in% ForagePolys, c('PolyRefNum'), with = FALSE])
 	for(i in 1:nrow(roost))
 	{
-		TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], FieldsInUse))[1:nrow(FieldsInUse)]
-		TheList[[i]] = data.table('DistToRoost' = TheDistances)
+		TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
+		newcolname = paste('Roost', i, sep = '')
+		DT[,newcolname:=TheDistances, with=FALSE]
 	}
-	return(TheList)
+	DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
+	return(DT)
 }
