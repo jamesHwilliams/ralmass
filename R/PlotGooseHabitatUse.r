@@ -25,8 +25,9 @@ PlotGooseHabitatUse = function(data, species = NULL){
 	{
 		data = data[Greylag > 0,]
 	}
-habitatuse =  ggplot(data[species > 0,], aes(x=VegType))
-habitatuse = habitatuse + geom_bar() + facet_wrap(~ Month) + theme_bw()
+habitatuse =  ggplot(data[species > 0,], aes(x=VegTypeChr))
+habitatuse = habitatuse + geom_bar() + facet_wrap(~ Month) + 
+	theme_bw() + theme(axis.text.x=element_text(angle = -90, hjust = 0))
 return(habitatuse)
 }
 
