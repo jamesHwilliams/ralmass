@@ -20,6 +20,9 @@
 #' @export
 
 UtmToALMaSS = function(data, long, lat, map, subset = TRUE, toalmass = TRUE) {
+if(!map %in% c( 'VejlerneTest', 'VejlerneTest.lsb', 'VejlerneBigMap',
+ 'VejlerneBigMap.lsb'))
+	stop('Invalid map specified. Use either VejlerneTest or VejlerneBigMap')
 if(map == 'VejlerneTest' | map == 'VejlerneTest.lsb')
 {
 	x = 494505
