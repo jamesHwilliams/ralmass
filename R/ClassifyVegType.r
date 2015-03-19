@@ -5,7 +5,7 @@
 #' 
 #' This function is designed to be used in combination with 'sapply' 
 #' 
-#' @VegTypeCombo character A string combined from VegType and VegPhase 
+#' @param VegTypeCombo character A string combined from VegType and VegPhase 
 #' separated by '-'
 #' @return The vegtype matching the one scored in the field
 #' @export

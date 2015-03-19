@@ -3,6 +3,7 @@
 export(CalcDistToRoosts)
 export(CalcPseudoCentroid)
 export(ClassifyFields)
+export(ClassifyVegType)
 export(CleanAttrTable)
 export(ConvertSimDay)
 export(PlotEnergetics)
