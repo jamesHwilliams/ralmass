@@ -18,6 +18,7 @@ ClassifyVegType = function(VegTypeCombo)
 		'CloverGrassGrazed2-2' = 'Grass',
 		'OCloverGrassGrazed2-2' = 'Grass',
 		'OSeedGrass2-3' = 'Grass',
+		'OSeedGrass1-3' = 'Grass',
 		'SeedGrass2-3' = 'Grass',
 		'CloverGrassGrazed1-2' = 'Grass',
 		'OBarleyPeaCloverGrass-3' = 'Grass',
