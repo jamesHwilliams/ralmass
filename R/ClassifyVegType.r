@@ -1,44 +1,67 @@
-#' Classify fields based on the last digit in the farm reference number
+#' Classify Veg type with respect to geese forage
 #'
-#' Classify fields based on the last digit in the farm reference number
+#' Classify the veg types from the detailed ones ALMaSS uses into categories
+#' matching the ones that are scored in the field
 #' 
-#' List explaining the translation from one digit to the ALMaSS landscape element code:
-#'\itemize{
-#'   \item 0 = 20
-#'   \item 1 = 27
-#'   \item 2 = 33
-#'   \item 3 = 35
-#'   \item 4 = 55
-#'   \item 5 = 56
-#'   \item 6 = 59
-#'   \item 7 = 60
-#'   \item 8 = 71
-#'   \item 9 = 68
-#'  } 
+#' This function is designed to be used in combination with 'sapply' 
 #' 
-#' @param polyref data.frame A dataframe which was produced using \code{\link{CleanAttrTable}}.
-#' @param firstfield numeric The first elementtype number which is a field belonging to a farm.
-#' @return A data.frame with the same columns as in the input, but with the element types
-#' corrected and the farmref stripped of its last digit (the field type identifier).
+#' @VegTypeCombo character A string combined from VegType and VegPhase 
+#' separated by '-'
+#' @return The vegtype matching the one scored in the field
 #' @export
-
-ClassifyFields = function(polyref, firstfield = 100000) {
-# Move the farmIDs to the farmref column and translate codes:
-	fieldindex = which(polyref$ElementType >= firstfield)
-	polyref[fieldindex,]$Farmref = polyref[fieldindex,]$ElementType
-	polyref$temp = rep(NA, nrow(polyref))
-	polyref[fieldindex,]$temp = as.numeric(str_sub(polyref[fieldindex,]$Farmref, -1))
-
-	refDigits = unique(as.numeric(str_sub(polyref[fieldindex,]$Farmref, -1)))  # Take only the last digit (the field type)
-	tolecodes = c(20, 27, 33, 35, 55, 56, 59, 60, 71, 68)
-	for (i in refDigits) {
-		index = which(polyref$temp == i)
-		polyref[index,]$ElementType = tolecodes[i+1]  # The +1 is needed as the refDigits goes from 0
-	}
-
-# Get rid of the temp column:
-	polyref = polyref[-match('temp', names(polyref))]
-# Strip off the last digit (the element code)
-	polyref[fieldindex,]$Farmref = as.numeric(str_sub(polyref[fieldindex,]$Farmref, 1, 5))
-	return(polyref)
+ClassifyVegType = function(VegTypeCombo)
+{
+	switch(EXPR = VegTypeCombo,
+		# Grass               
+		'PermanentGrassGrazed-3' = 'Grass',
+		'OCloverGrassGrazed1-2' = 'Grass',
+		'CloverGrassGrazed2-2' = 'Grass',
+		'OCloverGrassGrazed2-2' = 'Grass',
+		'OSeedGrass2-3' = 'Grass',
+		'SeedGrass2-3' = 'Grass',
+		'CloverGrassGrazed1-2' = 'Grass',
+		'OBarleyPeaCloverGrass-3' = 'Grass',
+		'SprBarleyCloverGrass-3' = 'Grass',
+		'CloverGrassGrazed1-3' = 'Grass',
+		'OSBarleySilage-3' = 'Grass',
+		'NaturalGrass-2' = 'Grass',
+		'SpringBarleySilage-3' = 'Grass',
+		'PermanentGrassGrazed-2' = 'Grass',
+		'OBarleyPeaCloverGrass-2' = 'Grass',
+		'SprBarleyCloverGrass-2' = 'Grass',
+		'OSBarleySilage-2' = 'Grass',
+		'OWinterWheatUndersown-3' = 'Grass',
+		'SpringBarleySilage-2' = 'Grass',
+		'SeedGrass1-3' = 'Grass',
+		'OCloverGrassGrazed1-3' = 'Grass',
+# Rape
+		'WinterRape-3' = 'Rape',
+# Winter cereal
+		'WinterWheat-1' = 'WinterCereal',
+		'WinterWheat-2' = 'WinterCereal',
+		'SpringBarley-2' = 'WinterCereal',
+		'WinterBarley-1' = 'WinterCereal',
+		'OWinterRye-1' = 'WinterCereal',
+		'WinterRye-1' = 'WinterCereal',
+		'OWinterWheatUndersown-1' = 'WinterCereal',
+# Stubble
+		'WinterBarley-3' = 'Stubble',
+		'OSpringBarley-3' = 'Stubble',
+		'WinterRye-3' = 'Stubble',
+		'WinterWheat-3' = 'Stubble',
+		'SpringBarley-3' = 'Stubble',
+		'Oats-3' = 'Stubble',
+		'OOats-3' = 'Stubble',
+		'OTriticale-3' = 'Stubble',
+		'Triticale-3' = 'Stubble',
+		'OWinterRye-3' = 'Stubble',
+		'OOats-2' = 'Stubble',
+		'OFieldPeas-3' = 'Stubble',
+		'OCarrots-3' = 'Stubble',
+# Maize stubble
+		'MaizeSilage-3' = 'Maize',
+		'MaizeSilage-2' = 'Maize',
+		'OMaizeSilage-3' = 'Maize',
+		# Default
+		'SomethingFunky')
 }
