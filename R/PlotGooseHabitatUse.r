@@ -7,10 +7,14 @@
 #' @return A nice plot
 #' @export
 
-PlotGooseHabitatUse = function(data, species = NULL){
+PlotGooseHabitatUse = function(data, species = NULL, variable = NULL) {
 	if(is.null(species)) 
 	{
 		stop('Please provide a species name\nEither Barnacle, Pinkfoot or Greylag\n')
+	}
+	if(is.null(variable)) 
+	{
+		stop('Please provide a variable name\nEither VegTypeChr or HabitatUse\n')
 	}
 	species = tolower(species)
 	if(species == 'barnacle') 
@@ -25,7 +29,8 @@ PlotGooseHabitatUse = function(data, species = NULL){
 	{
 		data = data[Greylag > 0,]
 	}
-	habitatuse =  ggplot(data[species > 0,], aes(factor(Month), fill = HabitatUse))
+	data[,Month:=as.factor(Month)]
+	habitatuse =  ggplot(data[species > 0,], aes_string('Month', fill = variable))
 	habitatuse = habitatuse + geom_bar(position = 'fill') + theme_bw()
 return(habitatuse)
 }

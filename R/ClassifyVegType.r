@@ -36,6 +36,7 @@ ClassifyVegType = function(VegTypeCombo)
 		'OCloverGrassGrazed1-3' = 'Grass',
 # Rape
 		'WinterRape-3' = 'Rape',
+		'WinterRape-1' = 'Rape',
 # Winter cereal
 		'WinterWheat-1' = 'WinterCereal',
 		'WinterWheat-2' = 'WinterCereal',
