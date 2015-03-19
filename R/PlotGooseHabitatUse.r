@@ -25,7 +25,7 @@ PlotGooseHabitatUse = function(data, species = NULL){
 	{
 		data = data[Greylag > 0,]
 	}
-	habitatuse =  ggplot(data[species > 0,], aes(factor(Month),fill = VegTypeChr))
+	habitatuse =  ggplot(data[species > 0,], aes(factor(Month), fill = VegTypeChr))
 	habitatuse = habitatuse + geom_bar(position = 'fill') + theme_bw()
 return(habitatuse)
 }
