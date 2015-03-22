@@ -16,29 +16,81 @@
 CalcDistToRoosts = function(roost, fields, polyref, species)
 {
 	setnames(roost, c('Type', 'CentroidX', 'CentroidY'))
-	if(tolower(species) == 'pinkfoot') 
+	if(tolower(species) == 'all') 
 	{
+	# Pinkfoot
 		ForagePolys = unique(fields[Pinkfoot != 0,Polyref])
 		roost = roost[Type == 0,]
-	}
-	if(tolower(species) == 'barnacle') 
-	{
+		Fields = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
+		DT = data.table(polyref[PolyRefNum %in% ForagePolys, c('PolyRefNum'), with = FALSE])
+		for(i in 1:nrow(roost))
+		{
+			TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
+			newcolname = paste('Roost', i, sep = '')
+			DT[,newcolname:=TheDistances, with=FALSE]
+		}
+		DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
+		DT[,GooseType:='Pinkfoot']
+		TheDT = DT[, c('PolyRefNum', 'Shortest', 'GooseType'), with = FALSE]
+	# Barnacle
 		ForagePolys = unique(fields[Barnacle != 0,Polyref])
 		roost = roost[Type == 1,]
-	}
-	if(tolower(species) == 'greylag') 
-	{
+		Fields = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
+		DT = data.table(polyref[PolyRefNum %in% ForagePolys, c('PolyRefNum'), with = FALSE])
+		for(i in 1:nrow(roost))
+		{
+			TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
+			newcolname = paste('Roost', i, sep = '')
+			DT[,newcolname:=TheDistances, with=FALSE]
+		}
+		DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
+		DT[,GooseType:='Barnacle']
+		DT = DT[, c('PolyRefNum', 'Shortest', 'GooseType'), with = FALSE]
+		TheDT = rbind(TheDT, DT)
+	# Greylag
 		ForagePolys = unique(fields[Greylag != 0,Polyref])
 		roost = roost[Type == 2,]
+		Fields = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
+		DT = data.table(polyref[PolyRefNum %in% ForagePolys, c('PolyRefNum'), with = FALSE])
+		for(i in 1:nrow(roost))
+		{
+			TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
+			newcolname = paste('Roost', i, sep = '')
+			DT[,newcolname:=TheDistances, with=FALSE]
+		}
+		DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
+		DT[,GooseType:='Greylag']
+		DT = DT[, c('PolyRefNum', 'Shortest', 'GooseType'), with = FALSE]
+		TheDT = rbind(TheDT, DT)
+		return(TheDT)
 	}
-	Fields = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
-	DT = data.table(polyref[PolyRefNum %in% ForagePolys, c('PolyRefNum'), with = FALSE])
-	for(i in 1:nrow(roost))
+	if(tolower(species) != 'all') 
 	{
-		TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
-		newcolname = paste('Roost', i, sep = '')
-		DT[,newcolname:=TheDistances, with=FALSE]
+		
+		if(tolower(species) == 'pinkfoot') 
+		{
+			ForagePolys = unique(fields[Pinkfoot != 0,Polyref])
+			roost = roost[Type == 0,]
+		}
+		if(tolower(species) == 'barnacle') 
+		{
+			ForagePolys = unique(fields[Barnacle != 0,Polyref])
+			roost = roost[Type == 1,]
+		}
+		if(tolower(species) == 'greylag') 
+		{
+			ForagePolys = unique(fields[Greylag != 0,Polyref])
+			roost = roost[Type == 2,]
+		}
+		Fields = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
+		DT = data.table(polyref[PolyRefNum %in% ForagePolys, c('PolyRefNum'), with = FALSE])
+		for(i in 1:nrow(roost))
+		{
+			TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
+			newcolname = paste('Roost', i, sep = '')
+			DT[,newcolname:=TheDistances, with=FALSE]
+		}
+		DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
+		return(DT)
 	}
-	DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
-	return(DT)
 }
