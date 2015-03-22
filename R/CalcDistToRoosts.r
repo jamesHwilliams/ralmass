@@ -20,12 +20,12 @@ CalcDistToRoosts = function(roost, fields, polyref, species)
 	{
 	# Pinkfoot
 		ForagePolys = unique(fields[Pinkfoot != 0,Polyref])
-		roost = roost[Type == 0,]
+		Roost = roost[Type == 0,]
 		Fields = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
 		DT = data.table(polyref[PolyRefNum %in% ForagePolys, c('PolyRefNum'), with = FALSE])
-		for(i in 1:nrow(roost))
+		for(i in 1:nrow(Roost))
 		{
-			TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
+			TheDistances = dist(rbind(Roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
 			newcolname = paste('Roost', i, sep = '')
 			DT[,newcolname:=TheDistances, with=FALSE]
 		}
@@ -34,12 +34,12 @@ CalcDistToRoosts = function(roost, fields, polyref, species)
 		TheDT = DT[, c('PolyRefNum', 'Shortest', 'GooseType'), with = FALSE]
 	# Barnacle
 		ForagePolys = unique(fields[Barnacle != 0,Polyref])
-		roost = roost[Type == 1,]
+		Roost = roost[Type == 1,]
 		Fields = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
 		DT = data.table(polyref[PolyRefNum %in% ForagePolys, c('PolyRefNum'), with = FALSE])
-		for(i in 1:nrow(roost))
+		for(i in 1:nrow(Roost))
 		{
-			TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
+			TheDistances = dist(rbind(Roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
 			newcolname = paste('Roost', i, sep = '')
 			DT[,newcolname:=TheDistances, with=FALSE]
 		}
@@ -49,12 +49,12 @@ CalcDistToRoosts = function(roost, fields, polyref, species)
 		TheDT = rbind(TheDT, DT)
 	# Greylag
 		ForagePolys = unique(fields[Greylag != 0,Polyref])
-		roost = roost[Type == 2,]
+		Roost = roost[Type == 2,]
 		Fields = polyref[PolyRefNum %in% ForagePolys, c('CentroidX', 'CentroidY'), with = FALSE]
 		DT = data.table(polyref[PolyRefNum %in% ForagePolys, c('PolyRefNum'), with = FALSE])
-		for(i in 1:nrow(roost))
+		for(i in 1:nrow(Roost))
 		{
-			TheDistances = dist(rbind(roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
+			TheDistances = dist(rbind(Roost[i,c('CentroidX', 'CentroidY'), with = FALSE], Fields))[1:nrow(Fields)]
 			newcolname = paste('Roost', i, sep = '')
 			DT[,newcolname:=TheDistances, with=FALSE]
 		}
