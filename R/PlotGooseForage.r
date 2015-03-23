@@ -62,24 +62,24 @@ if(plottype == 'Line' | plottype == 'line')
 
 if(plottype == 'Point' | plottype == 'point') 
 {
-	grassBarnacle = ggplot2::ggplot(data[Barnacle > 0,], ggplot2::aes(Day, GrassBarnacle, group = Polyref)) + 
+	grassBarnacle = ggplot2::ggplot(data[Barnacle > 0 & Grain < 99,], ggplot2::aes(Day, GrassBarnacle, group = Polyref)) + 
 		ggplot2::geom_point(colour = col) + ggplot2::ylab('Grazing forage available') + 
 		ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25)) + ggtitle('Grazing barnacle')
-	grainBarnacle = ggplot2::ggplot(data[Barnacle > 0,], ggplot2::aes(Day, Grain, group = Polyref)) + 
+	grainBarnacle = ggplot2::ggplot(data[Barnacle > 0  & Grain > 98,], ggplot2::aes(Day, Grain, group = Polyref)) + 
 		ggplot2::geom_point(colour = col) + ggplot2::ylab('Grain forage available') +
 		ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25)) + ggtitle('Grain barnacle')
 
-	grassPinkfoot = ggplot2::ggplot(data[Pinkfoot > 0,], ggplot2::aes(Day, GrassPinkfoot, group = Polyref)) + 
+	grassPinkfoot = ggplot2::ggplot(data[Pinkfoot > 0 & Grain < 135,], ggplot2::aes(Day, GrassPinkfoot, group = Polyref)) + 
 		ggplot2::geom_point(colour = col) + ggplot2::ylab('Grazing forage available') + 
 		ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))+ ggtitle('Grazing pinkfoot')
-	grainPinkfoot = ggplot2::ggplot(data[Pinkfoot > 0,], ggplot2::aes(Day, Grain, group = Polyref)) + 
+	grainPinkfoot = ggplot2::ggplot(data[Pinkfoot > 0 & Grain > 134,], ggplot2::aes(Day, Grain, group = Polyref)) + 
 		ggplot2::geom_point(colour = col) + ggplot2::ylab('Grain forage available') +
 		ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))+ ggtitle('Grain pinkfoot')
 	
-	grassGreylag = ggplot2::ggplot(data[Greylag > 0,], ggplot2::aes(Day, GrassGreylag, group = Polyref)) + 
+	grassGreylag = ggplot2::ggplot(data[Greylag > 0 & Grain < 242,], ggplot2::aes(Day, GrassGreylag, group = Polyref)) + 
 		ggplot2::geom_point(colour = col) + ggplot2::ylab('Grazing forage available') + 
 		ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))+ ggtitle('Grazing Greylag')
-	grainGreylag = ggplot2::ggplot(data[Greylag > 0,], ggplot2::aes(Day, Grain, group = Polyref)) + 
+	grainGreylag = ggplot2::ggplot(data[Greylag > 0 & Grain > 241,], ggplot2::aes(Day, Grain, group = Polyref)) + 
 		ggplot2::geom_point(colour = col) + ggplot2::ylab('Grain forage available') +
 		ggplot2::scale_x_continuous(breaks = seq(0, 365, by = 25))+ ggtitle('Grain Greylag')
 }
