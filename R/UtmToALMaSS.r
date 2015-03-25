@@ -20,53 +20,62 @@
 #' @export
 
 UtmToALMaSS = function(data, long, lat, map, subset = TRUE, toalmass = TRUE) {
-if(!map %in% c( 'VejlerneTest', 'VejlerneTest.lsb', 'VejlerneBigMap',
- 'VejlerneBigMap.lsb'))
+	if(!map %in% c('VejlerneTest', 'VejlerneTest.lsb', 'VejlerneBigMap',
+		'VejlerneBigMap.lsb'))
 	stop('Invalid map specified. Use either VejlerneTest or VejlerneBigMap')
-if(map == 'VejlerneTest' | map == 'VejlerneTest.lsb')
-{
-	x = 494505
-	y = 6327722
-	dimx = 10000
-	dimy = 7000
-}
-if(map == 'VejlerneBigMap' | map == 'VejlerneBigMap.lsb')
-{
-	x = 484378
-	y = 6335161
-	dimx = 36000
-	dimy = 24000
-}
-if(toalmass)
-{
-	data$ALong = floor(data[,long]-x)
-	data$ALat = floor(y-data[,lat])
-
-	if(subset) 
+	stopifnot(is.character(long), is.character(lat))
+	if(map == 'VejlerneTest' | map == 'VejlerneTest.lsb')
 	{
-		data = data[which(data$ALong >= 0 & data$ALong <= dimx),]
-		data = data[which(data$ALat >= 0 & data$ALat <= dimy),]
+		x = 494505
+		y = 6327722
+		dimx = 10000
+		dimy = 7000
 	}
-	return(data)
-}
+	if(map == 'VejlerneBigMap' | map == 'VejlerneBigMap.lsb')
+	{
+		x = 484378
+		y = 6335161
+		dimx = 36000
+		dimy = 24000
+	}
+	if(toalmass)
+	{
+		if(is.character(long)) {
+			varname = as.name(long)
+			r = eval(varname, data)
+			data$ALong = floor(data[, r]-x)
+		}
+		if(is.character(lat)) {
+			varname = as.name(lat)
+			r = eval(varname, data)
+			data$ALat = floor(y - data[, r])	
+		}
 
-if(!toalmass)
-{
-	if(is.character(long)) {
-		varname = as.name(long)
-		r = eval(varname, data)
-		data$ALong = floor(x + data[, r])
+		if(subset) 
+		{
+			data = data[which(data$ALong >= 0 & data$ALong <= dimx),]
+			data = data[which(data$ALat >= 0 & data$ALat <= dimy),]
+		}
+		return(data)
 	}
-	if(is.character(lat)) {
-		varname = as.name(lat)
-		r = eval(varname, data)
-		data$ALat = floor(y - data[, r])	
+
+	if(!toalmass)
+	{
+		if(is.character(long)) {
+			varname = as.name(long)
+			r = eval(varname, data)
+			data$ALong = floor(x + data[, r])
+		}
+		if(is.character(lat)) {
+			varname = as.name(lat)
+			r = eval(varname, data)
+			data$ALat = floor(y - data[, r])	
+		}
+		if(!is.character(long) & !is.character(lat)) {
+			data$ALong = floor(data[,long]+x)
+			data$ALat = floor(y-data[,lat])
+		}
+		return(data)
 	}
-	if(!is.character(long) & !is.character(lat)) {
-		data$ALong = floor(data[,long]+x)
-		data$ALat = floor(y-data[,latr])
-	}
-	return(data)
-}
 }
 
