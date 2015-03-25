@@ -34,6 +34,6 @@ CalcPseudoCentroid = function(data, project = TRUE)
         polygons$UtmX = sp.polygons@coords[,1]
         polygons$UtmY = sp.polygons@coords[,2]
 	}
-	return(polygons)
+	return(as.data.table(polygons))
 }
 
