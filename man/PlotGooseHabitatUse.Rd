@@ -4,7 +4,7 @@
 \alias{PlotGooseHabitatUse}
 \title{Plot goose habitat use}
 \usage{
-PlotGooseHabitatUse(data, species = NULL)
+PlotGooseHabitatUse(data, species = NULL, variable = NULL)
 }
 \arguments{
 \item{data}{data.frame or data.table The ALMaSS data file GooseFieldForage.txt}

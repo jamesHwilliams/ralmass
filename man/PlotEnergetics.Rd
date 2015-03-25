@@ -4,7 +4,7 @@
 \alias{PlotEnergetics}
 \title{Plot energy output from the ALMaSS Goose Management model}
 \usage{
-PlotEnergetics(data, species = "all", package = "ggplot2")
+PlotEnergetics(data, species = "all", package = "ggplot2", scales = NULL)
 }
 \arguments{
 \item{data}{data.table The raw output from the file GooseEnergeticsData.txt}

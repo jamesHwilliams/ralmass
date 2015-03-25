@@ -11,7 +11,7 @@
 #' @param package character Base- or ggplot2-type ? Defaults to "ggplot2"
 #' @return A nice plot
 #' @export
-PlotEnergetics = function(data, species = 'all', package = 'ggplot2')
+PlotEnergetics = function(data, species = 'all', package = 'ggplot2', scales = NULL)
 {
  if(!is.data.table(data))
  {
@@ -34,14 +34,15 @@ data = data[,mean(Weight), by = c('Goose Type', 'SimDate')]
 data[,geesePA:= c(0, cumsum(diff(SimDate) != 1))]
 setnames(data, 'V1', 'Weight')
 setkey(data, 'Goose Type')
+setnames(data, 'Goose Type', 'GooseType')
 
-# Set global par:
-par(las = 1, bty = 'l')
-xlab = 'SimDay'
-ylab = 'Grams'
 
 if(species == 'all' & package == 'base') 
 {
+# Set par:
+  par(las = 1, bty = 'l')
+  xlab = 'SimDay'
+  ylab = 'Grams'
   par(mfrow = c(3,1), mar = c(5, 5, 4, 2) + 0.1, mgp = c(4, 1, 0))
   xlim = c(min(data[,SimDate]), max(data[,SimDate]))
   # Greylag
@@ -69,22 +70,31 @@ if(species == 'all' & package == 'base')
     lines(data[Year == i,]['BGF', SimDate], data[Year == i,]['BGF', Weight])
     lines(data[Year == i,]['BGNB', SimDate], data[Year == i,]['BGNB', Weight])
   }
+# Reset par
+  par(mfrow = c(1,1), mar = c(5, 4, 4, 2) + 0.1, mgp = c(3, 1, 0))
 }
 
-if(species == 'all' & package == 'ggplot2') 
+if(species == 'all' & package == 'ggplot2' & scales == 'free_x') 
 {
-  g = ggplot(data['GLF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
-  p = ggplot(data['PFF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
-  b = ggplot(data['BGF'], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + facet_wrap( ~ geesePA, scales = 'free_x')
-  grid.arrange(g, p, b, nrow = 3, ncol = 1)
+  ggplot(data[c('BGF', 'PFF', 'GLNB')], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) +
+   facet_wrap( ~ GooseType, scales = 'free_x')
+}
+
+if(species == 'all' & package == 'ggplot2' & is.null(scales))
+{
+  ggplot(data[c('BGF', 'PFF', 'GLNB')], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + 
+  facet_wrap( ~ GooseType)
 }
 
 if(species != 'all' & package == 'base') 
 {
+  par(las = 1, bty = 'l')
+  xlab = 'SimDay'
+  ylab = 'Grams'
   par(mfrow = c(1,1), mar = c(5, 5, 4, 2) + 0.1, mgp = c(4, 1, 0))
   plot(data[species, Day], data[species, Weight], xlab = xlab, ylab = ylab,
-   type = 'l', lwd = 2, main = species)
-}
+    type = 'l', lwd = 2, main = species)
 # Reset par
-par(mfrow = c(1,1), mar = c(5, 4, 4, 2) + 0.1, mgp = c(3, 1, 0))
+  par(mfrow = c(1,1), mar = c(5, 4, 4, 2) + 0.1, mgp = c(3, 1, 0))
+}
 }
