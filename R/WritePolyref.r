@@ -10,7 +10,7 @@
 WritePolyref = function(Table, PathToFile, Headers = TRUE, Type = 'Poly'){
 	if(Type != 'Poly' & Type != 'Farm') 
 	{
-		cat('Oops! Looks like you are asking for stuff you cant get...')
+		stop('Oops! Looks like you are asking for stuff you cant get...\n')
 	}
 	filecon = file(PathToFile, open = 'wt')
 	cat(paste(nrow(Table)), '\n',  file = filecon)
