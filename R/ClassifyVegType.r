@@ -12,7 +12,7 @@
 ClassifyVegType = function(VegTypeCombo)
 {
 	switch(EXPR = VegTypeCombo,
-		# Grass               
+	# Grass               
 		'PermanentGrassGrazed-3' = 'Grass',
 		'OCloverGrassGrazed1-2' = 'Grass',
 		'CloverGrassGrazed2-2' = 'Grass',
@@ -35,10 +35,10 @@ ClassifyVegType = function(VegTypeCombo)
 		'SpringBarleySilage-2' = 'Grass',
 		'SeedGrass1-3' = 'Grass',
 		'OCloverGrassGrazed1-3' = 'Grass',
-# Rape
+	# Rape
 		'WinterRape-3' = 'Rape',
 		'WinterRape-1' = 'Rape',
-# Winter cereal
+	# Winter cereal
 		'WinterWheat-1' = 'WinterCereal',
 		'WinterWheat-2' = 'WinterCereal',
 		'SpringBarley-2' = 'WinterCereal',
@@ -47,7 +47,7 @@ ClassifyVegType = function(VegTypeCombo)
 		'OWinterRye-1' = 'WinterCereal',
 		'WinterRye-1' = 'WinterCereal',
 		'OWinterWheatUndersown-1' = 'WinterCereal',
-# Stubble
+	# Stubble
 		'WinterBarley-3' = 'Stubble',
 		'OSpringBarley-3' = 'Stubble',
 		'WinterRye-3' = 'Stubble',
@@ -61,10 +61,10 @@ ClassifyVegType = function(VegTypeCombo)
 		'OOats-2' = 'Stubble',
 		'OFieldPeas-3' = 'Stubble',
 		'OCarrots-3' = 'Stubble',
-# Maize stubble
+	# Maize stubble
 		'MaizeSilage-3' = 'Maize',
 		'MaizeSilage-2' = 'Maize',
 		'OMaizeSilage-3' = 'Maize',
-		# Default
+	# Default
 		'SomethingFunky')
 }
