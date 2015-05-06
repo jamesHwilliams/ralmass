@@ -32,6 +32,7 @@ ClassifyHabitatUse = function(data, species = 'Goose')
 		data[Grain > 98 & HabitatUseBN != 'Maize', HabitatUseBN:='Stubble']
 		data[Grain > 241 & HabitatUseGL != 'Maize', HabitatUseGL:='Stubble']
 		data[Grain > 134 & HabitatUsePF != 'Maize', HabitatUsePF:='Stubble']
+		data[,VegTypeCombo:=NULL]  # No longer needed.
 	}
 	return(data)
 }
