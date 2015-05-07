@@ -47,6 +47,7 @@ ClassifyVegType = function(VegTypeCombo)
 		'OWinterRye-1' = 'WinterCereal',
 		'WinterRye-1' = 'WinterCereal',
 		'OWinterWheatUndersown-1' = 'WinterCereal',
+		'OOats-2' = 'WinterCereal',
 	# Stubble
 		'WinterBarley-3' = 'Stubble',
 		'OSpringBarley-3' = 'Stubble',
@@ -58,7 +59,6 @@ ClassifyVegType = function(VegTypeCombo)
 		'OTriticale-3' = 'Stubble',
 		'Triticale-3' = 'Stubble',
 		'OWinterRye-3' = 'Stubble',
-		'OOats-2' = 'Stubble',
 		'OFieldPeas-3' = 'Stubble',
 		'OCarrots-3' = 'Stubble',
 	# Maize stubble
