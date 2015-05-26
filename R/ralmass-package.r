@@ -11,4 +11,5 @@
 #' @import gridExtra
 #' @import reshape2
 #' @import ggplot2
+#' @import sfsmisc
 NULL

@@ -40,8 +40,8 @@ CalcOverlab = function(data, species = NULL)
 	d$w = pmin(d$a, d$b)
 
   # Integrate the area under the curves
-	total = integrate.xy(d$x, d$a) + integrate.xy(d$x, d$b)
-	intersection = integrate.xy(d$x, d$w)
+	total = sfsmisc::integrate.xy(d$x, d$a) + sfsmisc::integrate.xy(d$x, d$b)
+	intersection = sfsmisc::integrate.xy(d$x, d$w)
 
 	return(2 * intersection / total)
 }
