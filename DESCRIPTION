@@ -17,4 +17,6 @@ Imports:
     sp,
     rgdal,
     gridExtra,
-    reshape2
+    reshape2,
+    ggplot2,
+    sfsmisc
