@@ -26,6 +26,8 @@ CalcOverlab = function(data, species = NULL)
 	species = capwords(species)
 	data = data[Species == species,][, Numbers:=log10(Numbers)]
 
+  # The actual calculation is based on this CV question: 
+  # http://stats.stackexchange.com/questions/97596/how-to-calculate-overlap-between-empirical-probability-densities
   # Set limits of a common grid, ensuring that tails aren't cut off
 	min = min(data[, Numbers]) - 1
 	max = max(data[, Numbers]) + 1
