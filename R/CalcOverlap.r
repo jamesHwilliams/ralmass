@@ -7,7 +7,7 @@
 #' @param data data.table An object containing both the simulated and observed 
 #' flock sizes
 #' @param species character The species for which the calculated for.
-#' Either 'Barnacle', 'Pinkfoot' or 'Greylag'
+#' Either 'Barnacle', 'Pinkfoot','Greylag' or 'Hunter'
 #' @return numeric The overlap
 #' @export
 
@@ -24,7 +24,9 @@ CalcOverlab = function(data, species = NULL)
 	}
 
 	species = capwords(species)
-	data = data[Species == species,][, Numbers:=log10(Numbers)]
+	if(species != 'Hunter'){
+		data = data[Species == species,][, Numbers:=log10(Numbers)]
+	}
 
   # The actual calculation is based on this CV question: 
   # http://stats.stackexchange.com/questions/97596/how-to-calculate-overlap-between-empirical-probability-densities
