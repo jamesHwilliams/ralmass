@@ -21,9 +21,9 @@ ClassifyPrevCrop = function(PreviousCrop)
 		'OBarleyPeaCloverGrass' = 'Grass',
 		'OSBarleySilage' = 'Grass',	
 		'None' = 'Grass',  # If no preceeding crop, it is a permanent grassy type
-	# Stubble
-		'SprBarleyCloverGrass' = 'Stubble',
-		'SpringBarleyCloverGrass' = 'Stubble',
+	# StubbleUndersown
+		'SprBarleyCloverGrass' = 'StubbleUndersown',
+		'SpringBarleyCloverGrass' = 'StubbleUndersown',
 	# Default
 		'SomeFunkyPreceedingCrop')
 }
