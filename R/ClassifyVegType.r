@@ -31,7 +31,6 @@ ClassifyVegType = function(VegTypeCombo)
 		'OBarleyPeaCloverGrass-2' = 'Grass',
 		'SprBarleyCloverGrass-2' = 'Grass',
 		'OSBarleySilage-2' = 'Grass',
-		'OWinterWheatUndersown-3' = 'Grass',
 		'SpringBarleySilage-2' = 'Grass',
 		'SeedGrass1-3' = 'Grass',
 		'OCloverGrassGrazed1-3' = 'Grass',
@@ -61,6 +60,8 @@ ClassifyVegType = function(VegTypeCombo)
 		'OWinterRye-3' = 'Stubble',
 		'OFieldPeas-3' = 'Stubble',
 		'OCarrots-3' = 'Stubble',
+	# Undersown stubble
+		'OWinterWheatUndersown-3' = 'StubbleUndersown',
 	# Maize stubble
 		'MaizeSilage-3' = 'Maize',
 		'MaizeSilage-2' = 'Maize',
