@@ -11,7 +11,7 @@ CalcOverlab(data, species = NULL)
 flock sizes}
 
 \item{species}{character The species for which the calculated for.
-Either 'Barnacle', 'Pinkfoot' or 'Greylag'}
+Either 'Barnacle', 'Pinkfoot','Greylag' or 'Hunter'}
 }
 \value{
 numeric The overlap
