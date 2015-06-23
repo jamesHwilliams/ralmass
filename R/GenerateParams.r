@@ -47,6 +47,3 @@ GenerateParams = function(start, end, N, Config,
 	}
 	return(df)
 }
-
-setwd('c:/Users/lada/Desktop/')
-GenerateParams(0, 10, 5, 'Blaa (int)', 1, 3, 3, 'Blaa (double)', write = TRUE)
