@@ -4,7 +4,8 @@
 \alias{GenerateParams}
 \title{Generate a range of paramter values}
 \usage{
-GenerateParams(start, end, N, Config)
+GenerateParams(start, end, N, Config, start2 = NULL, end2 = NULL,
+  N2 = NULL, Config2 = NULL, write = FALSE)
 }
 \arguments{
 \item{start}{numeric Starting value.}
@@ -12,10 +13,20 @@ GenerateParams(start, end, N, Config)
 \item{end}{numeric End value.}
 
 \item{N}{Number of required values.}
+
+\item{Config}{The character string with the config variable (including (int))}
+
+\item{start2}{numeric Starting value for the (optional) second variable}
+
+\item{end2}{numeric End value for the (optional) second variable}
+
+\item{N2}{Number of required values for the (optional) second variable}
+
+\item{Config2}{The character string with the second config variable (including (int))}
 }
 \value{
-data.frame Two column data.frame. First column the config variable
-and second column being the values.
+data.frame One column each value a text string with the config and
+and its value
 }
 \description{
 Generate a range of paramter values from specified start
