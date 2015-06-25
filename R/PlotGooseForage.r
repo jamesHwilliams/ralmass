@@ -90,7 +90,19 @@ if(plottype == 'Point' | plottype == 'point')
 	}
 	if(type == 'grain' | type == 'Grain') 
 	{
-		return(grain)
+		if(species %in% c('pinkfoot', 'Pinkfoot'))
+		{
+			return(grainPinkfoot)
+		}
+		if(species %in% c('barnacle', 'Barnacle'))
+		{
+			return(grainBarnacle)
+		}
+		if(species %in% c('greylag', 'Greylag'))
+		{
+			return(grainGreylag)
+		} 
+		else (return(gridExtra::grid.arrange(grainPinkfoot, grassGreylag, grainGreylag, nrow = 3, ncol = 1)))
 	}
 	if(type == 'grass' | type == 'Grass') 
 	{
