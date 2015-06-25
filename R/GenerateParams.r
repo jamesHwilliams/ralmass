@@ -23,7 +23,8 @@ GenerateParams = function(start, end, N, Config,
 	if(is.null(start2) | is.null(end2) | is.null(N2) | is.null(Config2))
 	{
 		val = seq(start, end, length.out = N)
-		df = data.frame('Config' = rep(Config, N), 'Value' = val)
+		config = rep(Config, N)
+		df = data.frame('Config' = paste(config, sep = ' = ', 'Value' = val))
 	}
 	if(!is.null(start2) | !is.null(end2) | !is.null(N2) | !is.null(Config2))
 	{
