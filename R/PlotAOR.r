@@ -14,11 +14,25 @@
 #' @return A nice plot
 #' @export
 # AOR hacking:
-plot(-1:1,-1:1, type = 'n', las = 1, xlab = '', ylab = '')
-abline(h = 0)
-abline(v = 0)
-lines(rbind(c(0,0), c(-.5, -.5)), col = 'Steelblue1', lwd = 2)
-# segments(0,0, -.5, -.5, col = 'green', lwd = 3)
-segments(-.5,-.45, -.5, -.55, col = 'Steelblue1', lwd = 1.5)
-segments(-.45,-.5, -.55, -.5, col = 'Steelblue1', lwd = 1.5)
-points(-.5,-.5, pch = 21, col = 'darkblue', cex = 1.5, bg = 'Steelblue1')
+
+library(RColorBrewer)
+df = data.frame('x' = rnorm(5, 0, .5), 'y' = rnorm(5, 0, .5), 'scenario' = letters[1:5])
+scenarios = unique(as.character(df$scenario))
+col = brewer.pal(length(scenarios), 'Set2')
+
+	plot(-1:1,-1:1, type = 'n', las = 1, xlab = 'Abundance', ylab = 'Occupancy')
+	abline(h = 0)
+	abline(v = 0)
+
+for (i in 1:nrow(df)) {
+	with(df[which(df$scenario == scenarios[i]),], {
+		lines(rbind(c(0,0), c(x, y)), col = col[i], lwd = 2)
+		# segments(0,0, -.5, -.5, col = 'green', lwd = 3)
+		# segments(-.5,-.45, -.5, -.55, col = col[i], lwd = 1.5)
+		# segments(-.45,-.5, -.55, -.5, col = col[i], lwd = 1.5)
+		points(x,y, pch = 21, col = 'darkgrey', cex = 1.5, bg = col[i])
+	})
+}
+
+legend(-1, 1.3, legend = scenarios, bty = 'n', horiz = TRUE, 
+	xpd = NA, pch = 21, cex = 1.5, pt.bg = col, col = 'darkgrey')
