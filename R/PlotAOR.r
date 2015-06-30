@@ -15,7 +15,7 @@
 #' @export
 # AOR hacking:
 
-df = data.frame('x' = rnorm(5, 0, .5), 'y' = rnorm(5, 0, .5), 'scenario' = letters[1:5])
+df = data.frame('x' = rnorm(8, 0, .5), 'y' = rnorm(8, 0, .5), 'scenario' = letters[1:8])
 PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL)
 {
 	
@@ -41,4 +41,11 @@ legend(-1, 1.3, legend = scenarios, bty = 'n', horiz = TRUE,
 
 
 library(ggplot2)
-ggplot(df, aes(x,y, fill = scenario)) + geom_point()
+dforigo = data.frame(x = rep(0, nrow(df)), y = rep(0, nrow(df)), 'scenario' = unique(df$scenario))
+dforigo = rbind(df, dforigo)
+p = ggplot(dforigo, aes(x,y)) + geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
+p = p + geom_line(aes(color = scenario)) + geom_point(data = df, aes(x,y, color = scenario), size = 3)
+p = p + ggtitle('AOR') + labs(y = expression(paste(Delta, 'Abundance')), x = expression(paste(Delta, 'Occupancy'))) + theme_bw() + ylim(-1,1) + xlim(-1,1)
+ggslackr(p)
+
+?geom_point
