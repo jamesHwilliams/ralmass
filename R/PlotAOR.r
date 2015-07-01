@@ -37,6 +37,3 @@ PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL)
   ggplot2::xlim(-1,1)
   return(p)
 }
-
-
-library(ralmass)
