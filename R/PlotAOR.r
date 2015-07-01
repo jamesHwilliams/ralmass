@@ -1,7 +1,7 @@
 #' Plot the AOR index
 #'
-#' Plot the AOR index (Høye et al. 2012). The index is based on the 
-#' abundance–occupancy relationship and facilitates the interpretation of 
+#' Plot the AOR index (Hoye et al. 2012). The index is based on the 
+#' abundance-occupancy relationship and facilitates the interpretation of 
 #' outputs from individual based models.
 #' 
 #' @param data data.frame Data.frame with x, y and scenario column.
@@ -10,7 +10,7 @@
 #' @param scenarios character The name of the column indicating which scenario
 #' a given set of coordinates belong to.
 #' @return An AOR plot
-#' @references Høye, T. T., Skov, F. & Topping, C.J. (2012). Interpreting
+#' @references Hoye, T. T., Skov, F. & Topping, C.J. (2012). Interpreting
 #' outputs of agent-based models using abundance-occupancy relationships. 
 #' Ecological Indicators 20: 221-227.
 #' @export

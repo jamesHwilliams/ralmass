@@ -20,8 +20,8 @@ a given set of coordinates belong to.}
 An AOR plot
 }
 \description{
-Plot the AOR index (Høye et al. 2012). The index is based on the
-abundance–occupancy relationship and facilitates the interpretation of
+Plot the AOR index (Hoye et al. 2012). The index is based on the
+abundance-occupancy relationship and facilitates the interpretation of
 outputs from individual based models.
 }
 \examples{
@@ -29,7 +29,7 @@ df = data.frame('x' = rnorm(8, 0, .5), 'y' = rnorm(8, 0, .5), 'scenario' = lette
 PlotAOR(df, x = 'x', y = 'y', scenarios = 'scenario')
 }
 \references{
-Høye, T. T., Skov, F. & Topping, C.J. (2012). Interpreting
+Hoye, T. T., Skov, F. & Topping, C.J. (2012). Interpreting
 outputs of agent-based models using abundance-occupancy relationships.
 Ecological Indicators 20: 221-227.
 }
