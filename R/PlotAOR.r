@@ -1,18 +1,21 @@
-#' Plot energy output from the ALMaSS Goose Management model
+#' Plot the AOR index
 #'
-#' Plot the results from the energy probe
+#' Plot the AOR index (Høye et al. 2012). The index is based on the 
+#' abundance–occupancy relationship and facilitates the interpretation of 
+#' outputs from individual based models.
 #' 
-#' The energetics output can be very large, so please use the fread function 
-#'  when loading the data.
-#'  
-#' @param data data.table The raw output from the file GooseEnergeticsData.txt
-#' @param type character Currently only accepts "mean".
-#' @param species character What species to plot? Defaults to "all"
-#' @param package character Base- or ggplot2-type ? Defaults to "ggplot2"
-#' @param scales character The argument to be used in facet_wrap if the ggplot2
-#' package is used. Either free_x or free_y.
-#' @return A nice plot
+#' @param data data.frame Data.frame with x, y and scenario column.
+#' @param x character The name of the column with x coordinates (occupancy).
+#' @param y character The name of the column with y coordinates (abundance).
+#' @param scenarios character The name of the column indicating which scenario
+#' a given set of coordinates belong to.
+#' @return An AOR plot
+#' @references Høye, T. T., et al. (2012). "Interpreting outputs of agent-based models
+#'  using abundance-occupancy relationships." Ecological Indicators 20: 221-227.
 #' @export
+#' @examples
+#' df = data.frame('x' = rnorm(8, 0, .5), 'y' = rnorm(8, 0, .5), 'scenario' = letters[1:8])
+#' PlotAOR(df, x = 'x', y = 'y', scenarios = 'scenario')
 PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL)
 {
 # Append the origo point to the data:
@@ -32,7 +35,5 @@ PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL)
   return(p)
 }
 
-# Example
-# Generate random data:
-df = data.frame('x' = rnorm(8, 0, .5), 'y' = rnorm(8, 0, .5), 'scenario' = letters[1:8])
-PlotAOR(df, x = 'x', y = 'y', scenarios = 'scenario')
+
+library(ralmass)
