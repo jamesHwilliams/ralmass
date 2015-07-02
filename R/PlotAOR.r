@@ -17,23 +17,43 @@
 #' @examples
 #' df = data.frame('x' = rnorm(8, 0, .5), 'y' = rnorm(8, 0, .5), 'scenario' = letters[1:8])
 #' PlotAOR(df, x = 'x', y = 'y', scenarios = 'scenario')
-PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL)
+PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE, title = NULL)
 {
 # Append the origo point to the data:
-  dataorigo = data.frame(x = rep(0, nrow(data)), y = rep(0, nrow(data)),
-   'scenario' = unique(data[,scenarios]))
+  if(is.data.table(data))
+  {
+    dataorigo = data.frame(x = rep(0, nrow(data)), y = rep(0, nrow(data)),
+     'scenario' = unique(data[,scenarios, with = FALSE]))
+    setnames(dataorigo, c(x,y,scenarios))
+  }
+  if(!is.data.table(data))
+  {
+    dataorigo = data.frame(x = rep(0, nrow(data)), y = rep(0, nrow(data)),
+     'scenario' = unique(data[,scenarios]))
+    names(dataorigo) = c(x,y,scenarios)
+  }
   dataorigo = rbind(data, dataorigo)
 # Setup the plot
   p = ggplot2::ggplot(dataorigo, ggplot2::aes_string(x,y)) +
   ggplot2::geom_vline(xintercept = 0) +
   ggplot2::geom_hline(yintercept = 0) +
-  ggplot2::geom_line(ggplot2::aes(color = scenario)) +
+  ggplot2::geom_line(ggplot2::aes_string(color = scenarios)) +
   ggplot2::geom_point(data = data, ggplot2::aes_string(x,y, color = scenarios), size = 3) +
-  ggplot2::ggtitle('AOR') +
   ggplot2::labs(y = expression(paste(Delta, 'Abundance')), 
     x = expression(paste(Delta, 'Occupancy'))) +
-  ggplot2::theme_bw() +
-  ggplot2::ylim(-1,1) +
-  ggplot2::xlim(-1,1)
+  ggplot2::theme_bw()
+  if(!is.null(title))
+  {
+    p = p + ggplot2::ggtitle(title)
+  }
+  if(fixed)
+  {
+   p = p + ggplot2::ylim(-1,1) +
+   ggplot2::xlim(-1,1)
+   return(p)
+ }
+ if(!fixed)
+ {
   return(p)
+}
 }
