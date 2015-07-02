@@ -4,7 +4,8 @@
 \alias{PlotAOR}
 \title{Plot the AOR index}
 \usage{
-PlotAOR(data, x = NULL, y = NULL, scenarios = NULL)
+PlotAOR(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
+  title = NULL)
 }
 \arguments{
 \item{data}{data.frame Data.frame with x, y and scenario column.}
@@ -15,6 +16,10 @@ PlotAOR(data, x = NULL, y = NULL, scenarios = NULL)
 
 \item{scenarios}{character The name of the column indicating which scenario
 a given set of coordinates belong to.}
+
+\item{fixed}{logical If TRUE (the default) plot has xlim and ylim -1,1.}
+
+\item{title}{character The title of the plot (optional).}
 }
 \value{
 An AOR plot

@@ -9,6 +9,8 @@
 #' @param y character The name of the column with y coordinates (abundance).
 #' @param scenarios character The name of the column indicating which scenario
 #' a given set of coordinates belong to.
+#' @param title character The title of the plot (optional).
+#' @param fixed logical If TRUE (the default) plot has xlim and ylim -1,1.
 #' @return An AOR plot
 #' @references Hoye, T. T., Skov, F. & Topping, C.J. (2012). Interpreting
 #' outputs of agent-based models using abundance-occupancy relationships. 
