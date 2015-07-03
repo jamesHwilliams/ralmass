@@ -5,7 +5,7 @@
 \title{Plot the AOR index}
 \usage{
 PlotAOR(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
-  title = NULL)
+  title = NULL, tri = FALSE)
 }
 \arguments{
 \item{data}{data.frame Data.frame with x, y and scenario column.}
@@ -20,6 +20,9 @@ a given set of coordinates belong to.}
 \item{fixed}{logical If TRUE (the default) plot has xlim and ylim -1,1.}
 
 \item{title}{character The title of the plot (optional).}
+
+\item{tri}{logical Should the area of decrease on both axes be highlighted?
+default is FALSE.}
 }
 \value{
 An AOR plot
