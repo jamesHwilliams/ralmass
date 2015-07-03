@@ -5,7 +5,7 @@
 \title{Plot the AOR index}
 \usage{
 PlotAOR(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
-  title = NULL, tri = FALSE)
+  title = NULL, triangle = FALSE, trigger = 0)
 }
 \arguments{
 \item{data}{data.frame Data.frame with x, y and scenario column.}
@@ -21,8 +21,13 @@ a given set of coordinates belong to.}
 
 \item{title}{character The title of the plot (optional).}
 
-\item{tri}{logical Should the area of decrease on both axes be highlighted?
+\item{triangle}{logical Should the area of decrease on both axes be highlighted?
 default is FALSE.}
+
+\item{trigger}{numeric The trigger value for accepted decrease in the
+summed-AOR indexs score. Mostly used when assessing impact of pesticides.
+Any points falling beyond the area highlighted by the shaded triangle are an
+unacceptable level of impact.}
 }
 \value{
 An AOR plot
