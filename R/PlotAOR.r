@@ -63,8 +63,7 @@ PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
   }
   if(fixed)
   {
-   p = p + ggplot2::ylim(-1,1) +
-   ggplot2::xlim(-1,1)
+   p = p + ggplot2::coord_cartesian(ylim = c(-1,1), xlim = c(-1,1))
    return(p)
  }
  if(!fixed)
