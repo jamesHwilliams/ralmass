@@ -1,10 +1,11 @@
 Package: ralmass
-Title: Collection of functions used to prepare and analyze data for and from
-    ALMaSS
+Title: Functions to Prepare and Analyze Data for and from ALMaSS
 Version: 0.1
 Authors@R: "Lars Dalby <lars@bios.au.dk> [aut, cre]"
-Description: Package with functions to handle and analyze data
- for and from ALMaSS
+Description: Functions to handle and analyze data for and from the individual
+    based simulation system ALMaSS. This package includes functions to help
+    turn ArcGIS data into formats usable in ALMaSS and several functions to
+    plot results from ALMaSS simulations.
 Depends:
     R (>= 3.1.1)
 License: What license is it under?
