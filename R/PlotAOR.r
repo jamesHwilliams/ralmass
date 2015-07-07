@@ -28,15 +28,17 @@
 PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
  title = NULL, triangle = FALSE, trigger = 0)
 {
-# Append the origo point to the data:
+  # Append the origo point to the data:
   if(data.table::is.data.table(data))
   {
+    data = data[,c(x, y, scenarios), with = FALSE]
     dataorigo = data.frame(x = rep(0, nrow(data)), y = rep(0, nrow(data)),
      'scenario' = unique(data[,scenarios, with = FALSE]))
     setnames(dataorigo, c(x,y,scenarios))
   }
   if(!data.table::is.data.table(data))
   {
+    data = data[,match(c(x, y, scenarios), names(data))]
     dataorigo = data.frame(x = rep(0, nrow(data)), y = rep(0, nrow(data)),
      'scenario' = unique(data[,scenarios]))
     names(dataorigo) = c(x,y,scenarios)
