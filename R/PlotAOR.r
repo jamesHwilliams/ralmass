@@ -26,7 +26,7 @@
 #' df = data.frame('x' = rnorm(8, 0, .5), 'y' = rnorm(8, 0, .5), 'scenario' = letters[1:8])
 #' PlotAOR(df, x = 'x', y = 'y', scenarios = 'scenario')
 PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
- title = NULL, triangle = FALSE, trigger = 0)
+ title = NULL, legendtitle = NULL, triangle = FALSE, trigger = 0)
 {
   # Append the origo point to the data:
   if(data.table::is.data.table(data))
@@ -44,8 +44,13 @@ PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
     names(dataorigo) = c(x,y,scenarios)
   }
   dataorigo = rbind(data, dataorigo)
+  ltitle = ''
+  if(!is.null(legendtitle))
+  {
+    ltitle = legendtitle
+  }
 # Setup the plot
-  p = ggplot2::ggplot(dataorigo, ggplot2::aes_string(x,y))
+  p = ggplot2::ggplot(dataorigo, ggplot2::aes_string(x,y)) + ggplot2::scale_colour_brewer(palette="Set1", name = ltitle)
   if(triangle)
   {
     trigger = abs(trigger)

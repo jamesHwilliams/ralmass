@@ -5,7 +5,7 @@
 \title{Plot the AOR index}
 \usage{
 PlotAOR(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
-  title = NULL, triangle = FALSE, trigger = 0)
+  title = NULL, legendtitle = NULL, triangle = FALSE, trigger = 0)
 }
 \arguments{
 \item{data}{data.frame Data.frame with x, y and scenario column.}
