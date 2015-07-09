@@ -62,7 +62,7 @@ PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
   ggplot2::geom_hline(yintercept = 0)
   if(shape)
   {
-    p = p + ggplot2::geom_line(ggplot2::aes_string(color = scenarios)) + 
+    p = p + ggplot2::geom_line(ggplot2::aes_string(group = scenarios)) + 
     ggplot2::geom_point(data = data, ggplot2::aes_string(x, y,
      shape = scenarios), size = 3) + scale_shape(name = ltitle)    
   }
