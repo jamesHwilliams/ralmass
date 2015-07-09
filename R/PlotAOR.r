@@ -26,7 +26,8 @@
 #' df = data.frame('x' = rnorm(8, 0, .5), 'y' = rnorm(8, 0, .5), 'scenario' = letters[1:8])
 #' PlotAOR(df, x = 'x', y = 'y', scenarios = 'scenario')
 PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
- title = NULL, legendtitle = NULL, triangle = FALSE, trigger = 0, brewerpal = NULL)
+ title = NULL, legendtitle = NULL, triangle = FALSE, trigger = 0,
+ brewerpal = NULL, shape = FALSE)
 {
   # Append the origo point to the data:
   if(data.table::is.data.table(data))
@@ -51,10 +52,6 @@ PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
   }
 # Setup the plot
   p = ggplot2::ggplot(dataorigo, ggplot2::aes_string(x,y))
-if(!is.null(brewerpal))
-{
-  p = p + ggplot2::scale_colour_brewer(palette=brewerpal, name = ltitle)
-}
   if(triangle)
   {
     trigger = abs(trigger)
@@ -62,12 +59,25 @@ if(!is.null(brewerpal))
     p = p + ggplot2::geom_polygon(data = triangle, ggplot2::aes(x=x, y=y), alpha = 0.05)
   }
   p = p + ggplot2::geom_vline(xintercept = 0) +
-  ggplot2::geom_hline(yintercept = 0) +
-  ggplot2::geom_line(ggplot2::aes_string(color = scenarios)) +
-  ggplot2::geom_point(data = data, ggplot2::aes_string(x,y, color = scenarios), size = 3) +
-  ggplot2::labs(y = expression(paste(Delta, ' Abundance')), 
-    x = expression(paste(Delta, ' Occupancy'))) +
-  ggplot2::theme_bw()
+  ggplot2::geom_hline(yintercept = 0)
+  if(shape)
+  {
+    p = p + ggplot2::geom_line(ggplot2::aes_string(color = scenarios)) + 
+    ggplot2::geom_point(data = data, ggplot2::aes_string(x, y,
+     shape = scenarios), size = 3) + scale_shape(name = ltitle)    
+  }
+  if(!shape)
+  {
+    p = p + ggplot2::geom_line(ggplot2::aes_string(color = scenarios)) + 
+    ggplot2::geom_point(data = data, ggplot2::aes_string(x,y,
+     color = scenarios), size = 3)
+  }
+  if(!is.null(brewerpal))
+  {
+    p = p + ggplot2::scale_colour_brewer(palette=brewerpal, name = ltitle)
+  }
+  p = p + ggplot2::labs(y = expression(paste(Delta, ' Abundance')), 
+    x = expression(paste(Delta, ' Occupancy'))) + ggplot2::theme_bw()
   if(!is.null(title))
   {
     p = p + ggplot2::ggtitle(title)
