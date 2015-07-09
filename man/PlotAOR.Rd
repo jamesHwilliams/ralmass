@@ -6,7 +6,7 @@
 \usage{
 PlotAOR(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
   title = NULL, legendtitle = NULL, triangle = FALSE, trigger = 0,
-  brewerpal = NULL)
+  brewerpal = NULL, shape = FALSE)
 }
 \arguments{
 \item{data}{data.frame Data.frame with x, y and scenario column.}
@@ -29,6 +29,12 @@ default is FALSE.}
 summed-AOR indexs score. Mostly used when assessing impact of pesticides.
 Any points falling beyond the area highlighted by the shaded triangle are an
 unacceptable level of impact.}
+
+\item{brewerpal}{character Name of a RColorBrewer palette. If left blank
+ggplot2 default colors are used.}
+
+\item{shape}{logical Should scenarios be distinguished by shape (instead of
+colors)? Default is FALSE.}
 }
 \value{
 An AOR plot

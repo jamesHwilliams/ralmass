@@ -17,6 +17,10 @@
 #' summed-AOR indexs score. Mostly used when assessing impact of pesticides.
 #' Any points falling beyond the area highlighted by the shaded triangle are an
 #' unacceptable level of impact.
+#' @param brewerpal character Name of a RColorBrewer palette. If left blank 
+#' ggplot2 default colors are used.
+#' @param shape logical Should scenarios be distinguished by shape (instead of 
+#' colors)? Default is FALSE.
 #' @return An AOR plot
 #' @references Hoye, T. T., Skov, F. & Topping, C.J. (2012). Interpreting
 #' outputs of agent-based models using abundance-occupancy relationships. 
