@@ -48,3 +48,24 @@ GenerateParams = function(start, end, N, Config,
 	}
 	return(df)
 }
+
+
+
+
+# OKay this seem to work.
+# 2 params
+a = rep(1:3, each = 3)
+b = rep(c('a', 'b', 'c'),3)
+cbind(a,b)
+# 3 params
+C = rep(c('x', 'y'), each = length(b))
+A = rep(a, length(unique(c)))  # skal repeates til længden af unikke værdier i c
+B = rep(b, length(unique(c)))
+cbind(A, B, C)
+
+# 4 params
+d = rep(100:101, each = length(A))
+Aa = rep(A, length(unique(d))) # skal repeates til længden af unikke værdier i d
+b = rep(B,length(unique(d)))
+c = rep(C, length(unique(d)))
+cbind(Aa,b,c,d)
