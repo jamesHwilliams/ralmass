@@ -3,6 +3,8 @@
 #' Generate a range of paramter values from specified start 
 #' and end values. A simple wrapper around seq
 #' 
+#' Currently just a slight modification of expand.grid
+#' 
 #' 
 #' @param start numeric Starting value.
 #' @param end numeric End value.
@@ -16,56 +18,58 @@
 #' and its value
 #' @export
 
-GenerateParams = function(start, end, N, Config,
- start2 = NULL, end2 = NULL, N2 = NULL, Config2 = NULL,
- write = FALSE)
+GenerateParams = function (..., KEEP.OUT.ATTRS = TRUE, stringsAsFactors = TRUE) 
 {
-	if(is.null(start2) | is.null(end2) | is.null(N2) | is.null(Config2))
-	{
-		val = seq(start, end, length.out = N)
-		config = rep(Config, N)
-		df = data.frame('Config' = paste(config, sep = ' = ', 'Value' = val))
-	}
-	if(!is.null(start2) | !is.null(end2) | !is.null(N2) | !is.null(Config2))
-	{
-		val = seq(start, end, length.out = N)
-		val2 = seq(start2, end2, length.out = N2)
-		a = rep(val, each = length(val2))
-		b = rep(val2, length(val))
-		end = rep(NA, length(a))
-		uneven = seq(1, length(a)*2, by = 2)
-		even = seq(2, length(a)*2, by = 2)
-		end[uneven] = a
-		end[even] = b
-		confignames = rep(c(Config, Config2), length(a))
-		df = data.frame('Params' = paste(confignames, end, sep = ' = '))
-	}
-	if(write)
-	{
-		write.table(df, file = 'ParameterValues.txt', sep = '\t', quote = FALSE,
-			row.names = FALSE, col.names = FALSE)
-		cat('Printed following to ParameterValues.txt:\n')
-	}
-	return(df)
+    nargs <- length(args <- list(...))
+    if (!nargs) 
+        return(as.data.frame(list()))
+    if (nargs == 1L && is.list(a1 <- args[[1L]])) 
+        nargs <- length(args <- a1)
+    if (nargs == 0L) 
+        return(as.data.frame(list()))
+    cargs <- vector("list", nargs)
+    iArgs <- seq_len(nargs)
+    nmc <- paste0("Var", iArgs)
+    nm <- names(args)
+    if (is.null(nm)) 
+        nm <- nmc
+    else if (any(ng0 <- nzchar(nm))) 
+        nmc[ng0] <- nm[ng0]
+    names(cargs) <- nmc
+    rep.fac <- 1L
+    d <- lengths(args)
+    if (KEEP.OUT.ATTRS) {
+        dn <- vector("list", nargs)
+        names(dn) <- nmc
+    }
+    orep <- prod(d)
+    if (orep == 0L) {
+        for (i in iArgs) cargs[[i]] <- args[[i]][FALSE]
+    }
+    else {
+        for (i in iArgs) {
+            x <- args[[i]]
+            if (KEEP.OUT.ATTRS) 
+                dn[[i]] <- paste0(nmc[i], "=", if (is.numeric(x)) 
+                  format(x)
+                else x)
+            nx <- length(x)
+            orep <- orep/nx
+            x <- x[rep.int(rep.int(seq_len(nx), rep.int(rep.fac, 
+                nx)), orep)]
+            if (stringsAsFactors && !is.factor(x) && is.character(x)) 
+                x <- factor(x, levels = unique(x))
+            cargs[[i]] <- x
+            rep.fac <- rep.fac * nx
+        }
+    }
+    if (KEEP.OUT.ATTRS) 
+        attr(cargs, "out.attrs") <- list(dim = d, dimnames = dn)
+    rn <- .set_row_names(as.integer(prod(d)))
+    exgrid = structure(cargs, class = "data.frame", row.names = rn)
+    values = as.vector(t(exgrid))
+    confignames = rep(names(exgrid), nrow(exgrid))
+    data.frame('Params' = paste(confignames, values, sep = ' = '))
 }
 
 
-
-
-# OKay this seem to work.
-# 2 params
-a = rep(1:3, each = 3)
-b = rep(c('a', 'b', 'c'),3)
-cbind(a,b)
-# 3 params
-C = rep(c('x', 'y'), each = length(b))
-A = rep(a, length(unique(c)))  # skal repeates til længden af unikke værdier i c
-B = rep(b, length(unique(c)))
-cbind(A, B, C)
-
-# 4 params
-d = rep(100:101, each = length(A))
-Aa = rep(A, length(unique(d))) # skal repeates til længden af unikke værdier i d
-b = rep(B,length(unique(d)))
-c = rep(C, length(unique(d)))
-cbind(Aa,b,c,d)
