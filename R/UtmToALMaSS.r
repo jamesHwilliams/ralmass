@@ -15,7 +15,6 @@
 #' ALMaSS map? Ignored when toalmass = FALSE
 #' @param toalmass logical Do you want to convert to ALMaSS coordinates. Use FALSE if 
 #' if you want to convert ALMaSS map coordinates back to UTM 
-#' specified map?
 #' @return data.frame A data.frame with the ALMaSS coordinates
 #' @export
 
