@@ -2,34 +2,31 @@
 % Please edit documentation in R/GenerateParams.r
 \name{GenerateParams}
 \alias{GenerateParams}
-\title{Generate a range of paramter values}
+\title{Generate a range combinations of paramter values}
 \usage{
-GenerateParams(start, end, N, Config, start2 = NULL, end2 = NULL,
-  N2 = NULL, Config2 = NULL, write = FALSE)
+GenerateParams(..., write = FALSE)
 }
 \arguments{
-\item{start}{numeric Starting value.}
+\item{...}{numeric One or more vectors (usually made with seq and the
+length.out argument)}
 
-\item{end}{numeric End value.}
-
-\item{N}{Number of required values.}
-
-\item{Config}{The character string with the config variable (including (int))}
-
-\item{start2}{numeric Starting value for the (optional) second variable}
-
-\item{end2}{numeric End value for the (optional) second variable}
-
-\item{N2}{Number of required values for the (optional) second variable}
-
-\item{Config2}{The character string with the second config variable (including (int))}
+\item{write}{logical Should a file with the table be written to disk?}
 }
 \value{
-data.frame One column each value a text string with the config and
-and its value
+data.frame One column data.frame where each line is a text string
+with the config and and its value
 }
 \description{
-Generate a range of paramter values from specified start
-and end values. A simple wrapper around seq
+Generate all possible combinations of values in the input vectors and
+(optionally) write them to a file. Typically used when making scenarios for
+fitting parameters.
+}
+\details{
+This function is a modification of expand.grid from base.
+}
+\examples{
+val = seq(1, 5, length.out = 5)
+val2 = seq(10, 50, length.out = 5)
+GenerateParams('FOO (int)' = val, 'BAR (int)' = val2, write = FALSE)
 }
 

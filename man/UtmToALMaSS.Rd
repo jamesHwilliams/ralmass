@@ -19,8 +19,7 @@ UtmToALMaSS(data, long, lat, map, subset = TRUE, toalmass = TRUE)
 ALMaSS map? Ignored when toalmass = FALSE}
 
 \item{toalmass}{logical Do you want to convert to ALMaSS coordinates. Use FALSE if
-if you want to convert ALMaSS map coordinates back to UTM
-specified map?}
+if you want to convert ALMaSS map coordinates back to UTM}
 }
 \value{
 data.frame A data.frame with the ALMaSS coordinates
