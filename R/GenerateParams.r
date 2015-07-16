@@ -1,75 +1,72 @@
-#' Generate a range of paramter values
+#' Generate a range combinations of paramter values
 #'
-#' Generate a range of paramter values from specified start 
-#' and end values. A simple wrapper around seq
+#' Generate all possible combinations of values in the input vectors and 
+#' (optionally) write them to a file. Typically used when making scenarios for 
+#' fitting parameters.
 #' 
-#' Currently just a slight modification of expand.grid
+#' This function is a modification of expand.grid from base.
 #' 
-#' 
-#' @param start numeric Starting value.
-#' @param end numeric End value.
-#' @param N Number of required values.
-#' @param Config The character string with the config variable (including (int))
-#' @param start2 numeric Starting value for the (optional) second variable
-#' @param end2 numeric End value for the (optional) second variable
-#' @param N2 Number of required values for the (optional) second variable
-#' @param Config2 The character string with the second config variable (including (int))
-#' @return data.frame One column each value a text string with the config and 
-#' and its value
+#' @param ... numeric One or more vectors (usually made with seq and the
+#' length.out argument)
+#' @param write logical Should a file with the table be written to disk?
+#' @return data.frame One column data.frame where each line is a text string
+#' with the config and and its value
 #' @export
-
-GenerateParams = function (..., KEEP.OUT.ATTRS = TRUE, stringsAsFactors = TRUE) 
+#' @examples
+#' val = seq(1, 5, length.out = 5)
+#' val2 = seq(10, 50, length.out = 5)
+#' GenerateParams('FOO (int)' = val, 'BAR (int)' = val2, write = FALSE)
+GenerateParams = function (..., write = FALSE) 
 {
-    nargs <- length(args <- list(...))
-    if (!nargs) 
-        return(as.data.frame(list()))
-    if (nargs == 1L && is.list(a1 <- args[[1L]])) 
-        nargs <- length(args <- a1)
-    if (nargs == 0L) 
-        return(as.data.frame(list()))
-    cargs <- vector("list", nargs)
-    iArgs <- seq_len(nargs)
-    nmc <- paste0("Var", iArgs)
-    nm <- names(args)
-    if (is.null(nm)) 
-        nm <- nmc
-    else if (any(ng0 <- nzchar(nm))) 
-        nmc[ng0] <- nm[ng0]
-    names(cargs) <- nmc
-    rep.fac <- 1L
-    d <- lengths(args)
-    if (KEEP.OUT.ATTRS) {
-        dn <- vector("list", nargs)
-        names(dn) <- nmc
-    }
-    orep <- prod(d)
-    if (orep == 0L) {
-        for (i in iArgs) cargs[[i]] <- args[[i]][FALSE]
-    }
-    else {
-        for (i in iArgs) {
-            x <- args[[i]]
-            if (KEEP.OUT.ATTRS) 
-                dn[[i]] <- paste0(nmc[i], "=", if (is.numeric(x)) 
-                  format(x)
-                else x)
-            nx <- length(x)
-            orep <- orep/nx
-            x <- x[rep.int(rep.int(seq_len(nx), rep.int(rep.fac, 
-                nx)), orep)]
-            if (stringsAsFactors && !is.factor(x) && is.character(x)) 
-                x <- factor(x, levels = unique(x))
-            cargs[[i]] <- x
-            rep.fac <- rep.fac * nx
-        }
-    }
-    if (KEEP.OUT.ATTRS) 
-        attr(cargs, "out.attrs") <- list(dim = d, dimnames = dn)
-    rn <- .set_row_names(as.integer(prod(d)))
-    exgrid = structure(cargs, class = "data.frame", row.names = rn)
-    values = as.vector(t(exgrid))
-    confignames = rep(names(exgrid), nrow(exgrid))
-    data.frame('Params' = paste(confignames, values, sep = ' = '))
+	# Code from the base expand.grid with the KEEP.ATTR.OUT and StringAsFactor
+	# bits removed.
+	nargs <- length(args <- list(...))
+	if (!nargs) 
+		return(as.data.frame(list()))
+	if (nargs == 1L && is.list(a1 <- args[[1L]])) 
+		nargs <- length(args <- a1)
+	if (nargs == 0L) 
+		return(as.data.frame(list()))
+	cargs <- vector("list", nargs)
+	iArgs <- seq_len(nargs)
+	nmc <- paste0("Var", iArgs)
+	nm <- names(args)
+	if (is.null(nm)) 
+		nm <- nmc
+	else if (any(ng0 <- nzchar(nm))) 
+		nmc[ng0] <- nm[ng0]
+	names(cargs) <- nmc
+	rep.fac <- 1L
+	d <- lengths(args)
+
+	orep <- prod(d)
+	if (orep == 0L) {
+		for (i in iArgs) cargs[[i]] <- args[[i]][FALSE]
+	}
+	else {
+		for (i in iArgs) {
+			x <- args[[i]]
+			nx <- length(x)
+			orep <- orep/nx
+			x <- x[rep.int(rep.int(seq_len(nx), rep.int(rep.fac, nx)), orep)]
+			cargs[[i]] <- x
+			rep.fac <- rep.fac * nx
+		}
+	}
+
+	rn <- .set_row_names(as.integer(prod(d)))
+    # The ralmass modification
+	exgrid = structure(cargs, class = "data.frame", row.names = rn)
+	values = as.vector(t(exgrid))
+	confignames = rep(names(exgrid), nrow(exgrid))
+	df = data.frame('Params' = paste(confignames, values, sep = ' = '))
+	if(write) 
+	{
+		write.table(df, file = 'ParameterValues.txt', sep = '\t', quote = FALSE,
+			row.names = FALSE, col.names = FALSE)
+		cat('Printed following to ParameterValues.txt:\n')
+	}
+	return(df)
 }
 
 
