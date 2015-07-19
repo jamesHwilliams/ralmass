@@ -7,6 +7,8 @@ ALMaSS it self is hosted on ccpforge. See more on the [ALMaSS project page](http
 
 *ralmass* is under development. Use with caution.
 
+[![Travis-CI Build Status](https://travis-ci.org/LDalby/ralmass.svg?branch=master)](https://travis-ci.org/LDalby/ralmass)
+
 ## Installation
 ```s
 library(devtools)
