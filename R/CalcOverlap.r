@@ -23,9 +23,10 @@ CalcOverlab = function(data, species = NULL)
 		sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
 	}
 
-	species = capwords(species)
+	# species = capwords(species)
 	if(species != 'Hunter'){
-		data = data[Species == species,][, Numbers:=log10(Numbers)]
+		var = c(species, paste(species, 'Timed', sep = ''))
+		data = data[Species %in% var,][, Numbers:=log10(Numbers)]
 	}
 
   # The actual calculation is based on this CV question: 
