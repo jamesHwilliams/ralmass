@@ -4,13 +4,16 @@
 \alias{GenerateParams}
 \title{Generate a range combinations of paramter values}
 \usage{
-GenerateParams(..., write = FALSE)
+GenerateParams(..., write = FALSE, splits = NULL)
 }
 \arguments{
 \item{...}{numeric One or more vectors (usually made with seq and the
 length.out argument)}
 
 \item{write}{logical Should a file with the table be written to disk?}
+
+\item{splits}{numeric The number of files to split the scenarios into.
+(Optional). If not NULL the files gets written to disk.}
 }
 \value{
 data.frame One column data.frame where each line is a text string

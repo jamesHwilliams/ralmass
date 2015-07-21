@@ -9,6 +9,8 @@
 #' @param ... numeric One or more vectors (usually made with seq and the
 #' length.out argument)
 #' @param write logical Should a file with the table be written to disk?
+#' @param splits numeric The number of files to split the scenarios into. 
+#' (Optional). If not NULL the files gets written to disk.
 #' @return data.frame One column data.frame where each line is a text string
 #' with the config and and its value
 #' @export
@@ -16,7 +18,7 @@
 #' val = seq(1, 5, length.out = 5)
 #' val2 = seq(10, 50, length.out = 5)
 #' GenerateParams('FOO (int)' = val, 'BAR (int)' = val2, write = FALSE)
-GenerateParams = function (..., write = FALSE) 
+GenerateParams = function (..., write = FALSE, splits = NULL) 
 {
 	# Code from the base expand.grid with the KEEP.ATTR.OUT and StringAsFactor
 	# bits removed.
@@ -60,6 +62,21 @@ GenerateParams = function (..., write = FALSE)
 	values = as.vector(t(exgrid))
 	confignames = rep(names(exgrid), nrow(exgrid))
 	df = data.frame('Params' = paste(confignames, values, sep = ' = '))
+	if(splits) 
+	{
+		starts = seq(1, nrow(df), by = nrow(df)/splits)
+		ends = seq(nrow(df)/splits, nrow(df), by = nrow(df)/splits)
+		for (i in 1:splits) 
+		{
+			temp = df[starts[i]:ends[i],]
+			fname = paste0('ParameterValues', i, '.txt')
+			write.table(temp, file = fname, sep = '\t', quote = FALSE,
+			row.names = FALSE, col.names = FALSE)
+		}
+		cat('Wrote', splits, 'versions of ParameterValues.txt to',
+			getwd(), '\n')
+		cat('The full list of scenarios is printed here:\n')
+	}
 	if(write) 
 	{
 		write.table(df, file = 'ParameterValues.txt', sep = '\t', quote = FALSE,
