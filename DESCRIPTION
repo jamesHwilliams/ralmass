@@ -1,7 +1,7 @@
 Package: ralmass
 Title: Functions to Prepare and Analyze Data for and from ALMaSS
 Version: 0.0.0.9000
-Authors@R: "Lars Dalby <lars@bios.au.dk> [aut, cre]"
+Authors@R: person('Lars', 'Dalby', , 'lars.dalby@gmail.com', c('aut', 'cre'))
 Description: Functions to handle and analyze data for and from the individual
     based simulation system ALMaSS. This package includes functions to help
     turn ArcGIS data into formats usable in ALMaSS and several functions to
