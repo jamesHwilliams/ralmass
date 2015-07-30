@@ -7,7 +7,7 @@
 #' @export
 
 PlotGoosePopulation = function(data){
-data[,SimDate:=as.Date(DayInYear, origin = as.Date(paste(Year,"-01-01", sep = '')))]
+data[,SimDate:=as.Date(DayInYear, origin = as.Date(paste(Year+1989,"-01-01", sep = '')))]
 data[,c('Day', 'Month', 'Year', 'Time', 'DayInYear'):=NULL]
 
 melted = reshape2::melt(data, id.vars = c('SimDate'),
