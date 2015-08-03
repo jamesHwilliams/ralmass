@@ -83,19 +83,19 @@ if(species == 'all' & package == 'ggplot2')
   if(!is.null(scales)) {
     if(scales == 'free_x') {
       p = ggplot(data[c('BGF', 'PFF', 'GLF')], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) +
-      facet_wrap( ~ GooseType, scales = 'free_x') + theme_bw()
+      facet_wrap( ~ GooseType, scales = 'free_x') + theme_bw() + theme(axis.text=element_text(size=10))
       return(p)
     }
     if(scales == 'free_y') {
       p = ggplot(data[c('BGF', 'PFF', 'GLF')], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) +
-      facet_wrap( ~ GooseType, scales = 'free_y') + theme_bw()
+      facet_wrap( ~ GooseType, scales = 'free_y') + theme_bw() + theme(axis.text=element_text(size=10))
       return(p)
     }
   }
   if(is.null(scales)) 
   {
     p = ggplot(data[c('BGF', 'PFF', 'GLF')], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + 
-    facet_wrap( ~ GooseType) + theme_bw()
+    facet_wrap( ~ GooseType) + theme_bw() + theme(axis.text=element_text(size=10))
     return(p)
   }
 }
