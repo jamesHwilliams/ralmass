@@ -9,19 +9,12 @@
 #' @export
 
 PlotGooseForage = function(data, species = 'Pinkfoot', type = NULL, plottype = 'points', dates = TRUE){
-	if(is.null(type) | !is.character(type)) 
+	types = c('Grass', 'grass', 'Grain', 'grain', 'combined', 'Combined')
+	if(is.null(type) | !is.character(type) | !type %in% types) 
 	{
-		cat('type appears to be missing.\n')
-		cat('Please specify type as either:\n')
-		cat('Grass, Grain or Combined (character).\n')
+		stop('Please specify type as either: Grass, Grain or Combined.\n')
 	}
-	if(!type %in% c('Grass', 'grass', 'Grain', 'grain', 'combined', 'Combined')) 
-	{
-		cat('Looks like you asked for a type you cant get.\n')
-		cat('Please specify type as either:\n')
-		cat('Grass, Grain or Combined (character).\n')
-	}
-
+	
 	ggplot2::theme_update(
 		panel.background = ggplot2::element_blank(),
 		axis.text.x = ggplot2::element_text(colour = "black", face = "plain", size = 10),
