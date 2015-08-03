@@ -4,7 +4,7 @@
 \alias{PlotGoosePopulation}
 \title{Plot goose population data}
 \usage{
-PlotGoosePopulation(data)
+PlotGoosePopulation(data, type = "point")
 }
 \arguments{
 \item{data}{data.frame or data.table The ALMaSS data file GoosePopulationData.txt}
