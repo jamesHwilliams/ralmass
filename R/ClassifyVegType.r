@@ -46,6 +46,7 @@ ClassifyVegType = function(VegTypeCombo)
 		'WinterWheat-2' = 'WinterCereal',
 		'WinterWheat-0' = 'WinterCereal',
 		'SpringBarley-2' = 'WinterCereal',
+		'SpringBarley-1' = 'WinterCereal',
 		'WinterBarley-1' = 'WinterCereal',
 		'WinterBarley-2' = 'WinterCereal',
 		'WinterBarley-0' = 'WinterCereal',
@@ -55,6 +56,7 @@ ClassifyVegType = function(VegTypeCombo)
 		'WinterRye-0' = 'WinterCereal',
 		'OWinterWheatUndersown-1' = 'WinterCereal',
 		'OOats-2' = 'WinterCereal',
+		'Triticale-1' = 'WinterCereal',
 	# Stubble
 		'WinterBarley-3' = 'Stubble',
 		'OSpringBarley-3' = 'Stubble',

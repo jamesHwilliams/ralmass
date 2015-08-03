@@ -28,6 +28,10 @@ ClassifyHabitatUse = function(data, species = 'Goose')
 		data[Pinkfoot > 0 & VegPhase == 2 & VegHeight < 30, HabitatUsePF:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
 		data[Barnacle > 0 & VegPhase == 2 & VegHeight < 30, HabitatUseBN:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
 		data[Greylag > 0 & VegPhase == 2 & VegHeight < 30, HabitatUseGL:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
+
+		data[Pinkfoot > 0 & VegPhase == 0 & Grain != 0, HabitatUsePF:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
+		data[Barnacle > 0 & VegPhase == 0 & Grain != 0, HabitatUseBN:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
+		data[Greylag > 0 & VegPhase == 0 & Grain != 0, HabitatUseGL:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
 	# The three species has giving-up densities:
 		data[Grain > 98 & !HabitatUseBN %in% c('Maize', 'StubbleUndersown'), HabitatUseBN:='Stubble']
 		data[Grain > 241 & !HabitatUseGL %in% c('Maize', 'StubbleUndersown'), HabitatUseGL:='Stubble']
