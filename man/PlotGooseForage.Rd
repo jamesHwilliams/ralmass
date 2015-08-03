@@ -5,7 +5,7 @@
 \title{Plot forage available to geese}
 \usage{
 PlotGooseForage(data, species = "Pinkfoot", type = NULL,
-  plottype = "points")
+  plottype = "points", dates = TRUE)
 }
 \arguments{
 \item{data}{data.frame or data.table The ALMaSS data file GooseFieldForageData.txt}
