@@ -34,12 +34,17 @@ ClassifyVegType = function(VegTypeCombo)
 		'SpringBarleySilage-2' = 'Grass',
 		'SeedGrass1-3' = 'Grass',
 		'OCloverGrassGrazed1-3' = 'Grass',
+		'PermGrassTussocky-0' = 'Grass',
+		'PermanentGrassGrazed-0' = 'Grass',
+		'NaturalGrass-0' = 'Grass',
+		'PermanentSetaside-0' = 'Grass',
 	# Rape
 		'WinterRape-3' = 'Rape',
 		'WinterRape-1' = 'Rape',
 	# Winter cereal
 		'WinterWheat-1' = 'WinterCereal',
 		'WinterWheat-2' = 'WinterCereal',
+		'WinterWheat-0' = 'WinterCereal',
 		'SpringBarley-2' = 'WinterCereal',
 		'WinterBarley-1' = 'WinterCereal',
 		'WinterBarley-2' = 'WinterCereal',

@@ -24,7 +24,7 @@ ClassifyHabitatUse = function(data, species = 'Goose')
 		data[Pinkfoot > 0, HabitatUsePF:=sapply(VegTypeCombo, FUN = ClassifyVegType)]
 		data[Barnacle > 0, HabitatUseBN:=sapply(VegTypeCombo, FUN = ClassifyVegType)]
 		data[Greylag > 0, HabitatUseGL:=sapply(VegTypeCombo, FUN = ClassifyVegType)]
-
+	# Classify based on the previous crop under certain circumstances:
 		data[Pinkfoot > 0 & VegPhase == 2 & VegHeight < 30, HabitatUsePF:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
 		data[Barnacle > 0 & VegPhase == 2 & VegHeight < 30, HabitatUseBN:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
 		data[Greylag > 0 & VegPhase == 2 & VegHeight < 30, HabitatUseGL:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
