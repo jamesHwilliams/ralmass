@@ -28,7 +28,7 @@ ClassifyHabitatUse = function(data, species = 'Goose')
 		data[Pinkfoot > 0 & VegPhase == 2 & VegHeight < 30, HabitatUsePF:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
 		data[Barnacle > 0 & VegPhase == 2 & VegHeight < 30, HabitatUseBN:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
 		data[Greylag > 0 & VegPhase == 2 & VegHeight < 30, HabitatUseGL:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
-
+# VegPhase 0 and still grain, then the field has not been plowed. Hence we use the previous crop for classification.
 		data[Pinkfoot > 0 & VegPhase == 0 & Grain != 0, HabitatUsePF:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
 		data[Barnacle > 0 & VegPhase == 0 & Grain != 0, HabitatUseBN:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
 		data[Greylag > 0 & VegPhase == 0 & Grain != 0, HabitatUseGL:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
