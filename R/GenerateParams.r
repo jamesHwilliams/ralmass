@@ -62,7 +62,7 @@ GenerateParams = function (..., write = FALSE, splits = NULL)
 	values = as.vector(t(exgrid))
 	confignames = rep(names(exgrid), nrow(exgrid))
 	df = data.frame('Params' = paste(confignames, values, sep = ' = '))
-	if(splits) 
+	if(!is.null(splits)) 
 	{
 		starts = seq(1, nrow(df), by = nrow(df)/splits)
 		ends = seq(nrow(df)/splits, nrow(df), by = nrow(df)/splits)
