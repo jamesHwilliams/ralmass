@@ -17,7 +17,7 @@ length.out argument)}
 }
 \value{
 data.frame One column data.frame where each line is a text string
-with the config and and its value
+with the config variable and its value
 }
 \description{
 Generate all possible combinations of values in the input vectors and

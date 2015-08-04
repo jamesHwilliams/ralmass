@@ -12,7 +12,7 @@
 #' @param splits numeric The number of files to split the scenarios into. 
 #' (Optional). If not NULL the files gets written to disk.
 #' @return data.frame One column data.frame where each line is a text string
-#' with the config and and its value
+#' with the config variable and its value
 #' @export
 #' @examples
 #' val = seq(1, 5, length.out = 5)
