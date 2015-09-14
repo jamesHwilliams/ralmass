@@ -60,7 +60,7 @@ PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
   {
     trigger = abs(trigger)
     triangle = data.frame(x = c(-1,-1,1-trigger), y = c(1-trigger,-1,-1))
-    p = p + ggplot2::geom_polygon(data = triangle, ggplot2::aes(x=x, y=y), alpha = 0.05)
+    p = p + ggplot2::geom_polygon(data = triangle, ggplot2::aes(x=x, y=y), alpha = 0.10)
   }
   p = p + ggplot2::geom_vline(xintercept = 0) +
   ggplot2::geom_hline(yintercept = 0)
