@@ -62,13 +62,13 @@ PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
     triangle = data.frame(x = c(-1,-1,1-trigger), y = c(1-trigger,-1,-1))
     p = p + ggplot2::geom_polygon(data = triangle, ggplot2::aes(x=x, y=y), alpha = 0.10)
   }
-  p = p + ggplot2::geom_vline(xintercept = 0) +
-  ggplot2::geom_hline(yintercept = 0)
+  p = p + ggplot2::geom_vline(xintercept = 0, size = 0.4) +
+  ggplot2::geom_hline(yintercept = 0, size = 0.4)
   if(shape)
   {
-    p = p + ggplot2::geom_line(ggplot2::aes_string(group = scenarios)) + 
+    p = p + ggplot2::geom_line(ggplot2::aes_string(group = scenarios), size = 0.3) + 
     ggplot2::geom_point(data = data, ggplot2::aes_string(x, y,
-     shape = scenarios), size = 3) + scale_shape(name = ltitle)    
+     shape = scenarios), size = 2) + scale_shape(name = ltitle)    
   }
   if(!shape)
   {
@@ -81,7 +81,7 @@ PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
     p = p + ggplot2::scale_colour_brewer(palette=brewerpal, name = ltitle)
   }
   p = p + ggplot2::labs(y = expression(paste(Delta, ' Abundance')), 
-    x = expression(paste(Delta, ' Occupancy'))) + ggplot2::theme_bw()
+    x = expression(paste(Delta, ' Occupancy'))) + ggplot2::theme_bw(base_size = 10)
   if(!is.null(title))
   {
     p = p + ggplot2::ggtitle(title)
