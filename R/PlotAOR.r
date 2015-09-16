@@ -74,7 +74,7 @@ PlotAOR = function(data, x = NULL, y = NULL, scenarios = NULL, fixed = TRUE,
   {
     p = p + ggplot2::geom_line(ggplot2::aes_string(color = scenarios)) + 
     ggplot2::geom_point(data = data, ggplot2::aes_string(x,y,
-     color = scenarios), size = 3)
+     color = scenarios), size = 2)
   }
   if(!is.null(brewerpal))
   {
