@@ -9,12 +9,12 @@
 #' @export
 
 AppendWorkDir = function(WorkDir = NULL, InScript = NULL, OutScript = NULL) {
-	if(!all(sapply(c(WorkDir, InScript, OutScript), FUN = is.null))) 
+	if(is.null(WorkDir) | is.null(InScript) | is.null(OutScript)) 
 	{
 		stop('Input parameter missing')
 	}
 	Script = readLines(InScript)
-	OutputScript = paste0(WorkDir, OutScript)	
+	OutputScript = paste0(WorkDir, '/', OutScript)	
 	TheWd = paste0('setwd(','\'', WorkDir, '\'', ')')
 	Script = append(Script, TheWd, grep('# Setup work directory', Script))
 	filecon = file(OutputScript, open = 'wt')
