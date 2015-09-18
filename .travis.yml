@@ -4,14 +4,20 @@ language: r
 warnings_are_errors: true
 sudo: required
 
-before_install:
-  - sudo apt-get install libgdal-dev # install the package (you may have to respond to queries here)
-  - sudo apt-get install libproj-dev # install the proj.4 projection library
-
 env:
  global:
    - CRAN: http://cran.rstudio.com
 
+addons:
+  apt:
+    sources:
+    - r-packages-precise
+    packages:
+    - r-base-dev
+    - r-recommended
+    - libgdal1-dev
+    - libproj-dev
+    
 notifications:
   email:
     on_success: change
