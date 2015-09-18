@@ -4,20 +4,13 @@ language: r
 warnings_are_errors: true
 sudo: required
 
+before_install:
+  - sudo apt-get install libgdal1-dev
+
 env:
  global:
    - CRAN: http://cran.rstudio.com
 
-addons:
-  apt:
-    sources:
-    - r-packages-precise
-    packages:
-    - r-base-dev
-    - r-recommended
-    - libgdal1-dev
-    - libproj-dev
-    
 notifications:
   email:
     on_success: change
