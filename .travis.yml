@@ -5,8 +5,10 @@ warnings_are_errors: true
 sudo: required
 
 before_install:
-  - sudo apt-get install libgdal-dev
-
+  - sudo apt-get install aptitude # install aptitude as an alternative to apt-get
+  - sudo aptitude install libgdal-dev # install the package (you may have to respond to queries here)
+  - sudo aptitude install libproj-dev # install the proj.4 projection library
+  
 env:
  global:
    - CRAN: http://cran.rstudio.com
