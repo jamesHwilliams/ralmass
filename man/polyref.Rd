@@ -7,14 +7,16 @@
 \format{A data frame with 1000 rows and 4 variables}
 \usage{
 polyref
+}
+\description{
+The table contains 1000 rows and 4 columns
+}
+\details{
 \itemize{
   \item OBJECTID. This is the polygon ID.
   \item VALUE. So is this. A duplicate of OBJECTID.
   \item COUNT. The number of cells within the polygon.
   \item LINK. The type of landscape element.
  }
-}
-\description{
-The table contains 1000 rows and 4 columns
 }
 
