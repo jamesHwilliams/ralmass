@@ -9,7 +9,12 @@ WritePolyref(Table, PathToFile, Headers = TRUE, Type = "Poly")
 \arguments{
 \item{Table}{data.frame or data.table An attribute table}
 
-\item{PathToFile}{The path to the where the file is written (including the name and extension of the file, usually .txt)}
+\item{PathToFile}{character The path to the where the file is
+written (including the name and extension of the file, usually .txt)}
+
+\item{Headers}{logical Should the output file include headers?}
+
+\item{Type}{character Write poly- or farm-ref file?}
 }
 \value{
 A tab separated text file formatted according to the requirements for a polygon reference file for ALMaSS.
