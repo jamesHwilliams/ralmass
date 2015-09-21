@@ -8,7 +8,7 @@ Description: Functions to handle and analyze data for and from the individual
     plot results from ALMaSS simulations.
 Depends:
     R (>= 3.1.1)
-License: What license is it under?
+License: GPL-3
 LazyData: true
 Imports:
     stringr,
