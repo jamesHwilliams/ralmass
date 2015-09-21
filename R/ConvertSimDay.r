@@ -2,7 +2,8 @@
 #'
 #' Return the calendar date from a simulation day number
 #' 
-#' @param DayNunber integer A day number
+#' @param DayNumber integer A day number
+#' @param Origin Date Origin for Julian day calculation (YYYY-MM-DD)
 #' @return The calendar date
 #' @export
 ConvertSimDay = function(DayNumber, Origin = '1990-01-01') {

@@ -15,8 +15,6 @@ PlotEnergetics(data, species = "all", package = "ggplot2", scales = NULL)
 
 \item{scales}{character The argument to be used in facet_wrap if the ggplot2
 package is used. Either free_x or free_y.}
-
-\item{type}{character Currently only accepts "mean".}
 }
 \value{
 A nice plot

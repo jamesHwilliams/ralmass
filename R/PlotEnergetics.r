@@ -6,7 +6,6 @@
 #'  when loading the data.
 #'  
 #' @param data data.table The raw output from the file GooseEnergeticsData.txt
-#' @param type character Currently only accepts "mean".
 #' @param species character What species to plot? Defaults to "all"
 #' @param package character Base- or ggplot2-type ? Defaults to "ggplot2"
 #' @param scales character The argument to be used in facet_wrap if the ggplot2

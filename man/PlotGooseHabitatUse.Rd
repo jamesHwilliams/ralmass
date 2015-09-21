@@ -10,6 +10,9 @@ PlotGooseHabitatUse(data, species = NULL, variable = NULL)
 \item{data}{data.frame or data.table The ALMaSS data file GooseFieldForage.txt}
 
 \item{species}{character The species to plot. Either 'Barnacle', 'Pinkfoot' or 'Greylag'}
+
+\item{variable}{character What variable are we plotting? Either 'VegTypeChr'
+or 'HabitatUse'.}
 }
 \value{
 A nice plot

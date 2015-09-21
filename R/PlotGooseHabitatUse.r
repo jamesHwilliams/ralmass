@@ -4,6 +4,8 @@
 #' 
 #' @param data data.frame or data.table The ALMaSS data file GooseFieldForage.txt
 #' @param species character The species to plot. Either 'Barnacle', 'Pinkfoot' or 'Greylag'
+#' @param variable character What variable are we plotting? Either 'VegTypeChr'
+#' or 'HabitatUse'.
 #' @return A nice plot
 #' @export
 

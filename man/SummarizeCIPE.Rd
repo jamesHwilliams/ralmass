@@ -8,6 +8,8 @@ SummarizeCIPE(CIPEgrid, plot = TRUE)
 }
 \arguments{
 \item{CIPEgrid}{data.frame A dataframe in the raw format from the CIPEgrid probe.}
+
+\item{plot}{logical Would you like to see a plot of the result?}
 }
 \value{
 A data.frame with two columns. One is the timestep, the other the density

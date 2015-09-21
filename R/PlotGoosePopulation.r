@@ -3,6 +3,7 @@
 #' Plot the number of geese per species and type
 #' 
 #' @param data data.frame or data.table The ALMaSS data file GoosePopulationData.txt
+#' @param type character The plot type. Either 'point' or 'line'.
 #' @return A nice plot
 #' @export
 

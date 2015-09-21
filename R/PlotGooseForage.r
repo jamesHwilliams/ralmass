@@ -5,6 +5,8 @@
 #' @param data data.frame or data.table The ALMaSS data file GooseFieldForageData.txt
 #' @param species character One of the goose species ('Pinkfoot', 'Barnacle', 'Greylag') defaults to 'Pinkfoot'
 #' @param type character What forage should be plotted ('Grass', 'Grain' or 'Combined'). No default.
+#' @param plottype character The plot type. Either 'line' or 'points' (default)
+#' @param dates logical Use dates?
 #' @return A nice plot
 #' @export
 

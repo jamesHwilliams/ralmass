@@ -8,6 +8,8 @@ PlotGoosePopulation(data, type = "point")
 }
 \arguments{
 \item{data}{data.frame or data.table The ALMaSS data file GoosePopulationData.txt}
+
+\item{type}{character The plot type. Either 'point' or 'line'.}
 }
 \value{
 A nice plot

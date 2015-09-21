@@ -22,6 +22,8 @@ a given set of coordinates belong to.}
 
 \item{title}{character The title of the plot (optional).}
 
+\item{legendtitle}{character Title of the legend.}
+
 \item{triangle}{logical Should the area of decrease on both axes be highlighted?
 default is FALSE.}
 

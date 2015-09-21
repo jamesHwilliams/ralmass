@@ -13,6 +13,10 @@ PlotGooseForage(data, species = "Pinkfoot", type = NULL,
 \item{species}{character One of the goose species ('Pinkfoot', 'Barnacle', 'Greylag') defaults to 'Pinkfoot'}
 
 \item{type}{character What forage should be plotted ('Grass', 'Grain' or 'Combined'). No default.}
+
+\item{plottype}{character The plot type. Either 'line' or 'points' (default)}
+
+\item{dates}{logical Use dates?}
 }
 \value{
 A nice plot

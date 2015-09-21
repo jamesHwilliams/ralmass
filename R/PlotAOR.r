@@ -11,6 +11,7 @@
 #' a given set of coordinates belong to.
 #' @param title character The title of the plot (optional).
 #' @param fixed logical If TRUE (the default) plot has xlim and ylim -1,1.
+#' @param legendtitle character Title of the legend.
 #' @param triangle logical Should the area of decrease on both axes be highlighted?
 #' default is FALSE.
 #' @param trigger numeric The trigger value for accepted decrease in the

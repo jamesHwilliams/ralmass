@@ -7,7 +7,9 @@
 ConvertSimDay(DayNumber, Origin = "1990-01-01")
 }
 \arguments{
-\item{DayNunber}{integer A day number}
+\item{DayNumber}{integer A day number}
+
+\item{Origin}{Date Origin for Julian day calculation (YYYY-MM-DD)}
 }
 \value{
 The calendar date
