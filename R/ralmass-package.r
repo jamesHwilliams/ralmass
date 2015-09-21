@@ -12,4 +12,5 @@
 #' @import reshape2
 #' @import ggplot2
 #' @importFrom sfsmisc integrate.xy
+#' @importFrom lubridate year ymd
 NULL
