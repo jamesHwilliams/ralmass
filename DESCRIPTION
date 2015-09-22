@@ -11,13 +11,14 @@ Depends:
 License: GPL-3
 LazyData: true
 Imports:
-    stringr,
-    RColorBrewer,
-    plyr,
     data.table,
-    sp,
-    rgdal,
-    gridExtra,
-    reshape2,
     ggplot2,
+    gridExtra,
+    lubridate,
+    stringr,
+    plyr,
+    RColorBrewer,
+    reshape2,
+    rgdal,
+    sp,
     sfsmisc
