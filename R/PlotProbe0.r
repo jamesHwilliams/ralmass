@@ -26,7 +26,7 @@ PlotProbe0 = function(data, seasons = FALSE, lty = 'l', add = FALSE, species = '
     }
   if(species == 'Dormouse' & package == 'base')
 	{
-		col = brewer.pal(4, 'Set1')
+		col = RColorBrewer::brewer.pal(4, 'Set1')
 		setnames(data, c('Julian.day', 'Juvenile.male', 'Juvenile.female', 'Male', 'Female', 'NotUsed', 'NotUsed2'))
 
 		xlimits = range(data[,Julian.day])+c(-1,1)
@@ -114,7 +114,7 @@ if(species == 'Goose' & package == 'ggplot2') {
 
 if(species == 'Goose' & package == 'base') 
 {
-    col = c(brewer.pal(9, 'Blues')[c(8, 6)], brewer.pal(8, 'Greens')[c(8, 6)], brewer.pal(8, 'Reds')[c(8, 6)])
+    col = c(RColorBrewer::brewer.pal(9, 'Blues')[c(8, 6)], RColorBrewer::brewer.pal(8, 'Greens')[c(8, 6)], RColorBrewer::brewer.pal(8, 'Reds')[c(8, 6)])
     setnames(data, c('Julian.day', 'Pinkfoot.family', 'Pinkfoot.nonbreeder', 'Barnacle.family', 'Barnacle.nonbreeder', 'Greylag.family', 'Greylag.nonbreeder'))
 
     xlimits = range(data[,Julian.day])+c(-1,1)
@@ -152,7 +152,7 @@ if(species == 'Goose' & package == 'base')
 
 if(species == 'Hare' & package == 'base') 
 {
-    col = brewer.pal(5, 'Set1')
+    col = RColorBrewer::brewer.pal(5, 'Set1')
     setnames(data, c('Julian.day', 'Infant', 'Young', 'Juvenile', 'Male', 'Female'))
 
     xlimits = range(data[,Julian.day])+c(-1,1)

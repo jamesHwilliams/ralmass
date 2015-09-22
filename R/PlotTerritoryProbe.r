@@ -8,8 +8,8 @@
 #' @return A nice plot
 #' @export
 PlotTerritoryProbe = function(data, seasons = TRUE, type = 'l') {
-  col = brewer.pal(4, 'Set1')
-  summarized.data = ddply(data, .(Year, SimDay, Sex), summarize, Proportion  = (length(which(Territory == 1))/length(Territory)))
+  col = RColorBrewer::brewer.pal(4, 'Set1')
+  summarized.data = plyr::ddply(data, .(Year, SimDay, Sex), summarize, Proportion  = (length(which(Territory == 1))/length(Territory)))
 
   xlimits = c(min(data$SimDay)-1, 1+max(data$SimDay))
   ylimits = c(0,1)
