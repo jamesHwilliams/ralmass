@@ -7,7 +7,7 @@
 #' @return A nice plot
 #' @export
 PlotWeather = function(file, subset = NULL){
-	weather = fread(file, skip = 1)
+	weather = data.table::fread(file, skip = 1)
 	setnames(weather, c('Year', 'Month', 'Day', 'Temp', 'Wind', 'Rain'))
 	weather[,Julian:=lubridate::ymd(paste(weather[,Year],weather[,Month],weather[,Day], sep = '-'))]
 	if(!is.null(subset)) 

@@ -9,7 +9,7 @@
 #' @import sp
 #' @import rgdal
 #' @import gridExtra
-#' @import reshape2
+#' @importFrom reshape2 melt
 #' @import ggplot2
 #' @importFrom sfsmisc integrate.xy
 #' @importFrom lubridate year ymd
