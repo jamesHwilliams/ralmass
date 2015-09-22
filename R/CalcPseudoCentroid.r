@@ -11,10 +11,10 @@
 
 CalcPseudoCentroid = function(data, project = TRUE)
 {
-	data$PolygonData = str_replace_all(data[,PolygonData], "\\(", "")
-	data$PolygonData = str_replace_all(data[,PolygonData], "\\)", "")
-	polygons = str_split(data[,PolygonData], ',')
-	polygons = lapply(polygons, FUN = str_trim)
+	data$PolygonData = stringr::str_replace_all(data[,PolygonData], "\\(", "")
+	data$PolygonData = stringr::str_replace_all(data[,PolygonData], "\\)", "")
+	polygons = stringr::str_split(data[,PolygonData], ',')
+	polygons = lapply(polygons, FUN = stringr::str_trim)
 	polygons = lapply(polygons, FUN = as.numeric)
 
 		GetMean = function(x){
@@ -28,12 +28,12 @@ CalcPseudoCentroid = function(data, project = TRUE)
 	if(project)
 	{
 		sp.polygons = polygons
-		coordinates(sp.polygons) = ~long+lat
-		proj4string(sp.polygons) = CRS('+proj=longlat +datum=WGS84')
-		sp.polygons = spTransform(sp.polygons, CRS('+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'))
+		sp::coordinates(sp.polygons) = ~long+lat
+		sp::proj4string(sp.polygons) = sp::CRS('+proj=longlat +datum=WGS84')
+		sp.polygons = sp::spTransform(sp.polygons, sp::CRS('+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'))
         polygons$UtmX = sp.polygons@coords[,1]
         polygons$UtmY = sp.polygons@coords[,2]
 	}
-	return(as.data.table(polygons))
+	return(data.table::as.data.table(polygons))
 }
 
