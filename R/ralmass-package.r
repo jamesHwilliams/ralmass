@@ -9,7 +9,5 @@
 #' @import sp
 #' @import rgdal
 #' @import gridExtra
-#' @importFrom reshape2 melt
 #' @import ggplot2
-#' @importFrom sfsmisc integrate.xy
 NULL
