@@ -29,13 +29,21 @@ CleanAttrTable = function(AttrTable, Soiltype = TRUE) {
 	AttrTable[,OBJECTID:=NULL]
 	# VALUE = polygon ID, COUNT = number of cells in the polygon, LINK = ALMaSS element type code
 	setnames(AttrTable, c('PolyRefNum', 'Area', 'PolyType'))
-
-	AttrTable$Area = gsub(pattern = ',', replacement = '', x = AttrTable$Area, fixed = FALSE)
-	AttrTable$PolyType = gsub(pattern = ',', replacement = '', x = AttrTable$PolyType, fixed = FALSE)
-	AttrTable$PolyRefNum = gsub(pattern = ',', replacement = '', x = AttrTable$PolyRefNum, fixed = FALSE)
-	AttrTable$Area = as.numeric(AttrTable$Area)
-	AttrTable$PolyType = as.numeric(AttrTable$PolyType)
-	AttrTable$PolyRefNum = as.numeric(AttrTable$PolyRefNum)
+	if(is.character(AttrTable$Area))
+	{
+		AttrTable$Area = gsub(pattern = ',', replacement = '', x = AttrTable$Area, fixed = FALSE)
+		AttrTable$Area = as.numeric(AttrTable$Area)
+	}
+	if(!is.character(AttrTable$PolyType))
+	{
+		AttrTable$PolyType = gsub(pattern = ',', replacement = '', x = AttrTable$PolyType, fixed = FALSE)
+		AttrTable$PolyType = as.numeric(AttrTable$PolyType)
+	}
+	if(!is.character(AttrTable$PolyRefNum))
+	{
+		AttrTable$PolyRefNum = gsub(pattern = ',', replacement = '', x = AttrTable$PolyRefNum, fixed = FALSE)
+		AttrTable$PolyRefNum = as.numeric(AttrTable$PolyRefNum)
+	}
 
 	# Rearrange columns
 	setcolorder(AttrTable,c('PolyType', 'PolyRefNum', 'Area'))
