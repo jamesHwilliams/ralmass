@@ -21,9 +21,7 @@
 #' tail(poly2)  # Comma issue gone
 CleanAttrTable = function(AttrTable, Soiltype = TRUE) {
 	if(!is.data.frame(AttrTable)){
-		cat('Hmm, expected a data.frame, but got something else.\n')
-		cat('Try class() on your object and see ?CleanAttrTable')
-		return()
+		stop('AttrTable needs to be a data.table\n')
 	}
 
 	AttrTable[,OBJECTID:=NULL]
@@ -56,6 +54,6 @@ CleanAttrTable = function(AttrTable, Soiltype = TRUE) {
 	# Add missing columns (The minus one column and soiltype which here is just a dummy)
 		AttrTable$Soiltype = rep(-1, nrow(AttrTable))
 	}
-	setkey(AttrTable, 'PolyType')
+	setkey(AttrTable, 'PolyRefNum')
 	return(AttrTable)
 }
