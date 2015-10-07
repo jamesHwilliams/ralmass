@@ -46,7 +46,7 @@ CleanAttrTable = function(AttrTable, Soiltype = TRUE) {
 	# Rearrange columns
 	setcolorder(AttrTable,c('PolyType', 'PolyRefNum', 'Area'))
 	# Add the farmref column (will be overwritten later...)
-	AttrTable$Farmref = rep(-1, nrow(AttrTable))
+	AttrTable$FarmRef = rep(-1, nrow(AttrTable))
 	# Add the minus one column (just has to be there...)
 	AttrTable$UnSprayedMarginRef = rep(-1, nrow(AttrTable))
 
