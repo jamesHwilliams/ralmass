@@ -56,5 +56,6 @@ CleanAttrTable = function(AttrTable, Soiltype = TRUE) {
 	# Add missing columns (The minus one column and soiltype which here is just a dummy)
 		AttrTable$Soiltype = rep(-1, nrow(AttrTable))
 	}
+	setkey(AttrTable, 'PolyType')
 	return(AttrTable)
 }
