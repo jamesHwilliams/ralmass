@@ -17,6 +17,6 @@ CleanSoilTable = function(SoilTable) {
 		SoilTable$PolyRefNum = gsub(pattern = ',', replacement = '', x = SoilTable$PolyRefNum, fixed = FALSE)
 		SoilTable$PolyRefNum = as.numeric(SoilTable$PolyRefNum)
 	}
-	setkey(SoilTable, 'PolyRefNum')
+	setkey(SoilTable, PolyRefNum)
 	return(SoilTable)
 }
