@@ -10,10 +10,10 @@
 #' @export
 CheckFarmRefFreq = function(resdir = NULL) {
 	if(is.null(resdir)){
-		stop('Input paramter missing')	
+		stop('Input parameter missing')	
 	} 
 	resfiles = dir(resdir)
-	resfileindex = grep('HuntingLocationsRun', resfiles)
+	resfileindex = grep('HuntingLocationsRun', resfiles)	
 	loclist = vector('list', length(resfileindex))
 	# Define function to summarise frequencies
 	fun = function(loc) {
@@ -37,7 +37,7 @@ CheckFarmRefFreq = function(resdir = NULL) {
 	}
 	# Apply across list
 	for (i in resfileindex) {
-		thelocfile = fread(resfiles[i])
+		thelocfile = fread(paste0(resdir, resfiles[i]))
 		loclist[[i]] = fun(thelocfile)
 	}
 	list = unlist(loclist, recursive = FALSE)
