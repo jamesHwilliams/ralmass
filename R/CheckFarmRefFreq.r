@@ -40,7 +40,6 @@ CheckFarmRefFreq = function(resdir = NULL) {
 		thelocfile = fread(paste0(resdir, resfiles[i]))
 		loclist[[i]] = fun(thelocfile)
 	}
-	list = unlist(loclist, recursive = FALSE)
 	dt = do.call("rbind", loclist)
 	return(dt)
 }
