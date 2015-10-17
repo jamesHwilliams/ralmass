@@ -29,7 +29,7 @@ RuleSetPrint = function(ruleset = NULL){
 	}
 	if(ruleset == 4)
 	{
-		theset = 'Ruleset 4 - ClostestOpen'
+		theset = 'Ruleset 4 - ClosestOpen'
 	}
 	if(ruleset == 5)
 	{
