@@ -5,7 +5,6 @@
 #' @param ruleset numeric The rule set number
 #' @return character The rule set number and description
 #' @export
-
 RuleSetPrint = function(ruleset = NULL){
 	if(is.null(ruleset))
 	{
