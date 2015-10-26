@@ -1,8 +1,12 @@
-#' Calculate the overlap of kernel densities of flock sizes
+#' Calculate the overlap of kernel densities
 #'
-#' Calculate the overlap of kernel densities of flock sizes calculated from
-#' field observations and from the simulated flock sizes
+#' Calculate the overlap of kernel densities. Either densities of flock sizes
+#' calculated from field observations and from the simulated flock sizes, of 
+#' hunter densities on farms or kernel densities of number of hunters per farm
 #' 
+#' This function is based on the answer to this CV question: 
+#' http://stats.stackexchange.com/questions/97596/how-to-calculate-overlap
+#'-between-empirical-probability-densities
 #' 
 #' @param data data.table An object containing both the simulated and observed 
 #' flock sizes
@@ -10,7 +14,6 @@
 #' Either 'Barnacle', 'Pinkfoot','Greylag' or 'Hunter'
 #' @return numeric The overlap
 #' @export
-
 CalcOverlab = function(data, species = NULL) 
 {
 	if(is.null(data)) {stop('data argument empty \n')}
