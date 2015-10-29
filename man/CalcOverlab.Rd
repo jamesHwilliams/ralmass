@@ -2,7 +2,7 @@
 % Please edit documentation in R/CalcOverlap.r
 \name{CalcOverlab}
 \alias{CalcOverlab}
-\title{Calculate the overlap of kernel densities of flock sizes}
+\title{Calculate the overlap of kernel densities}
 \usage{
 CalcOverlab(data, species = NULL)
 }
@@ -17,7 +17,13 @@ Either 'Barnacle', 'Pinkfoot','Greylag' or 'Hunter'}
 numeric The overlap
 }
 \description{
-Calculate the overlap of kernel densities of flock sizes calculated from
-field observations and from the simulated flock sizes
+Calculate the overlap of kernel densities. Either densities of flock sizes
+calculated from field observations and from the simulated flock sizes, of
+hunter densities on farms or kernel densities of number of hunters per farm
+}
+\details{
+This function is based on the answer to this CV question:
+http://stats.stackexchange.com/questions/97596/how-to-calculate-overlap
+-between-empirical-probability-densities
 }
 
