@@ -10,7 +10,7 @@ EditBat = function(WorkDir = NULL) {
 		stop('Input parameter WorkDir missing')
 	}
 	# Get the number of runs:
-	paramvals = fread(paste0(WorkDir, '/','ParameterValues.txt'))
+	paramvals = data.table::fread(paste0(WorkDir, '/','ParameterValues.txt'))
 	numberofparams = nrow(unique(paramvals[, 1, with = FALSE]))
 	runs = nrow(paramvals)/numberofparams
 	# Get the right file in the workdirectory
