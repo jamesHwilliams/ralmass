@@ -7,8 +7,12 @@
 #' @param species character String giving the species (or animal model)
 #' @return A data.table with the classifed habitat use.
 #' @export
-ClassifyHabitatUse = function(data, species = 'Goose')
+ClassifyHabitatUse = function(data, species = NULL)
 {
+	if(is.null(species))
+	{
+		stop('Input parameter species missing')
+	}
 	if(tolower(species) != 'goose') 
 	{
 		stop('Currently only implemented for geese')
