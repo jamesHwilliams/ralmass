@@ -35,7 +35,7 @@ GenerateParams = function (..., write = FALSE, splits = NULL)
 	nmc <- paste0("Var", iArgs)
 	nm <- names(args)
 	# Modify the names to also specify paramter type:
-	nm = ParamType(nm)
+	nm = sapply(nm, FUN = ParamType)
 	if (is.null(nm)) 
 		nm <- nmc
 	else if (any(ng0 <- nzchar(nm))) 
