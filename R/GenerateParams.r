@@ -17,7 +17,8 @@
 #' @examples
 #' val = seq(1, 5, length.out = 5)
 #' val2 = seq(10, 50, length.out = 5)
-#' GenerateParams('FOO (int)' = val, 'BAR (int)' = val2, write = FALSE)
+#' GenerateParams('GOOSE_MINFORAGEOPENNESS' = val,
+#' 'HUNTERS_MAXDENSITY' = val2, write = FALSE)
 GenerateParams = function (..., write = FALSE, splits = NULL) 
 {
 	# Code from the base expand.grid with the KEEP.ATTR.OUT and StringAsFactor
@@ -33,6 +34,8 @@ GenerateParams = function (..., write = FALSE, splits = NULL)
 	iArgs <- seq_len(nargs)
 	nmc <- paste0("Var", iArgs)
 	nm <- names(args)
+	# Modify the names to also specify paramter type:
+	nm = ParamType(nm)
 	if (is.null(nm)) 
 		nm <- nmc
 	else if (any(ng0 <- nzchar(nm))) 
@@ -86,4 +89,14 @@ GenerateParams = function (..., write = FALSE, splits = NULL)
 	return(df)
 }
 
-
+# Helper function ---------------------
+ParamType <- function(name = NULL) {
+	if(is.null(name)) {stop('Input argument missing \n')}
+    name = str_trim(name, side = "both")
+    switch(EXPR = name,
+  	# Names of the paramters:
+  		'GOOSE_MINFORAGEOPENNESS' = 'GOOSE_MINFORAGEOPENNESS (float)',
+        'HUNTERS_MAXDENSITY' = 'HUNTERS_MAXDENSITY (float)',
+        'CLOSESTFARMPROBPARAMONE' = 'CLOSESTFARMPROBPARAMONE (float)'
+        )
+}
