@@ -34,7 +34,8 @@ GenerateParams = function (..., write = FALSE, splits = NULL)
 	iArgs <- seq_len(nargs)
 	nmc <- paste0("Var", iArgs)
 	nm <- names(args)
-	# Modify the names to also specify paramter type:
+	# ralmass modification
+	# Modify the names to also specify parameter type:
 	nm = sapply(nm, FUN = ParamType)
 	if (is.null(nm)) 
 		nm <- nmc
