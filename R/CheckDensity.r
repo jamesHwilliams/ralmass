@@ -10,7 +10,7 @@
 #' @export
 CheckDensity = function(data = NULL, MaxDensity = NULL) 
 {
-	if(is.null(data) | is.null(MaxDensity))
+	if(any(is.null(data), is.null(MaxDensity)))
 	{
 		stop('Input parameter missing')
 	}

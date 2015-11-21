@@ -9,7 +9,7 @@
 #' @export
 
 AppendWorkDir = function(WorkDir = NULL, InScript = NULL, OutScript = NULL) {
-	if(is.null(WorkDir) | is.null(InScript) | is.null(OutScript)) 
+	if(any(is.null(WorkDir), is.null(InScript), is.null(OutScript)))
 	{
 		stop('Input parameter missing')
 	}
