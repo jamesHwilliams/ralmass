@@ -4,7 +4,7 @@
 \alias{ClassifyHabitatUse}
 \title{Classify animal habitat use}
 \usage{
-ClassifyHabitatUse(data, species = "Goose")
+ClassifyHabitatUse(data, species = NULL)
 }
 \arguments{
 \item{data}{data.table A data.table with the habitat use from ALMaSS}
