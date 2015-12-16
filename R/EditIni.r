@@ -38,7 +38,7 @@ EditIni = function(WorkDir = NULL, Model = NULL, StandardProbes = TRUE,
 		'Probe_ob4.prb',
 		'Probe_ob5.prb',
 		'.\\',
-		 paste(nyear),
+		 paste(NYear),
 		paste(model))
 	}	
 	filecon = file(file, open = 'wt')
