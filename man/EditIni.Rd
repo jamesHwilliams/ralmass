@@ -5,19 +5,19 @@
 \title{Edit ini file}
 \usage{
 EditIni(WorkDir = NULL, Model = NULL, StandardProbes = TRUE,
-  Batch = TRUE, nyear = 1)
+  Type = "cmd", NYear = 1)
 }
 \arguments{
-\item{WorkDir}{character Path to the work directory with the TI_inifile}
+\item{WorkDir}{character Path to the work directory with the TI_inifile.}
 
-\item{Model}{character The model to run}
+\item{Model}{character The model to run.}
 
 \item{StandardProbes}{logical Run all the standard output probes?}
 
-\item{Batch}{logical Edit BatchALMaSS.ini (cmdline) file (TRUE, default) or 
-or the TI_inifile.ini (FALSE, GUI)}
+\item{Type}{character Edit BatchALMaSS.ini file (cmd, default) or
+the TI_inifile.ini (gui).}
 
-\item{nyear}{numeric The number of years to run}
+\item{NYear}{numeric The number of years to run.}
 }
 \description{
 Edit the TI_inifile to reflect the species and output probes of choise

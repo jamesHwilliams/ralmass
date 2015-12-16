@@ -2,28 +2,29 @@
 #'
 #' Edit the TI_inifile to reflect the species and output probes of choise
 #'
-#' @param WorkDir character Path to the work directory with the TI_inifile
-#' @param Model character The model to run
+#' @param WorkDir character Path to the work directory with the TI_inifile.
+#' @param Model character The model to run.
 #' @param StandardProbes logical Run all the standard output probes?
-#' @param Batch logical Edit BatchALMaSS.ini (cmdline) file (TRUE, default) or 
-#'	or the TI_inifile.ini (FALSE, GUI)
-#' @param nyear numeric The number of years to run
+#' @param Type character Edit BatchALMaSS.ini file (cmd, default) or
+#' the TI_inifile.ini (gui).
+#' @param NYear numeric The number of years to run.
 #' @export
 EditIni = function(WorkDir = NULL, Model = NULL, StandardProbes = TRUE, 
-	Batch = TRUE, nyear = 1) {
+	Type = 'cmd', NYear = 1) {
 	if(all(is.null(WorkDir), is.null(Model))) 
 	{
 		stop('Input parameter WorkDir or Model missing')
 	}
 	if(StandardProbes)
 	{
-		cat(paste0('Running all standard probes for ', Model, ' model', '\n'))
+		cat(paste0('Running all standard probes for the ', Model, ' model', '\n',
+			'Number of years:', NYear, '\n'))
 	}
 	model = ModelNumber(Model)
 	if(model < 0){
 		stop('Invalid input to argument Model')
 	}
-	if(!Batch){
+	if(tolower(Type) == 'gui'){
 		file = paste0(WorkDir, '/','TI_inifile.ini')
 	}
 	file = paste0(WorkDir, '/','BatchALMaSS.ini')
