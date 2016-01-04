@@ -20,8 +20,8 @@ ClassifyHabitatUse = function(data, species = NULL)
 	if(tolower(species) == 'goose')
 	{
 	# Remove extra white spaces and make combined variable:
-		data[, VegTypeChr:=str_trim(VegTypeChr, side = 'right')]
-		data[, PreviousCrop:=str_trim(PreviousCrop, side = 'right')]
+		data[, VegTypeChr:=stringr::str_trim(VegTypeChr, side = 'right')]
+		data[, PreviousCrop:=stringr::str_trim(PreviousCrop, side = 'right')]
 		data[, VegTypeCombo:=paste(VegTypeChr, VegPhase, sep = '-')]
 
 	# Classify habitat use
