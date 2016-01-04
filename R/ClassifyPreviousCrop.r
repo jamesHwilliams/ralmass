@@ -24,6 +24,8 @@ ClassifyPrevCrop = function(PreviousCrop)
 	# StubbleUndersown
 		'SprBarleyCloverGrass' = 'StubbleUndersown',
 		'SpringBarleyCloverGrass' = 'StubbleUndersown',
+	# Stubble
+		'OSpringBarley' = 'Stubble',
 	# Default
 		'SomeFunkyPreceedingCrop')
 }
