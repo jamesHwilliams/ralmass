@@ -14,5 +14,6 @@ ConvertVegPhase = function(VegPhase) {
 		'2' = 'marchfirst',
 		'3' = 'harvest1',
 		'4' = 'harvest2',
+		'foobar'
 		)
 }
