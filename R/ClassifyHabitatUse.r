@@ -7,8 +7,7 @@
 #' @param species character String giving the species (or animal model)
 #' @return A data.table with the classifed habitat use.
 #' @export
-ClassifyHabitatUse = function(data, species = NULL)
-{
+ClassifyHabitatUse = function(data, species = NULL) {
 	if(is.null(species))
 	{
 		stop('Input parameter species missing')
@@ -64,7 +63,7 @@ ClassifyHabitatUse = function(data, species = NULL)
 		PF = PF[, .(Year, Month, Day, Polyref, HabitatUsePF)]
 		data.table::setkeyv(PF, keycols)
 
-		data = data.table::merge(data, PF, all.x = TRUE)
+		data = merge(data, PF, all.x = TRUE)
 		# Pinkfoot end ----
 
 		# Greylag ----
@@ -95,12 +94,12 @@ ClassifyHabitatUse = function(data, species = NULL)
 		gl[VegPhase == 0 & Grain != 0, HabitatUseGL:=sapply(PreviousCrop, FUN = ClassifyPrevCrop)]
 		gl[Grain > 241 & !HabitatUseGL %in% c('Maize', 'StubbleUndersown'), HabitatUseGL:='Stubble']
 
-		GL = rbind(grass, wintercereal, prevcrop, GL)
+		GL = rbind(grass, wintercereal, prevcrop, gl)
 		# nrow(GL)  # Okay
 		GL = GL[, .(Year, Month, Day, Polyref, HabitatUseGL)]
 		data.table::setkeyv(GL, keycols)
 
-		data = data.table::merge(data, GL, all.x = TRUE)
+		data = merge(data, GL, all.x = TRUE)
 		# Greylag end ----
 
 		# Barnacle ----
@@ -136,7 +135,7 @@ ClassifyHabitatUse = function(data, species = NULL)
 		BN = BN[, .(Year, Month, Day, Polyref, HabitatUseBN)]
 		data.table::setkeyv(BN, keycols)
 
-		data = data.table::merge(data, BN, all.x = TRUE)
+		data = merge(data, BN, all.x = TRUE)
 		# Barnacle end ----
 		data[,VegTypeCombo:=NULL]  # No longer needed.
 	}
