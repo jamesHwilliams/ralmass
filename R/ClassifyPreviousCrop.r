@@ -10,23 +10,33 @@
 #' @param PreviousCrop character A string with the name of the previous crop.
 #' @return The vegtype matching the one scored in the field
 #' @export
-ClassifyPrevCrop = function(PreviousCrop)
-{
+ClassifyPrevCrop = function(PreviousCrop) {
 	switch(EXPR = PreviousCrop,
 	# Grass               
 		'CloverGrassGrazed1' = 'Grass',
 		'OCloverGrassGrazed1' = 'Grass',
 		'CloverGrassGrazed2' = 'Grass',
 		'OCloverGrassGrazed2' = 'Grass',
+		'BarleyPeaCloverGrass' = 'Grass',
 		'OBarleyPeaCloverGrass' = 'Grass',
 		'OSBarleySilage' = 'Grass',	
 		'None' = 'Grass',  # If no preceeding crop, it is a permanent grassy type
 	# StubbleUndersown
 		'SprBarleyCloverGrass' = 'StubbleUndersown',
 		'SpringBarleyCloverGrass' = 'StubbleUndersown',
+		'OWinterWheatUndersown' = 'StubbleUndersown',
 	# Stubble
+		'SpringBarley' = 'Stubble',
 		'OSpringBarley' = 'Stubble',
+		'WinterWheat' = 'Stubble',
+		'OWinterWheat' = 'Stubble',
+		'WinterRye' = 'Stubble',
+		'OWinterRye' = 'Stubble',
+		'Oats' = 'Stubble',
+		'OOats' = 'Stubble',
+	# Maize
 		'MaizeSilage' = 'Stubble',
+		'OMaizeSilage' = 'Stubble',
 	# Default
 		'SomeFunkyPreceedingCrop')
 }
