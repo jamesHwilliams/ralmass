@@ -19,7 +19,7 @@ ClassifyHabitatUse = function(data, species = NULL) {
 	if(tolower(species) == 'goose')
 	{
 		# data = forage
-		data = data[Geese > 0]
+		# data = data[Geese > 0]
 		keycols = c('Year', 'Month', 'Day', 'Polyref')
 		data.table::setkeyv(data, keycols)
 	# Remove extra white spaces and make combined variable:
