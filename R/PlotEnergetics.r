@@ -3,16 +3,13 @@
 #' Plot the results from the energy probe
 #' 
 #' The energetics output can be very large, so please use the fread function 
-#'  when loading the data.
+#'  when loading the data. Currently only implemented for pinkfeet due to lack
+#'  of field data on barnacle and greylag.
 #'  
 #' @param data data.table The raw output from the file GooseEnergeticsData.txt
-#' @param species character What species to plot? Defaults to "all"
-#' @param package character Base- or ggplot2-type ? Defaults to "ggplot2"
-#' @param scales character The argument to be used in facet_wrap if the ggplot2
-#' package is used. Either free_x or free_y.
 #' @return A nice plot
 #' @export
-PlotEnergetics = function(data, package = 'ggplot2', scales = NULL) {
+PlotEnergetics = function(data,) {
  if(!is.data.table(data))
  {
   stop(cat('You appear to have loaded your results file using read.table().\n
@@ -46,7 +43,7 @@ field[, c('DOY', 'SEXE'):=NULL]  # DOY is redundant and Sex is currently not use
 setnames(field, old = 'Weigth', new = 'Weight')
 # Currently we only use this subset:
 field = field[Date > lubridate::dmy('29-08-2012') &
- Date < lubridate::dmy('31-12-2013')]
+Date < lubridate::dmy('31-12-2013')]
 field = field[lubridate::month(field$Date) < 5 | lubridate::month(field$Date) > 9,]
 field[, season:=c(0, cumsum(diff(Date)/ddays(1) > 100))]
 field[,season:=season+100]
@@ -62,4 +59,5 @@ geom_point(alpha = 1/25) +
 geom_smooth(aes(group = season)) +
 theme_bw() + 
 theme(axis.text=element_text(size=8))
+return(p)
 }
