@@ -7,13 +7,22 @@
 #'  of field data on barnacle and greylag.
 #'  
 #' @param data data.table The raw output from the file GooseEnergeticsData.txt
+#' @param sample numeric The proportion of the simulated data to include. Value
+#' between 0.01 and 1. 
 #' @return A nice plot
 #' @export
-PlotEnergetics = function(data) {
+PlotEnergetics = function(data, sample = NULL) {
  if(!is.data.table(data))
  {
   stop(cat('You appear to have loaded your results file using read.table().\n
     please use the fread function in the package data.table\n'))
+}
+
+if(!is.null(sample))
+{
+  nrows = nrow(data)
+  rows = sample(1:nrows, sample*nrows)
+  data = data[rows,]
 }
 
 ys = unique(data[,Year])
@@ -48,8 +57,9 @@ data = data[GooseType == 'PFF',.(Date, Weight, GooseType, Type)]
 data[, season:=c(0, cumsum(diff(Date)/lubridate::ddays(1) > 100))]
 temp = rbind(data, field)
 setkey(temp, 'Date')
+temp[, Type:=as.factor(Type)]
 
-p = ggplot(temp[GooseType == 'PFF',], aes(Date, Weight, color = factor(Type))) +
+p = ggplot(temp[GooseType == 'PFF',], aes(Date, Weight, color = Type)) +
 geom_point(alpha = 1/50) + 
 geom_smooth(aes(group = season)) +
 theme_bw() + 
