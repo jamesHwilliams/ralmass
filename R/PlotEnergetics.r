@@ -9,16 +9,11 @@
 #' @param data data.table The raw output from the file GooseEnergeticsData.txt
 #' @return A nice plot
 #' @export
-PlotEnergetics = function(data,) {
+PlotEnergetics = function(data) {
  if(!is.data.table(data))
  {
   stop(cat('You appear to have loaded your results file using read.table().\n
     please use the fread function in the package data.table\n'))
-}
-if(!is.null(scales)) {
-  if(!scales %in% c('free_x', 'free_y.')) {
-    stop(cat('scales only implemented for free_x & free_y.\n'))
-  }
 }
 
 ys = unique(data[,Year])
@@ -55,7 +50,7 @@ temp = rbind(data, field)
 setkey(temp, 'Date')
 
 p = ggplot(temp[GooseType == 'PFF',], aes(Date, Weight, color = factor(Type))) +
-geom_point(alpha = 1/25) + 
+geom_point(alpha = 1/50) + 
 geom_smooth(aes(group = season)) +
 theme_bw() + 
 theme(axis.text=element_text(size=8))
