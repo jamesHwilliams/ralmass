@@ -17,13 +17,13 @@ PlotEnergetics = function(data, sample = NULL) {
   stop(cat('You appear to have loaded your results file using read.table().\n
     please use the fread function in the package data.table\n'))
 }
-
-if(!is.null(sample))
+if('Goose Type' %in% names(data))
 {
-  nrows = nrow(data)
-  rows = sample(1:nrows, sample*nrows)
-  data = data[rows,]
+  data.table::setnames(data, old = 'Goose Type', new = 'GooseType')
 }
+
+data.table::setkey(data, 'GooseType')
+data = data[GooseType == 'PFF']
 
 ys = unique(data[,Year])
 ys = ys+2011  # Quick fix to match dates from field data
@@ -34,9 +34,15 @@ for (i in seq_along(ys)) {
 }
 
 data[, season:=c(0, cumsum(diff(Month) > 1))]  # okay
-data.table::setnames(data, old = 'Goose Type', new = 'GooseType')
-data.table::setkey(data, 'GooseType')
 data[, Type:='Sim']
+
+if(!is.null(sample))
+{
+  nrows = nrow(data)
+  rows = sample(1:nrows, sample*nrows)
+  data = data[rows,]
+}
+
 
 # Read the API field data
 field = data.table::fread('o:/ST_GooseProject/Field data/Weight development_all years.csv')
@@ -53,8 +59,9 @@ field[, season:=c(0, cumsum(diff(Date)/ddays(1) > 100))]
 field[,season:=season+100]
 
 data[, Date:=lubridate::ymd(Date)]
-data = data[GooseType == 'PFF',.(Date, Weight, GooseType, Type)]
-data[, season:=c(0, cumsum(diff(Date)/lubridate::ddays(1) > 100))]
+data = data[GooseType == 'PFF',.(Date, Weight, GooseType, Type, season)]
+# data = data[GooseType == 'PFF',.(Date, Weight, GooseType, Type)]
+# data[, season:=c(0, cumsum(diff(Date)/lubridate::ddays(1) > 100))]
 temp = rbind(data, field)
 setkey(temp, 'Date')
 temp[, Type:=as.factor(Type)]
