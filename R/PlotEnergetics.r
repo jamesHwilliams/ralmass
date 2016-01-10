@@ -12,18 +12,11 @@
 #' package is used. Either free_x or free_y.
 #' @return A nice plot
 #' @export
-PlotEnergetics = function(data, species = 'all', package = 'ggplot2', scales = NULL)
-{
+PlotEnergetics = function(data, package = 'ggplot2', scales = NULL) {
  if(!is.data.table(data))
  {
   stop(cat('You appear to have loaded your results file using read.table().\n
     please use the fread function in the package data.table\n'))
-}
-if(!species %in% c('all', 'PFF', 'PFNB', 'BGF', 'BGNB', 'GLF', 'GLNB'))
-{
-  stop(cat('\n Something is wrong with the species argument.\n
-    Please provide one of these: \n all', 'PFF', 'PFNB', 'BGF',
-    'BGNB', 'GLF', 'GLNB\n'))
 }
 if(!is.null(scales)) {
   if(!scales %in% c('free_x', 'free_y.')) {
@@ -31,84 +24,42 @@ if(!is.null(scales)) {
   }
 }
 
-setkey(data, 'Goose Type')
-data[,SimDate:=as.Date(Day - 1, origin = as.Date(paste(Year+1989,"-01-01", sep = '')))]
-data = data[,mean(Weight), by = c('Goose Type', 'SimDate')]
-data[,geesePA:= c(0, cumsum(diff(SimDate) != 1))]
-setnames(data, 'V1', 'Weight')
-setkey(data, 'Goose Type')
-setnames(data, 'Goose Type', 'GooseType')
-
-
-if(species == 'all' & package == 'base') 
-{
-# Set par:
-  par(las = 1, bty = 'l')
-  xlab = 'SimDay'
-  ylab = 'Grams'
-  par(mfrow = c(3,1), mar = c(5, 5, 4, 2) + 0.1, mgp = c(4, 1, 0))
-  xlim = c(min(data[,SimDate]), max(data[,SimDate]))
-  # Greylag
-  years = max(data[,Year])
-  plot(data['GLF', SimDate], data['GLF', Weight], type = 'n',
-    xlab = xlab, ylab = ylab, main = 'Greylag', xlim = xlim, 
-    ylim = c(min(data['GLF',Weight])-1, max(data['GLF',Weight])+1))
-  for (i in 1:years) {
-    lines(data[Year == i,]['GLF', SimDate], data[Year == i,]['GLF', Weight])
-    lines(data[Year == i,]['GLNB', SimDate], data[Year == i,]['GLNB', Weight])
-  }
-  # Pinkfoot
-  plot(data['PFF', SimDate], data['PFF', Weight], type = 'n',
-    xlab = xlab, ylab = ylab, main = 'Pinkfoot', xlim = xlim, 
-    ylim = c(min(data['PFF' ,Weight])-1, max(data['PFF' ,Weight])+1))
-  for (i in 1:years) {
-    lines(data[Year == i,]['PFF', SimDate], data[Year == i,]['PFF', Weight])
-    lines(data[Year == i,]['PFNB', SimDate], data[Year == i,]['PFNB', Weight])
-  }
-  # Barnacle
-  plot(data['BGF', SimDate], data['BGF', Weight], type = 'n',
-    xlab = xlab, ylab = ylab, main = 'Barnacle', xlim = xlim, 
-    ylim = c(min(data['BGF' ,Weight])-1, max(data['BGF' ,Weight])+1))
-  for (i in 1:years) {
-    lines(data[Year == i,]['BGF', SimDate], data[Year == i,]['BGF', Weight])
-    lines(data[Year == i,]['BGNB', SimDate], data[Year == i,]['BGNB', Weight])
-  }
-# Reset par
-  par(mfrow = c(1,1), mar = c(5, 4, 4, 2) + 0.1, mgp = c(3, 1, 0))
+ys = unique(data[,Year])
+ys = ys+2011  # Quick fix to match dates from field data
+ysorigins = as.Date(paste0(ys, '-01-01'))
+# setkey(data, 'Goose Type')
+for (i in seq_along(ys)) {
+  data[Year == i, Date:=as.Date(Day, origin = ysorigins[i])]
 }
 
-if(species == 'all' & package == 'ggplot2') 
-{
-  if(!is.null(scales)) {
-    if(scales == 'free_x') {
-      p = ggplot(data[c('BGF', 'PFF', 'GLF')], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) +
-      facet_wrap( ~ GooseType, scales = 'free_x') + theme_bw() + theme(axis.text=element_text(size=8))
-      return(p)
-    }
-    if(scales == 'free_y') {
-      p = ggplot(data[c('BGF', 'PFF', 'GLF')], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) +
-      facet_wrap( ~ GooseType, scales = 'free_y') + theme_bw() + theme(axis.text=element_text(size=8))
-      return(p)
-    }
-  }
-  if(is.null(scales)) 
-  {
-    p = ggplot(data[c('BGF', 'PFF', 'GLF')], aes(SimDate, Weight)) + geom_line(aes(group = geesePA)) + 
-    facet_wrap( ~ GooseType) + theme_bw() + theme(axis.text=element_text(size=8))
-    return(p)
-  }
-}
+data[, season:=c(0, cumsum(diff(Month) > 1))]  # okay
+data.table::setnames(data, old = 'Goose Type', new = 'GooseType')
+data.table::setkey(data, 'GooseType')
+data[, Type:='Sim']
 
+# Read the API field data
+field = data.table::fread('o:/ST_GooseProject/Field data/Weight development_all years.csv')
+field[, Date:=lubridate::dmy(Date)]
+field[, GooseType:='PFF']
+field[, Type:='Field']
+field[, c('DOY', 'SEXE'):=NULL]  # DOY is redundant and Sex is currently not used
+setnames(field, old = 'Weigth', new = 'Weight')
+# Currently we only use this subset:
+field = field[Date > lubridate::dmy('29-08-2012') &
+ Date < lubridate::dmy('31-12-2013')]
+field = field[lubridate::month(field$Date) < 5 | lubridate::month(field$Date) > 9,]
+field[, season:=c(0, cumsum(diff(Date)/ddays(1) > 100))]
+field[,season:=season+100]
 
-if(species != 'all' & package == 'base') 
-{
-  par(las = 1, bty = 'l')
-  xlab = 'SimDay'
-  ylab = 'Grams'
-  par(mfrow = c(1,1), mar = c(5, 5, 4, 2) + 0.1, mgp = c(4, 1, 0))
-  plot(data[species, Day], data[species, Weight], xlab = xlab, ylab = ylab,
-    type = 'l', lwd = 2, main = species)
-# Reset par
-  par(mfrow = c(1,1), mar = c(5, 4, 4, 2) + 0.1, mgp = c(3, 1, 0))
-}
+data[, Date:=lubridate::ymd(Date)]
+data = data[GooseType == 'PFF',.(Date, Weight, GooseType, Type)]
+data[, season:=c(0, cumsum(diff(Date)/lubridate::ddays(1) > 100))]
+temp = rbind(data, field)
+setkey(temp, 'Date')
+
+p = ggplot(temp[GooseType == 'PFF',], aes(Date, Weight, color = factor(Type))) +
+geom_point(alpha = 1/25) + 
+geom_smooth(aes(group = season)) +
+theme_bw() + 
+theme(axis.text=element_text(size=8))
 }
