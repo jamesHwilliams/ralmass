@@ -25,16 +25,17 @@ CalcWeightFit = function(SimData, FieldData) {
 	setnames(simmean, c('Week', 'Season', 'AvgWeightSim'))
 	setkey(simmean, Week)
 
+	FieldData = FieldData[Date > ymd('2010-08-01') & Date < ymd('2015-05-31'),]
 	FieldData[, SWeight:=Weight/max(Weight)]
 	FieldDatamean = FieldData[, mean(SWeight), by = lubridate::week(Date)]
-	setnames(fieldmean, c('Week', 'AvgWeightField'))
-	setkey(fieldmean, Week)
+	setnames(FieldDatamean, c('Week', 'AvgWeightField'))
+	setkey(FieldDatamean, Week)
 
 # Calculate least squares
 	seasons = unique(mass[, Season])
 	lsfits = rep(NA, length(seasons))
 	for (i in seq_along(seasons)) {
-		full = merge(fieldmean, simmean[Season == seasons[i], .(Week, AvgWeightSim)])
+		full = merge(FieldDatamean, simmean[Season == seasons[i], .(Week, AvgWeightSim)])
 		lsfits[i] = with(full, 1-sum((AvgWeightSim-AvgWeightField)^2))
 	}
 	return(lsfits)

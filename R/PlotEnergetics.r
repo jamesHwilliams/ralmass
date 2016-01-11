@@ -6,67 +6,69 @@
 #'  when loading the data. Currently only implemented for pinkfeet due to lack
 #'  of field data on barnacle and greylag.
 #'  
-#' @param data data.table The raw output from the file GooseEnergeticsData.txt
-#' @param sample numeric The proportion of the simulated data to include. Value
+#' @param SimData data.table The raw output from the file GooseEnergeticsData.txt
+#' @param FieldData data.table object cleaned by the function CleanAPIData
+#' @param Sample numeric The proportion of the simulated data to include. Value
 #' between 0.01 and 1. 
 #' @return A nice plot
 #' @export
-PlotEnergetics = function(data, sample = NULL) {
- if(!is.data.table(data))
+PlotEnergetics = function(SimData, FieldData, Sample = NULL) {
+ if(!is.data.table(SimData))
  {
   stop(cat('You appear to have loaded your results file using read.table().\n
     please use the fread function in the package data.table\n'))
 }
-if('Goose Type' %in% names(data))
+if('Goose Type' %in% names(SimData))
 {
-  data.table::setnames(data, old = 'Goose Type', new = 'GooseType')
+  data.table::setnames(SimData, old = 'Goose Type', new = 'GooseType')
 }
 
-data.table::setkey(data, 'GooseType')
-data = data[GooseType == 'PFF']
+data.table::setkey(SimData, 'GooseType')
+SimData = SimData[GooseType == 'PFF']
 
-ys = unique(data[,Year])
+ys = unique(SimData[,Year])
 ys = ys+2011  # Quick fix to match dates from field data
 ysorigins = as.Date(paste0(ys, '-01-01'))
 # setkey(data, 'Goose Type')
 for (i in seq_along(ys)) {
-  data[Year == i, Date:=as.Date(Day, origin = ysorigins[i])]
+  SimData[Year == i, Date:=as.Date(Day, origin = ysorigins[i])]
 }
 
-data[, season:=c(0, cumsum(diff(Month) > 1))]  # okay
-data[, Type:='Sim']
+SimData[, Season:=c(0, cumsum(diff(Month) > 1))]  # okay
+SimData[, Type:='Sim']
 
-if(!is.null(sample))
+if(!is.null(Sample))
 {
-  nrows = nrow(data)
-  rows = sample(1:nrows, sample*nrows)
-  data = data[rows,]
+  nrows = nrow(SimData)
+  rows = sample(1:nrows, Sample*nrows)
+  SimData = SimData[rows,]
 }
 
 
 # Read the API field data
-field = data.table::fread('o:/ST_GooseProject/Field data/Weight development_all years.csv')
-field[, Date:=lubridate::dmy(Date)]
-field[, GooseType:='PFF']
-field[, Type:='Field']
-field[, c('DOY', 'SEXE'):=NULL]  # DOY is redundant and Sex is currently not used
-setnames(field, old = 'Weigth', new = 'Weight')
+# field = data.table::fread('o:/ST_GooseProject/Field data/Weight development_all years.csv')
+# field[, Date:=lubridate::dmy(Date)]
+# field[, GooseType:='PFF']
+# field[, Type:='Field']
+# field[, c('DOY', 'SEXE'):=NULL]  # DOY is redundant and Sex is currently not used
+# setnames(field, old = 'Weigth', new = 'Weight')
 # Currently we only use this subset:
-field = field[Date > lubridate::dmy('29-08-2012') &
+FieldData = FieldData[Date > lubridate::dmy('29-08-2012') &
 Date < lubridate::dmy('31-12-2013')]
-field = field[lubridate::month(field$Date) < 5 | lubridate::month(field$Date) > 9,]
-field[, season:=c(0, cumsum(diff(Date)/ddays(1) > 100))]
-field[,season:=season+100]
+FieldData = FieldData[lubridate::month(FieldData$Date) < 5 | lubridate::month(FieldData$Date) > 9,]
+FieldData[, Season:=c(0, cumsum(diff(Date)/ddays(1) > 100))]
+FieldData[,Season:=Season+100]
 
-data[, Date:=lubridate::ymd(Date)]
-data = data[GooseType == 'PFF',.(Date, Weight, GooseType, Type, season)]
-temp = rbind(data, field)
+SimData[, Date:=lubridate::ymd(Date)]
+SimData = SimData[GooseType == 'PFF',.(Date, Weight, Type, Season)]
+FieldData[, Type:='Field']
+temp = rbind(SimData, FieldData[, .(Date, Weight, Type, Season)])
 setkey(temp, 'Date')
 temp[, Type:=as.factor(Type)]
 
-p = ggplot(temp[GooseType == 'PFF',], aes(Date, Weight, color = Type)) +
+p = ggplot(temp, aes(Date, Weight, color = Type)) +
 geom_point(alpha = 1/50) + 
-geom_smooth(aes(group = season)) +
+geom_smooth(aes(group = Season)) +
 theme_bw() + 
 theme(axis.text=element_text(size=8))
 return(p)
