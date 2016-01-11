@@ -60,8 +60,6 @@ field[,season:=season+100]
 
 data[, Date:=lubridate::ymd(Date)]
 data = data[GooseType == 'PFF',.(Date, Weight, GooseType, Type, season)]
-# data = data[GooseType == 'PFF',.(Date, Weight, GooseType, Type)]
-# data[, season:=c(0, cumsum(diff(Date)/lubridate::ddays(1) > 100))]
 temp = rbind(data, field)
 setkey(temp, 'Date')
 temp[, Type:=as.factor(Type)]
