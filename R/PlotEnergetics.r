@@ -44,15 +44,6 @@ if(!is.null(Sample))
   SimData = SimData[rows,]
 }
 
-
-# Read the API field data
-# field = data.table::fread('o:/ST_GooseProject/Field data/Weight development_all years.csv')
-# field[, Date:=lubridate::dmy(Date)]
-# field[, GooseType:='PFF']
-# field[, Type:='Field']
-# field[, c('DOY', 'SEXE'):=NULL]  # DOY is redundant and Sex is currently not used
-# setnames(field, old = 'Weigth', new = 'Weight')
-# Currently we only use this subset:
 FieldData = FieldData[Date > lubridate::dmy('29-08-2012') &
 Date < lubridate::dmy('31-12-2013')]
 FieldData = FieldData[lubridate::month(FieldData$Date) < 5 | lubridate::month(FieldData$Date) > 9,]
