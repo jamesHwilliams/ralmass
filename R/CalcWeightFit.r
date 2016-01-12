@@ -6,8 +6,6 @@
 #' 
 #' @param SimData data.table The file GooseEnergeticsData.txt
 #' @param FieldData data.table The observed weights
-#' @param Period character The period to calculate means within (currently only 
-#' week is available )
 #' @export
 CalcWeightFit = function(SimData, FieldData) {
 	ys = unique(SimData[,Year])
