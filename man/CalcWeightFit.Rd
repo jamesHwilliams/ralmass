@@ -10,9 +10,6 @@ CalcWeightFit(SimData, FieldData)
 \item{SimData}{data.table The file GooseEnergeticsData.txt}
 
 \item{FieldData}{data.table The observed weights}
-
-\item{Period}{character The period to calculate means within (currently only 
-week is available )}
 }
 \description{
 Calculate a least squares fit between field weights and simulated weights. 

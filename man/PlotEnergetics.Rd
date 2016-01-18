@@ -4,12 +4,14 @@
 \alias{PlotEnergetics}
 \title{Plot energy output from the ALMaSS Goose Management model}
 \usage{
-PlotEnergetics(data, sample = NULL)
+PlotEnergetics(SimData, FieldData, Sample = NULL)
 }
 \arguments{
-\item{data}{data.table The raw output from the file GooseEnergeticsData.txt}
+\item{SimData}{data.table The raw output from the file GooseEnergeticsData.txt}
 
-\item{sample}{numeric The proportion of the simulated data to include. Value
+\item{FieldData}{data.table object cleaned by the function CleanAPIData}
+
+\item{Sample}{numeric The proportion of the simulated data to include. Value
 between 0.01 and 1.}
 }
 \value{
