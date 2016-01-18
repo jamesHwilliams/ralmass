@@ -36,6 +36,7 @@ CalcWeightFit = function(SimData, FieldData) {
 		full = merge(FieldDatamean, simmean[Season == seasons[i], .(Week, AvgWeightSim)])
 		lsfits[i] = with(full, 1-sum((AvgWeightSim-AvgWeightField)^2))
 	}
+	names(lsfits) = paste0('Season', seasons)
 	return(lsfits)
 }
 
