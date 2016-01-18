@@ -9,11 +9,17 @@ CleanAPIData = function(APIData) {
 	if(is.null(APIData)){
 		stop('File missing')
 	}
+	if(!is.data.table(APIData)){
+		APIData = data.table::as.data.table(APIData)
+	}
 	APIData = APIData[CNTRY_NAME == 'Denmark', .(OBS_DATE, SEXE, API)]
 	data.table::setnames(APIData, c('Date', 'Sex', 'API'))
-	APIData[, Date:=lubridate::dmy(Date)]
+	APIData[, API:=as.numeric(API)]
+	APIData[, Date:=lubridate::ymd(Date)]
+	APIData = APIData[complete.cases(APIData)]
 	APIData[Sex == 'M', Weight:=2473+197.1*API]
 	APIData[Sex == 'F', Weight:=2291+185.4*API]
-	APIData = APIData[Sex %in% c('F', 'M'),]
+	APIData = APIData[Sex %in% c('F', 'M'),]  # Sometime strange characters 
+	# instead of just missing data, so complete.cases is not enough.
 	return(APIData)
 }
