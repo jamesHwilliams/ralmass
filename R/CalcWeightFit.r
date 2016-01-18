@@ -30,7 +30,7 @@ CalcWeightFit = function(SimData, FieldData) {
 	setkey(FieldDatamean, Week)
 
 # Calculate least squares
-	seasons = unique(mass[, Season])
+	seasons = unique(SimData[, Season])
 	lsfits = rep(NA, length(seasons))
 	for (i in seq_along(seasons)) {
 		full = merge(FieldDatamean, simmean[Season == seasons[i], .(Week, AvgWeightSim)])
