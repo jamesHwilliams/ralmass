@@ -9,11 +9,11 @@ CleanAPIData = function(APIData) {
 	if(is.null(APIData)){
 		stop('File missing')
 	}
-	field = field[CNTRY_NAME == 'Denmark', .(OBS_DATE, SEXE, API)]
-	data.table::setnames(field, c('Date', 'Sex', 'API'))
-	field[, Date:=lubridate::dmy(Date)]
-	field[Sex == 'M', Weight:=2473+197.1*API]
-	field[Sex == 'F', Weight:=2291+185.4*API]
-	field = field[Sex %in% c('F', 'M'),]
-	return(field)
+	APIData = APIData[CNTRY_NAME == 'Denmark', .(OBS_DATE, SEXE, API)]
+	data.table::setnames(APIData, c('Date', 'Sex', 'API'))
+	APIData[, Date:=lubridate::dmy(Date)]
+	APIData[Sex == 'M', Weight:=2473+197.1*API]
+	APIData[Sex == 'F', Weight:=2291+185.4*API]
+	APIData = APIData[Sex %in% c('F', 'M'),]
+	return(APIData)
 }
