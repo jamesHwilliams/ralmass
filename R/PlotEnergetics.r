@@ -29,7 +29,6 @@ PlotEnergetics = function(SimData, FieldData, Sample = NULL) {
 	ys = unique(SimData[,Year])
 	ys = ys+2011  # Quick fix to match dates from field data
 	ysorigins = as.Date(paste0(ys, '-01-01'))
-# setkey(data, 'Goose Type')
 	for (i in seq_along(ys)) {
 		SimData[Year == i, Date:=as.Date(Day, origin = ysorigins[i])]
 	}
@@ -44,6 +43,7 @@ PlotEnergetics = function(SimData, FieldData, Sample = NULL) {
 		SimData = SimData[rows,]
 	}
 
+	data.table::setkey(FieldData, Date)  # Otherwise the season breaks
 	FieldData = FieldData[Date > lubridate::dmy('29-08-2012') &
 	Date < lubridate::dmy('31-12-2013')]
 	FieldData = FieldData[lubridate::month(FieldData$Date) < 5 | lubridate::month(FieldData$Date) > 9,]
