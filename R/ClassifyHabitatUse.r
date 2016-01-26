@@ -26,5 +26,6 @@ ClassifyHabitatUse = function(data, species = NULL) {
 		# data[Greylag > 0, HabitatUseGL:=sapply(VegTypeCombo, ClassifyVegType)]
 		# data[Barnacle > 0, HabitatUseBN:=sapply(VegTypeCombo, ClassifyVegType)]
 		data[Geese > 0, HabitatUseBN:=sapply(VegTypeCombo, ClassifyVegType)]
+		return(data)
 	}
 }
