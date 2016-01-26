@@ -22,10 +22,9 @@ ClassifyHabitatUse = function(data, species = NULL) {
 	# Remove extra white spaces and make combined variable:
 		data[, PreviousCrop:=stringr::str_trim(LastSownVeg, side = 'right')]
 		data[, VegTypeCombo:=paste(LastSownVeg, VegPhase, sep = '-')]
-		# data[Pinkfoot > 0, HabitatUsePF:=sapply(VegTypeCombo, ClassifyVegType)]
-		# data[Greylag > 0, HabitatUseGL:=sapply(VegTypeCombo, ClassifyVegType)]
-		# data[Barnacle > 0, HabitatUseBN:=sapply(VegTypeCombo, ClassifyVegType)]
-		data[Geese > 0, HabitatUseBN:=sapply(VegTypeCombo, ClassifyVegType)]
+		data[Pinkfoot > 0, HabitatUsePF:=sapply(VegTypeCombo, ClassifyVegType)]
+		data[Greylag > 0, HabitatUseGL:=sapply(VegTypeCombo, ClassifyVegType)]
+		data[Barnacle > 0, HabitatUseBN:=sapply(VegTypeCombo, ClassifyVegType)]
 		return(data)
 	}
 }
