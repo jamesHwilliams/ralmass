@@ -111,8 +111,10 @@ ClassifyVegType = function(VegTypeCombo) {
            'MaizeSilage-0' = 'Maize',
            'MaizeSilage-1' = 'Maize',
            'MaizeSilage-2' = 'Maize',
+           'MaizeSilage-3' = 'Maize',
           'OMaizeSilage-1' = 'Maize',
           'OMaizeSilage-2' = 'Maize',
+          'OMaizeSilage-3' = 'Maize',
 #Default:
           'Unknown')
 }
