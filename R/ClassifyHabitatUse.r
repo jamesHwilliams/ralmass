@@ -25,6 +25,10 @@ ClassifyHabitatUse = function(data, species = NULL) {
 		data[Pinkfoot > 0, HabitatUsePF:=sapply(VegTypeCombo, ClassifyVegType)]
 		data[Greylag > 0, HabitatUseGL:=sapply(VegTypeCombo, ClassifyVegType)]
 		data[Barnacle > 0, HabitatUseBN:=sapply(VegTypeCombo, ClassifyVegType)]
+		# Fix for a rare bug:
+		data[Pinkfoot > 0 & VegTypeCombo == 'OFieldPeas-3', HabitatUsePF:='Stubble']
+		data[Greylag > 0 & VegTypeCombo == 'OFieldPeas-3', HabitatUseGL:='Stubble']
+		data[Barnacle > 0 & VegTypeCombo == 'OFieldPeas-3', HabitatUseBN:='Stubble']
 		return(data)
 	}
 }
