@@ -9,9 +9,10 @@
 #' @export
 CalcHabitatUseFit = function(FieldData, SimData) {
 # Field data:
-	h = unique(FieldData[, HabitatUse])
-	sp = unique(FieldData[, Species])
-	mths = unique(FieldData[, Month])
+	fielddata = FieldData[, .(Month, HabitatUse, N, Species)]
+	h = unique(fielddata[, HabitatUse])
+	sp = unique(fielddata[, Species])
+	mths = unique(fielddata[, Month])
 	fieldcombs = expand.grid(N = 0, HabitatUse = h, Month = mths, Species =  sp,
 		stringsAsFactors = FALSE)
 	fieldcombs = data.table::as.data.table(fieldcombs)
