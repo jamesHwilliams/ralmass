@@ -13,7 +13,8 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 	sp = unique(FieldData[, Species])
 	mths = unique(FieldData[, Month])
 	fieldcombs = expand.grid(N = 0, HabitatUse = h, Month = mths, Species =  sp,
-		stringsAsFactors = FALSE) %>% data.table::as.data.table
+		stringsAsFactors = FALSE)
+	fieldcombs = data.table::as.data.table(fieldcombs)
 	FieldData = rbind(FieldData, fieldcombs)
 	cols = c('Species', 'HabitatUse', 'Month')
 	FieldData = FieldData[, lapply(.SD, sum, na.rm = TRUE), by = cols]
@@ -44,7 +45,8 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 
 	h = unique(c(hb[,HabitatUse], h))
 	combs = expand.grid(N = 0, HabitatUse = h, Month = mths,
-		Species = sp, stringsAsFactors = FALSE) %>% data.table::as.data.table
+		Species = sp, stringsAsFactors = FALSE) 
+	combs = data.table::as.data.table(combs)
 
 	temp = rbind(hb, combs)
 	temp[,NMTotal:=sum(N), by=.(Month, Species)]
