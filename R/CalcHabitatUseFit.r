@@ -26,10 +26,10 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 	
 # Sim data:
 	SimData = SimData[Month %in% mths,]
+	newnames = c('HabitatUse', 'N')
 # Pinkfoot
 	hbpf = SimData[, .(Pinkfoot, HabitatUsePF, Month)]
 	hbpf[, Species:='Pinkfoot']
-	newnames = c('HabitatUse', 'N')
 	data.table::setnames(hbpf, old = c('HabitatUsePF', 'Pinkfoot'), new = newnames)
 # Greylag
 	hbgl = SimData[, .(Greylag, HabitatUseGL, Month)]
@@ -42,7 +42,10 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 # Full data
 	hb = rbind(hbpf, hbbn, hbgl)
 	hb = hb[complete.cases(hb),]
-
+	hbpfMonths = unique(hb[Species == 'Pinkfoot', Month])
+	hbglMonths = unique(hb[Species == 'Greylag', Month])
+	hbbnMonths = unique(hb[Species == 'Barnacle', Month])
+# Fill in zeros in all habitat classes
 	h = unique(c(hb[,HabitatUse], h))
 	combs = expand.grid(N = 0, HabitatUse = h, Month = mths,
 		Species = sp, stringsAsFactors = FALSE) 
@@ -59,4 +62,8 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 	cols = c('Species', 'Month')
 	HabFit = HabFit[, Fit:=1-sum((PropSim-PropField)^2), by = cols]
 	HabFit = HabFit[, .(Species, Month, Fit)] %>% unique
+	# Knock out cases where popn in sim went extinct:
+	HabFit[Species == 'Barnacle' & !Month %in% hbbnMonths, Fit:=NA]
+	HabFit[Species == 'Greylag' & !Month %in% hbglMonths, Fit:=NA]
+	HabFit[Species == 'Pinkfoot' & !Month %in% hbpfMonths, Fit:=NA]
 }
