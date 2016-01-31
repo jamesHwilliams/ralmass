@@ -2,7 +2,7 @@
 
 export(AppendWorkDir)
 export(CalcDistToRoosts)
-export(CalcHabUseFit)
+export(CalcHabitatUseFit)
 export(CalcNoHunterFit)
 export(CalcOverlab)
 export(CalcPseudoCentroid)

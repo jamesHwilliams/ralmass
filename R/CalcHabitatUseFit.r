@@ -7,7 +7,7 @@
 #' @param SimData data.table The field forage output file from ALMaSS
 #' @return data.table The fit per species and month
 #' @export
-CalcHabUseFit = function(FieldData, SimData) {
+CalcHabitatUseFit = function(FieldData, SimData) {
 # Field data:
 	h = unique(FieldData[, HabitatUse])
 	sp = unique(FieldData[, Species])
