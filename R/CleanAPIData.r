@@ -19,7 +19,7 @@ CleanAPIData = function(APIData) {
 	APIData = APIData[complete.cases(APIData)]
 	APIData[Sex == 'M', Weight:=2473+197.1*API]
 	APIData[Sex == 'F', Weight:=2291+185.4*API]
-	APIData = APIData[Sex %in% c('F', 'M'),]  # Sometime strange characters 
+	APIData = APIData[Sex %in% c('F', 'M'),]  # Sometimes strange characters 
 	# instead of just missing data, so complete.cases is not enough.
 	return(APIData)
 }
