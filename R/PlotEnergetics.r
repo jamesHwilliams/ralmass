@@ -43,10 +43,12 @@ PlotEnergetics = function(SimData, FieldData, Sample = NULL) {
 		SimData = SimData[rows,]
 	}
 
+	# FieldData = FieldData[Date > lubridate::dmy('29-08-2012') &
+	# Date < lubridate::dmy('31-12-2013')]
+	FieldData = FieldData[lubridate::month(FieldData$Date) < 4 | lubridate::month(FieldData$Date) > 9,]
+	FieldData[month(Date) < 5, Date:=ymd(paste(2013, month(Date), day(Date), sep = '-'))]
+	FieldData[month(Date) > 9, Date:=ymd(paste(2012, month(Date), day(Date), sep = '-'))]
 	data.table::setkey(FieldData, Date)  # Otherwise the season breaks
-	FieldData = FieldData[Date > lubridate::dmy('29-08-2012') &
-	Date < lubridate::dmy('31-12-2013')]
-	FieldData = FieldData[lubridate::month(FieldData$Date) < 5 | lubridate::month(FieldData$Date) > 9,]
 	FieldData[, Season:=c(0, cumsum(diff(Date)/ddays(1) > 100))]
 	FieldData[,Season:=Season+100]
 
