@@ -67,4 +67,6 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 	HabFit[Species == 'Barnacle' & !Month %in% hbbnMonths, Fit:=NA]
 	HabFit[Species == 'Greylag' & !Month %in% hbglMonths, Fit:=NA]
 	HabFit[Species == 'Pinkfoot' & !Month %in% hbpfMonths, Fit:=NA]
+	setkeyv(HabFit, cols)
+	return(HabFit)
 }
