@@ -12,8 +12,6 @@
 ClassifyVegType = function(VegTypeCombo) {
   switch(EXPR = VegTypeCombo,
 # Grass  
-             'Undefined-2' = 'Grass',  # a special case with permanent types
-             'Undefined-3' = 'Grass',  # a special case with permanent types
   'PermanentGrassGrazed-3' = 'Grass',
   'PermanentGrassGrazed-2' = 'Grass',
     'CloverGrassGrazed1-2' = 'Grass',
@@ -110,13 +108,15 @@ ClassifyVegType = function(VegTypeCombo) {
              'Triticale-3' = 'Stubble',
 #Maize:
            'MaizeSilage-0' = 'Maize',
-          'OMaizeSilage-0' = 'Maize',
            'MaizeSilage-1' = 'Maize',
            'MaizeSilage-2' = 'Maize',
            'MaizeSilage-3' = 'Maize',
+          'OMaizeSilage-0' = 'Maize',
           'OMaizeSilage-1' = 'Maize',
           'OMaizeSilage-2' = 'Maize',
           'OMaizeSilage-3' = 'Maize',
+             'Undefined-2' = 'Undefined', 
+             'Undefined-3' = 'Undefined', 
 #Default:
           'Unknown')
 }

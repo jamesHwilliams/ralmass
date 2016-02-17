@@ -8,10 +8,10 @@
 #' @export
 
 PlotGoosePopulation = function(data, type = 'point'){
-	data[,SimDate:=as.Date(DayInYear, origin = as.Date(paste0(Year,"-01-01")))]
-	data[,c('Day', 'Month', 'Year', 'Time', 'DayInYear'):=NULL]
+	# data[,Day:=as.Date(DayInYear, origin = as.Date(paste0(Year,"-01-01")))]
+	# data[,c('Day', 'Month', 'Year', 'Time', 'DayInYear'):=NULL]
 
-	melted = reshape2::melt(data, id.vars = c('SimDate'),
+	melted = reshape2::melt(data, id.vars = c('Day'),
 		variable.name = 'GooseType', value.name = 'Numbers')
 	melted = melted[Numbers != 0,]
 	ggplot2::theme_update(
@@ -27,7 +27,7 @@ PlotGoosePopulation = function(data, type = 'point'){
 		axis.ticks = ggplot2::element_line(colour = "black", size = 0.5)
 		)
 
-	pop = ggplot2::ggplot(melted, ggplot2::aes(SimDate, Numbers, group = GooseType))
+	pop = ggplot2::ggplot(melted, ggplot2::aes(Day, Numbers, group = GooseType))
 	if(tolower(type) == 'point') 
 	{
 		pop = pop + ggplot2::geom_point(aes(colour = GooseType)) +
