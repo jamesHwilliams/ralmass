@@ -26,14 +26,14 @@ PlotEnergetics = function(SimData, FieldData, Sample = NULL) {
 	data.table::setkey(SimData, 'GooseType')
 	SimData = SimData[GooseType == 'PFF']
 
-	ys = unique(SimData[,Year])
-	ys = ys+2011  # Quick fix to match dates from field data
-	ysorigins = as.Date(paste0(ys, '-01-01'))
-	for (i in seq_along(ys)) {
-		SimData[Year == i, Date:=as.Date(Day, origin = ysorigins[i])]
-	}
+	# ys = unique(SimData[,Year])
+	# ys = ys+2011  # Quick fix to match dates from field data
+	# ysorigins = as.Date(paste0(ys, '-01-01'))
+	# for (i in seq_along(ys)) {
+	# 	SimData[Year == i, Date:=as.Date(Day, origin = ysorigins[i])]
+	# }
 
-	SimData[, Season:=c(0, cumsum(diff(Month) > 1))]  # okay
+	SimData[, Season:=c(0, cumsum(diff(lubridate::month(Date)) > 1))]  # okay
 	SimData[, Type:='Sim']
 
 	if(!is.null(Sample))
