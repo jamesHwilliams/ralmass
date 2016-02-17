@@ -8,7 +8,7 @@
 #' @param FieldData data.table The observed weights
 #' @export
 CalcWeightFit = function(SimData, FieldData) {
-	SimData[, Date:=as.Date(Day-365, origin = '2012-01-01')]
+	SimData[, Date:=as.Date(Day, origin = '2012-01-01')]
 	# ys = unique(SimData[,lubridate::year(Date)])
 	# ysorigins = as.Date(paste0(ys, '-01-01'))
 # setkey(data, 'Goose Type')
