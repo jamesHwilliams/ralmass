@@ -8,9 +8,6 @@
 #' @export
 
 PlotGoosePopulation = function(data, type = 'point'){
-	# data[,Day:=as.Date(DayInYear, origin = as.Date(paste0(Year,"-01-01")))]
-	# data[,c('Day', 'Month', 'Year', 'Time', 'DayInYear'):=NULL]
-
 	melted = reshape2::melt(data, id.vars = c('Day'),
 		variable.name = 'GooseType', value.name = 'Numbers')
 	melted = melted[Numbers != 0,]
