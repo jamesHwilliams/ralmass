@@ -21,5 +21,7 @@ Imports:
     reshape2,
     rgdal,
     sp,
-    sfsmisc
+    sfsmisc,
+    Rcpp
 RoxygenNote: 5.0.1
+LinkingTo: Rcpp
