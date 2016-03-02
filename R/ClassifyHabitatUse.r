@@ -19,7 +19,7 @@ ClassifyHabitatUse = function(data, species = NULL) {
 	if(tolower(species) == 'goose')
 	{
 	# Remove extra white spaces and make combined variable:
-		data[, PreviousCrop:=stringr::str_trim(LastSownVeg, side = 'right')]
+		data[, LastSownVeg:=stringr::str_trim(LastSownVeg, side = 'right')]
 		data[, VegTypeCombo:=paste(LastSownVeg, VegPhase, sep = '-')]
 		data[Pinkfoot > 0, HabitatUsePF:=sapply(VegTypeCombo, ClassifyVegType)]
 		data[Greylag > 0, HabitatUseGL:=sapply(VegTypeCombo, ClassifyVegType)]
