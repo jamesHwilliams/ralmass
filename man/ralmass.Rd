@@ -2,13 +2,9 @@
 % Please edit documentation in R/ralmass-package.r
 \docType{package}
 \name{ralmass}
-\alias{.onUnload}
 \alias{ralmass}
 \alias{ralmass-package}
 \title{ralmass.}
-\usage{
-.onUnload(libpath)
-}
 \description{
 ralmass.
 }
