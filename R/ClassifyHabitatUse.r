@@ -18,6 +18,7 @@ ClassifyHabitatUse = function(data, species = NULL) {
 	}
 	if(tolower(species) == 'goose')
 	{
+
 	# Remove extra white spaces and make combined variable:
 		data[, PreviousCrop:=stringr::str_trim(LastSownVeg, side = 'right')]
 		data[, VegTypeCombo:=paste(LastSownVeg, VegPhase, sep = '-')]
@@ -28,10 +29,6 @@ ClassifyHabitatUse = function(data, species = NULL) {
 		data[Pinkfoot > 0 & VegTypeCombo == 'OFieldPeas-3', HabitatUsePF:='Stubble']
 		data[Greylag > 0 & VegTypeCombo == 'OFieldPeas-3', HabitatUseGL:='Stubble']
 		data[Barnacle > 0 & VegTypeCombo == 'OFieldPeas-3', HabitatUseBN:='Stubble']
-		# Fix natural grass types:
-		data[Pinkfoot > 0 & VegTypeChr == 'NaturalGrass', HabitatUsePF:='Grass']
-		data[Greylag > 0 & VegTypeChr == 'NaturalGrass', HabitatUseGL:='Grass']
-		data[Barnacle > 0 & VegTypeChr == 'NaturalGrass', HabitatUseBN:='Grass']
 		return(data)
 	}
 }

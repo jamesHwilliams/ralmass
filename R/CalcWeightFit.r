@@ -9,7 +9,14 @@
 #' @export
 CalcWeightFit = function(SimData, FieldData) {
 	SimData[, Date:=as.Date(Day, origin = '2012-01-01')]
+	# ys = unique(SimData[,lubridate::year(Date)])
+	# ysorigins = as.Date(paste0(ys, '-01-01'))
+# setkey(data, 'Goose Type')
+	# for (i in seq_along(ys)) {
+	# 	SimData[Year == i, Date:=as.Date(Day, origin = ysorigins[i])]
+	# }
 	SimData[, Season:=c(0, cumsum(diff(lubridate::month(Date)) > 1))]  # okay
+# SimData[, Type:='Sim']
 	SimData[, SWeight:=Weight/max(Weight)]
 
 	simmean = SimData[, mean(SWeight), by = .(lubridate::week(Date), Season)]

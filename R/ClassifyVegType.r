@@ -14,9 +14,6 @@ ClassifyVegType = function(VegTypeCombo) {
 # Grass  
   'PermanentGrassGrazed-3' = 'Grass',
   'PermanentGrassGrazed-2' = 'Grass',
-  'PermanentGrassGrazed-0' = 'Grass',
-'PermanentGrassTussocky-2' = 'Grass',
-'PermanentGrassTussocky-0' = 'Grass',
     'CloverGrassGrazed1-2' = 'Grass',
     'CloverGrassGrazed2-2' = 'Grass',
     'CloverGrassGrazed1-3' = 'Grass',
@@ -109,7 +106,7 @@ ClassifyVegType = function(VegTypeCombo) {
             'OTriticale-3' = 'Stubble',
  'OWinterWheatUndersown-3' = 'Stubble',
              'Triticale-3' = 'Stubble',
-# Maize:
+#Maize:
            'MaizeSilage-0' = 'Maize',
            'MaizeSilage-1' = 'Maize',
            'MaizeSilage-2' = 'Maize',
@@ -118,9 +115,8 @@ ClassifyVegType = function(VegTypeCombo) {
           'OMaizeSilage-1' = 'Maize',
           'OMaizeSilage-2' = 'Maize',
           'OMaizeSilage-3' = 'Maize',
-# Undefined
              'Undefined-2' = 'Undefined', 
              'Undefined-3' = 'Undefined', 
-# Default:
+#Default:
           'Unknown')
 }
