@@ -10,11 +10,4 @@
 #' @import rgdal
 #' @import gridExtra
 #' @import ggplot2
-#' 
-#' @useDynLib ralmass
-#' @importFrom Rcpp sourceCpp
-#' 
-.onUnload <- function (libpath) {
-  library.dynam.unload("ralmass", libpath)
-}
 NULL
