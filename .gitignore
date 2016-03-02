@@ -216,3 +216,7 @@ pip-log.txt
 .mr.developer.cfg
 *.Rhistory
 .Rproj.user
+
+*.o
+*.so
+*.dll
