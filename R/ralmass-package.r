@@ -10,4 +10,7 @@
 #' @import rgdal
 #' @import gridExtra
 #' @import ggplot2
+#' 
+#' @useDynLib ralmass
+#' @importFrom Rcpp sourceCpp
 NULL
