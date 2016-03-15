@@ -9,15 +9,18 @@
 #' @return A tab separated text file formatted according to the requirements
 #'  for a hunter home location file for ALMaSS.
 #' @export
-
 WriteHunterHomeLocs = function(Locs = NULL, PathToFile = NULL){
 	if(any(is.null(Locs), is.null(PathToFile))) {
 		stop('Input missing')
 	}
+	Locs = as.data.table(Locs)
+	rows = nrow(Locs)
 	filecon = file(PathToFile, open = 'wt')
-	cat(paste(nrow(Locs)), '\n',  file = filecon)
+	cat(paste(rows), '\n',  file = filecon)
 	ScipenDefault = getOption('scipen')
 	options(scipen = 99)  # To avoid scientific notation in the resulting file
+	Locs[,ID:=0:(rows-1)]
+	setcolorder(Locs, neworder = c(3,1,2))
 	write.table(Locs, file = filecon, sep = '\t', append = TRUE,
 	 row.names = FALSE, col.names = FALSE, quote = FALSE)
 	close(filecon)
