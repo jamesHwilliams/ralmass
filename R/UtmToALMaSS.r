@@ -42,12 +42,12 @@ UtmToALMaSS = function(data, long, lat, map, subset = TRUE, toalmass = TRUE) {
 		if(is.character(long)) {
 			varname = as.name(long)
 			r = eval(varname, data)
-			data$ALong = floor(data[, r]-x)
+			data$ALong = floor(r-x)
 		}
 		if(is.character(lat)) {
 			varname = as.name(lat)
 			r = eval(varname, data)
-			data$ALat = floor(y - data[, r])	
+			data$ALat = floor(y - r)	
 		}
 
 		if(subset) 
@@ -63,12 +63,12 @@ UtmToALMaSS = function(data, long, lat, map, subset = TRUE, toalmass = TRUE) {
 		if(is.character(long)) {
 			varname = as.name(long)
 			r = eval(varname, data)
-			data$ALong = floor(x + data[, r])
+			data$ALong = floor(x + r)
 		}
 		if(is.character(lat)) {
 			varname = as.name(lat)
 			r = eval(varname, data)
-			data$ALat = floor(y - data[, r])	
+			data$ALat = floor(y - r)	
 		}
 		if(!is.character(long) & !is.character(lat)) {
 			data$ALong = floor(data[,long]+x)
