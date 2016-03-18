@@ -32,6 +32,13 @@ ClassifyHabitatUse = function(data, species = NULL) {
 		data[Pinkfoot > 0 & VegTypeChr == 'NaturalGrass', HabitatUsePF:='Grass']
 		data[Greylag > 0 & VegTypeChr == 'NaturalGrass', HabitatUseGL:='Grass']
 		data[Barnacle > 0 & VegTypeChr == 'NaturalGrass', HabitatUseBN:='Grass']
+		# Fix undersown spring barley:
+		data[Pinkfoot > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUsePF:='Stubble']
+		data[Greylag > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseGL:='Stubble']
+		data[Barnacle > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseBN:='Stubble']
 		return(data)
 	}
 }
