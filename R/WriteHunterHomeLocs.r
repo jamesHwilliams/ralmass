@@ -13,7 +13,10 @@ WriteHunterHomeLocs = function(Locs = NULL, PathToFile = NULL){
 	if(any(is.null(Locs), is.null(PathToFile))) {
 		stop('Input missing')
 	}
-	Locs = as.data.table(Locs)
+	if(!is.data.table(Locs)) 
+	{
+		Locs = as.data.table(Locs)
+	}
 	rows = nrow(Locs)
 	filecon = file(PathToFile, open = 'wt')
 	cat(paste(rows), '\n',  file = filecon)
