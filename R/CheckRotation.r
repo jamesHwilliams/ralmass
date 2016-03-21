@@ -39,12 +39,12 @@ CheckRotation = function(path = NULL) {
 			{
 				if(j == length(crops)) 
 				{
-					if(crops[1] %in% c('CloverGrassGrazed1', 'SeedGrass1')) 
+					if(crops[1] %in% c('CloverGrassGrazed1', 'SeedGrass1', 'FodderGrass')) 
 					{
 						cat(paste0('Undersown WinterRye. Check last and first crop in ', wd[i], '\n'))
 					}
 				}
-				if(crops[j+1] %in% c('CloverGrassGrazed1', 'SeedGrass1')){
+				if(crops[j+1] %in% c('CloverGrassGrazed1', 'SeedGrass1', 'FodderGrass')){
 					cat(paste0('Undersown WinterRye on line ', j+4, ' in ', wd[i], '\n'))
 				}
 			}
