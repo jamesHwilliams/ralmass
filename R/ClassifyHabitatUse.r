@@ -34,11 +34,19 @@ ClassifyHabitatUse = function(data, species = NULL) {
 		data[Barnacle > 0 & VegTypeChr == 'NaturalGrass', HabitatUseBN:='Grass']
 		# Fix undersown spring barley:
 		data[Pinkfoot > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 LastSownVeg == 'CloverGrassGrazed1', HabitatUsePF:='Stubble']
+			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUsePF:='Stubble']
 		data[Greylag > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseGL:='Stubble']
+			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseGL:='Stubble']
 		data[Barnacle > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseBN:='Stubble']
+			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseBN:='Stubble']
+		# due to the squence of things in ALMaSS, this is essentially the same 
+		# situation, but we need an extra fix.
+		 data[Pinkfoot > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUsePF:='Stubble']
+		data[Greylag > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseGL:='Stubble']
+		data[Barnacle > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseBN:='Stubble']
 		return(data)
 	}
 }
