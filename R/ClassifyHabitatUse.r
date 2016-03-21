@@ -32,41 +32,32 @@ ClassifyHabitatUse = function(data, species = NULL) {
 		data[Pinkfoot > 0 & VegTypeChr == 'NaturalGrass', HabitatUsePF:='Grass']
 		data[Greylag > 0 & VegTypeChr == 'NaturalGrass', HabitatUseGL:='Grass']
 		data[Barnacle > 0 & VegTypeChr == 'NaturalGrass', HabitatUseBN:='Grass']
-		# Fix undersown spring barley:
+		# Fix undersown spring barley - CGG1:
 		data[Pinkfoot > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUsePF:='Stubble']
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUsePF:='Stubble']
 		data[Greylag > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseGL:='Stubble']
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseGL:='Stubble']
 		data[Barnacle > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseBN:='Stubble']
-		data[Pinkfoot > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'CloverGrassGrazed1-0', HabitatUsePF:='Stubble']
-		data[Greylag > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'CloverGrassGrazed1-0', HabitatUseGL:='Stubble']
-		data[Barnacle > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'CloverGrassGrazed1-0', HabitatUseBN:='Stubble']
-		# due to the squence of things in ALMaSS, this is essentially the same 
-		# situation, but we need an extra fix.
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseBN:='Stubble']
 		data[Pinkfoot > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUsePF:='Stubble']
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUsePF:='Stubble']
 		data[Greylag > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseGL:='Stubble']
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseGL:='Stubble']
 		data[Barnacle > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseBN:='Stubble']
-
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseBN:='Stubble']
+		# SG1
 		data[Pinkfoot > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'SeedGrass1-3', HabitatUsePF:='Stubble']
+			 LastSownVeg == 'SeedGrass1', HabitatUsePF:='Stubble']
 		data[Greylag > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'SeedGrass1-3', HabitatUseGL:='Stubble']
+			 LastSownVeg == 'SeedGrass1', HabitatUseGL:='Stubble']
 		data[Barnacle > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'SeedGrass1-3', HabitatUseBN:='Stubble']
-
+			 LastSownVeg == 'SeedGrass1', HabitatUseBN:='Stubble']
 		data[Pinkfoot > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'SeedGrass1-3', HabitatUsePF:='Stubble']
+			 LastSownVeg == 'SeedGrass1', HabitatUsePF:='Stubble']
 		data[Greylag > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'SeedGrass1-3', HabitatUseGL:='Stubble']
+			 LastSownVeg == 'SeedGrass1', HabitatUseGL:='Stubble']
 		data[Barnacle > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
-			 VegTypeCombo == 'SeedGrass1-3', HabitatUseBN:='Stubble']
+			 LastSownVeg == 'SeedGrass1', HabitatUseBN:='Stubble']
 		return(data)
 	}
 }
