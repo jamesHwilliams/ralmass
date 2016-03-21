@@ -39,14 +39,34 @@ ClassifyHabitatUse = function(data, species = NULL) {
 			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseGL:='Stubble']
 		data[Barnacle > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
 			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseBN:='Stubble']
+		data[Pinkfoot > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'CloverGrassGrazed1-0', HabitatUsePF:='Stubble']
+		data[Greylag > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'CloverGrassGrazed1-0', HabitatUseGL:='Stubble']
+		data[Barnacle > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'CloverGrassGrazed1-0', HabitatUseBN:='Stubble']
 		# due to the squence of things in ALMaSS, this is essentially the same 
 		# situation, but we need an extra fix.
-		 data[Pinkfoot > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+		data[Pinkfoot > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
 			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUsePF:='Stubble']
 		data[Greylag > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
 			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseGL:='Stubble']
 		data[Barnacle > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
 			 VegTypeCombo == 'CloverGrassGrazed1-3', HabitatUseBN:='Stubble']
+
+		data[Pinkfoot > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'SeedGrass1-3', HabitatUsePF:='Stubble']
+		data[Greylag > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'SeedGrass1-3', HabitatUseGL:='Stubble']
+		data[Barnacle > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'SeedGrass1-3', HabitatUseBN:='Stubble']
+
+		data[Pinkfoot > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'SeedGrass1-3', HabitatUsePF:='Stubble']
+		data[Greylag > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'SeedGrass1-3', HabitatUseGL:='Stubble']
+		data[Barnacle > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 VegTypeCombo == 'SeedGrass1-3', HabitatUseBN:='Stubble']
 		return(data)
 	}
 }
