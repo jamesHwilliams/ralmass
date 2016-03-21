@@ -35,7 +35,7 @@ CheckRotation = function(path = NULL) {
 			cat(paste0('PotatoesIndustry following PotatoesIndustry in ', wd[i], '\n'))
 		}
 		for (j in seq_along(crops)) {
-			if(crops[j] %in% c('WinterRye', 'WinterWheat') 
+			if(crops[j] %in% c('WinterRye', 'WinterWheat')) 
 			{
 				if(j == length(crops)) 
 				{
