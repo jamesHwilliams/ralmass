@@ -50,4 +50,5 @@ CheckRotation = function(path = NULL) {
 			}
 		}
 	}
+	cat('Checking done')
 }
