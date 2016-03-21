@@ -34,6 +34,10 @@ CheckRotation = function(path = NULL) {
 		if(any(locs == 1)) {
 			cat(paste0('PotatoesIndustry following PotatoesIndustry in ', wd[i], '\n'))
 		}
+		locs = diff(which(crops == 'CloverGrassGrazed1'))
+		if(any(locs == 1)) {
+			cat(paste0('CloverGrassGrazed1 following CloverGrassGrazed1 in ', wd[i], '\n'))
+		}
 		for (j in seq_along(crops)) {
 			if(crops[j] %in% c('WinterRye', 'WinterWheat')) 
 			{
