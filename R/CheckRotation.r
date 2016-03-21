@@ -35,17 +35,17 @@ CheckRotation = function(path = NULL) {
 			cat(paste0('PotatoesIndustry following PotatoesIndustry in ', wd[i], '\n'))
 		}
 		for (j in seq_along(crops)) {
-			if(crops[j] == 'WinterRye') 
+			if(crops[j] %in% c('WinterRye', 'WinterWheat') 
 			{
 				if(j == length(crops)) 
 				{
 					if(crops[1] %in% c('CloverGrassGrazed1', 'SeedGrass1', 'FodderGrass')) 
 					{
-						cat(paste0('Undersown WinterRye. Check last and first crop in ', wd[i], '\n'))
+						cat(paste0('Undersown WinterRye or WinterWheat. Check last and first crop in ', wd[i], '\n'))
 					}
 				}
 				if(crops[j+1] %in% c('CloverGrassGrazed1', 'SeedGrass1', 'FodderGrass')){
-					cat(paste0('Undersown WinterRye on line ', j+4, ' in ', wd[i], '\n'))
+					cat(paste0('Undersown WinterRye or WinterWheat on line ', j+4, ' in ', wd[i], '\n'))
 				}
 			}
 		}
