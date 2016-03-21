@@ -45,7 +45,7 @@ CheckRotation = function(path = NULL) {
 					}
 				}
 				if(crops[j+1] %in% c('CloverGrassGrazed1', 'SeedGrass1')){
-					cat(paste0('Undersown WinterRye on line ', j, ' in ', wd[i], '\n'))
+					cat(paste0('Undersown WinterRye on line ', j+4, ' in ', wd[i], '\n'))
 				}
 			}
 		}
