@@ -48,8 +48,26 @@ CheckRotation = function(path = NULL) {
 						cat(paste0('Undersown WinterRye or WinterWheat. Check last and first crop in ', wd[i], '\n'))
 					}
 				}
-				if(crops[j+1] %in% c('CloverGrassGrazed1', 'SeedGrass1', 'FodderGrass')){
-					cat(paste0('Undersown WinterRye or WinterWheat on line ', j+4, ' in ', wd[i], '\n'))
+				if(j != length(crops)) 
+				{
+					if(crops[j+1] %in% c('CloverGrassGrazed1', 'SeedGrass1', 'FodderGrass')){
+						cat(paste0('Undersown WinterRye or WinterWheat on line ', j+4, ' in ', wd[i], '\n'))
+					}
+				}
+			}
+			if(crops[j] == 'SpringBarley') 
+			{
+				if(j != length(crops)) {
+					if(crops[j+1] == 'CloverGrassGrazed1') 
+					{
+						cat(paste0('CloverGrassGrazed1 following SpringBarley on line ', j+4, ' in ', wd[i], '\n'))
+					}
+				}
+				if(j == length(crops)) {
+					if(crops[1] == 'CloverGrassGrazed1') 
+					{
+						cat(paste0('CloverGrassGrazed1 following SpringBarley. Check last and first crop in in ', wd[i], '\n'))
+					}
 				}
 			}
 		}
