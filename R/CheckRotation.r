@@ -1,7 +1,7 @@
 #' Check crop rotations
 #'
 #' Do a check of the crop rotations. There are certain crops that never should
-#' be grown in to consecutive years for example. There is also a check to  
+#' be grown in to consecutive years for example. There is also a check two  
 #' ensure that crops that are undersown other crops are valid combinations 
 #' (some crops are never grown with an undersown crop)
 #' The function will print the results of the check to the console. 
