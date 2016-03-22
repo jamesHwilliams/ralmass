@@ -14,7 +14,7 @@
 #' Either 'Barnacle', 'Pinkfoot','Greylag' or 'Hunter'
 #' @return numeric The overlap
 #' @export
-CalcOverlab = function(data, species = NULL) 
+CalcOverlap = function(data, species = NULL) 
 {
 	if(is.null(data)) {stop('data argument empty \n')}
 	if(is.null(species)) {stop('species argument empty \n')}
