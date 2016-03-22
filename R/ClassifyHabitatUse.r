@@ -58,6 +58,13 @@ ClassifyHabitatUse = function(data, species = NULL) {
 			 LastSownVeg == 'SeedGrass1', HabitatUseGL:='Stubble']
 		data[Barnacle > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
 			 LastSownVeg == 'SeedGrass1', HabitatUseBN:='Stubble']
+		# Spring barley that is not undersown
+		data[Pinkfoot > 0 & PreviousCrop == 'SpringBarley' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUsePF:='Stubble']
+		data[Greylag > 0 & PreviousCrop == 'SpringBarley' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseGL:='Stubble']
+		data[Barnacle > 0 & PreviousCrop == 'SpringBarley' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseBN:='Stubble']
 		return(data)
 	}
 }
