@@ -18,9 +18,16 @@ EditBat = function(WorkDir = NULL) {
 	BatIndex = grep('_01_', WorkDirContent)
 	TheBat = paste0(WorkDir, '/', WorkDirContent[BatIndex])
 	Bat = readLines(TheBat)
+	if(length(Bat) == 0) {
+		stop('Error reading bat file')
+	}
 	# Edit the line with the for loop
 	TheForLine = paste0('FOR /L %%A IN (1,1,', runs, ') DO call _02')
-	Bat[grep('FOR /L %%A IN', Bat)] = TheForLine
+	index = grep('FOR /L %%A IN', Bat)
+	if(length(index) == 0) {
+		stop('Cannot find the for loop in the bat file')
+	}
+	Bat[index] = TheForLine
 	filecon = file(TheBat, open = 'wt')
 	write(Bat, file = filecon)
 	close(filecon)
