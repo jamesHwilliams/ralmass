@@ -5,7 +5,6 @@
 #' @param Locs data.frame or data.table The object with home locations
 #' @param PathToFile character The path to the where the file is 
 #' written (including the name and extension of the file, usually .txt)
-#' @param Headers logical Should the output file include headers?
 #' @return A tab separated text file formatted according to the requirements
 #'  for a hunter home location file for ALMaSS.
 #' @export

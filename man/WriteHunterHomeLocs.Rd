@@ -11,8 +11,6 @@ WriteHunterHomeLocs(Locs = NULL, PathToFile = NULL)
 
 \item{PathToFile}{character The path to the where the file is 
 written (including the name and extension of the file, usually .txt)}
-
-\item{Headers}{logical Should the output file include headers?}
 }
 \value{
 A tab separated text file formatted according to the requirements
