@@ -10,12 +10,19 @@ EditBat = function(WorkDir = NULL) {
 		stop('Input parameter WorkDir missing')
 	}
 	# Get the number of runs:
+	index = grep('ParameterValues.txt', dir(WorkDir))
+	if(length(index) == 0) {
+		stop('ParameterValues.txt missing from work directory')
+	}
 	paramvals = data.table::fread(paste0(WorkDir, '/','ParameterValues.txt'))
 	numberofparams = nrow(unique(paramvals[, 1, with = FALSE]))
 	runs = nrow(paramvals)/numberofparams
 	# Get the right file in the workdirectory
 	WorkDirContent = dir(WorkDir)
 	BatIndex = grep('_01_', WorkDirContent)
+	if(length(BatIndex) == 0) {
+		stop('Bat file missing from work directory')
+	}
 	TheBat = paste0(WorkDir, '/', WorkDirContent[BatIndex])
 	Bat = readLines(TheBat)
 	if(length(Bat) == 0) {
