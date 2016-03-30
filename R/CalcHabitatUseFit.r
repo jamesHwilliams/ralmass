@@ -1,7 +1,8 @@
 #' Calculate the fit of habitat use frequencies
 #'
 #' Calculate the fit between habitat use scored in the field 
-#' and habitat use based on the simulations
+#' and habitat use based on the simulations. The timing of the counts in 
+#' the simulation is controlled by the config variable GOOSE_TIMEDCOUNTS
 #'
 #' @param FieldData data.table The table with the field data
 #' @param SimData data.table The field forage output file from ALMaSS
@@ -29,15 +30,15 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 	SimData = SimData[Month %in% mths,]
 	newnames = c('HabitatUse', 'N')
 # Pinkfoot
-	hbpf = SimData[, .(Pinkfoot, HabitatUsePF, Month)]
+	hbpf = SimData[, .(PinkfootTimed, HabitatUsePF, Month)]
 	hbpf[, Species:='Pinkfoot']
 	data.table::setnames(hbpf, old = c('HabitatUsePF', 'Pinkfoot'), new = newnames)
 # Greylag
-	hbgl = SimData[, .(Greylag, HabitatUseGL, Month)]
+	hbgl = SimData[, .(GreylagTimed, HabitatUseGL, Month)]
 	hbgl[, Species:='Greylag']
 	data.table::setnames(hbgl, old = c('HabitatUseGL', 'Greylag'), new = newnames)
 # Barnacle
-	hbbn = SimData[, .(Barnacle, HabitatUseBN, Month)]
+	hbbn = SimData[, .(BarnacleTimed, HabitatUseBN, Month)]
 	hbbn[, Species:='Barnacle']
 	data.table::setnames(hbbn, old = c('HabitatUseBN', 'Barnacle'), new = newnames)
 # Full data
@@ -68,6 +69,6 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 	HabFit[Species == 'Greylag' & !Month %in% hbglMonths, Fit:=NA]
 	HabFit[Species == 'Pinkfoot' & !Month %in% hbpfMonths, Fit:=NA]
 	HabFit[, Month:=as.factor(Month)]
-	setkeyv(HabFit, cols)
+	data.table::setkeyv(HabFit, cols)
 	return(HabFit)
 }
