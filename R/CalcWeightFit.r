@@ -13,14 +13,15 @@ CalcWeightFit = function(SimData, FieldData) {
 	SimData[, SWeight:=Weight/max(Weight)]
 
 	simmean = SimData[, mean(SWeight), by = .(lubridate::week(Date), Season)]
-	setnames(simmean, c('Week', 'Season', 'AvgWeightSim'))
-	setkey(simmean, Week)
+	data.table::setnames(simmean, c('Week', 'Season', 'AvgWeightSim'))
+	data.table::setkey(simmean, Week)
 
-	FieldData = FieldData[Date > ymd('2010-08-01') & Date < ymd('2015-05-31'),]
+	FieldData = FieldData[Date > lubridate::ymd('2010-08-01') & 
+							Date < lubridate::ymd('2015-05-31'),]
 	FieldData[, SWeight:=Weight/max(Weight)]
 	FieldDatamean = FieldData[, mean(SWeight), by = lubridate::week(Date)]
-	setnames(FieldDatamean, c('Week', 'AvgWeightField'))
-	setkey(FieldDatamean, Week)
+	data.table::setnames(FieldDatamean, c('Week', 'AvgWeightField'))
+	data.table::setkey(FieldDatamean, Week)
 
 # Calculate least squares
 	seasons = unique(SimData[, Season])
