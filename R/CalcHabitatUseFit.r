@@ -32,15 +32,15 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 # Pinkfoot
 	hbpf = SimData[, .(PinkfootTimed, HabitatUsePF, Month)]
 	hbpf[, Species:='Pinkfoot']
-	data.table::setnames(hbpf, old = c('HabitatUsePF', 'Pinkfoot'), new = newnames)
+	data.table::setnames(hbpf, old = c('HabitatUsePF', 'PinkfootTimed'), new = newnames)
 # Greylag
 	hbgl = SimData[, .(GreylagTimed, HabitatUseGL, Month)]
 	hbgl[, Species:='Greylag']
-	data.table::setnames(hbgl, old = c('HabitatUseGL', 'Greylag'), new = newnames)
+	data.table::setnames(hbgl, old = c('HabitatUseGL', 'GreylagTimed'), new = newnames)
 # Barnacle
 	hbbn = SimData[, .(BarnacleTimed, HabitatUseBN, Month)]
 	hbbn[, Species:='Barnacle']
-	data.table::setnames(hbbn, old = c('HabitatUseBN', 'Barnacle'), new = newnames)
+	data.table::setnames(hbbn, old = c('HabitatUseBN', 'BarnacleTimed'), new = newnames)
 # Full data
 	hb = rbind(hbpf, hbbn, hbgl)
 	hb = hb[complete.cases(hb),]
