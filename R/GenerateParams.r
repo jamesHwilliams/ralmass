@@ -11,6 +11,7 @@
 #' @param write logical Should a file with the table be written to disk?
 #' @param splits numeric The number of files to split the scenarios into. 
 #' (Optional). If not NULL the files gets written to disk.
+#' @param replicates numeric The number of replicates to run (Optional).
 #' @return data.frame One column data.frame where each line is a text string
 #' with the config variable and its value
 #' @export
@@ -19,8 +20,8 @@
 #' val2 = seq(10, 50, length.out = 5)
 #' GenerateParams('GOOSE_MINFORAGEOPENNESS' = val,
 #' 'HUNTERS_MAXDENSITY' = val2, write = FALSE)
-GenerateParams = function (..., write = FALSE, splits = NULL) 
-{
+GenerateParams = function (..., write = FALSE, splits = NULL, 
+	replicates = NULL ) {
 	# Code from the base expand.grid with the KEEP.ATTR.OUT and StringAsFactor
 	# bits removed.
 	nargs <- length(args <- list(...))
@@ -66,6 +67,14 @@ GenerateParams = function (..., write = FALSE, splits = NULL)
 	values = as.vector(t(exgrid))
 	confignames = rep(names(exgrid), nrow(exgrid))
 	df = data.frame('Params' = paste(confignames, values, sep = ' = '))
+	if(!is.null(replicates) && replicates > 1) 
+	{
+		reps = vector('list', replicates)
+		for (i in seq_len(replicates)) {
+			reps[[i]] = df
+		}
+		df = do.call('rbind', reps)
+	}
 	if(!is.null(splits)) 
 	{
 		starts = seq(1, nrow(df), by = nrow(df)/splits)
@@ -81,6 +90,7 @@ GenerateParams = function (..., write = FALSE, splits = NULL)
 			getwd(), '\n')
 		cat('The full list of scenarios is printed here:\n')
 	}
+
 	if(write) 
 	{
 		write.table(df, file = 'ParameterValues.txt', sep = '\t', quote = FALSE,

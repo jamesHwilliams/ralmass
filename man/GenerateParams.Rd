@@ -4,7 +4,7 @@
 \alias{GenerateParams}
 \title{Generate a range combinations of paramter values}
 \usage{
-GenerateParams(..., write = FALSE, splits = NULL)
+GenerateParams(..., write = FALSE, splits = NULL, replicates = NULL)
 }
 \arguments{
 \item{...}{numeric One or more vectors (usually made with seq and the
@@ -14,6 +14,8 @@ length.out argument)}
 
 \item{splits}{numeric The number of files to split the scenarios into. 
 (Optional). If not NULL the files gets written to disk.}
+
+\item{replicates}{numeric The number of replicates to run (Optional).}
 }
 \value{
 data.frame One column data.frame where each line is a text string
