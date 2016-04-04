@@ -8,9 +8,11 @@
 #' @param value character The value of the config
 #' @export
 EditConfig = function(file = NULL, config = NULL, value = NULL) {
-	if(is.null(file)) 
+	if(any(is.null(file), is.null(config), is.null(value))) 
 	{
-		stop('Input file missing')
+		stop('Input argument missing')
 	}
-	write(TheParam, file, append = TRUE)
+	TheConfig = GetParamType(config)
+	TheLine = paste(TheConfig, '=', value, sep = ' ')
+	write(TheLinee, file, append = TRUE)
 }

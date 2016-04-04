@@ -2,13 +2,12 @@
 #'
 #' Add the input parameter type to the string of just the parameter name.
 #' 
-#'  
 #' @param param character The input paramter
 #' @return character param plus the type added in parantheses
 #' @export
 GetParamType <- function(param = NULL) {
 	if(is.null(param)) {stop('Input argument missing \n')}
-    param = str_trim(param, side = "both")
+    param = stringr::str_trim(param, side = "both")
     switch(EXPR = param,
   	# Names of the paramters:
   		'GOOSE_MINFORAGEOPENNESS' = 'GOOSE_MINFORAGEOPENNESS (float)',
@@ -29,6 +28,7 @@ GetParamType <- function(param = NULL) {
 		'GOOSE_MEM_MINMEMVALUE' = 'GOOSE_MEM_MINMEMVALUE (int)',
 		'GOOSE_GRAINDECAYRATE' = 'GOOSE_GRAINDECAYRATE (float)',
 		'HUNTERS_MAXDENSITY' = 'HUNTERS_MAXDENSITY (float)',
-        'CLOSESTFARMPROBPARAMONE' = 'CLOSESTFARMPROBPARAMONE (float)'
+        'CLOSESTFARMPROBPARAMONE' = 'CLOSESTFARMPROBPARAMONE (float)',
+        'HUNTERS_DISTRIBUTE_RULESET' = 'HUNTERS_DISTRIBUTE_RULESET (int)'
         )
 }
