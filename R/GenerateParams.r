@@ -37,7 +37,7 @@ GenerateParams = function (..., write = FALSE, splits = NULL,
 	nm <- names(args)
 	# ralmass modification
 	# Modify the names to also specify parameter type:
-	nm = sapply(nm, FUN = ParamType)
+	nm = sapply(nm, FUN = GetParamType)
 	if (is.null(nm)) 
 		nm <- nmc
 	else if (any(ng0 <- nzchar(nm))) 
@@ -98,32 +98,4 @@ GenerateParams = function (..., write = FALSE, splits = NULL,
 		cat('Printed following to ParameterValues.txt:\n')
 	}
 	return(df)
-}
-
-# Helper function ---------------------
-ParamType <- function(name = NULL) {
-	if(is.null(name)) {stop('Input argument missing \n')}
-    name = str_trim(name, side = "both")
-    switch(EXPR = name,
-  	# Names of the paramters:
-  		'GOOSE_MINFORAGEOPENNESS' = 'GOOSE_MINFORAGEOPENNESS (float)',
-        'BGOOSE_FOLLOWINGLIKELYHOOD' = 'BGOOSE_FOLLOWINGLIKELYHOOD (int)',
-		'PFGOOSE_FOLLOWINGLIKELYHOOD' = 'PFGOOSE_FOLLOWINGLIKELYHOOD (int)',
-		'GLGOOSE_FOLLOWINGLIKELYHOOD' = 'GLGOOSE_FOLLOWINGLIKELYHOOD (int)',
-		'GOOSE_MAXAPPETITESCALER' = 'GOOSE_MAXAPPETITESCALER (float)',
-		'GOOSE_MAXENERGYRESERVEPROPORTION' = 'GOOSE_MAXENERGYRESERVEPROPORTION (float)',
-		'GOOSE_LEAVINGTHRESHOLD' = 'GOOSE_LEAVINGTHRESHOLD (float)',
-		'GOOSE_FORAGEDIST_BN' = 'GOOSE_FORAGEDIST_BN (float)',
-		'GOOSE_FORAGEDIST_PF' = 'GOOSE_FORAGEDIST_PF (float)',
-		'GOOSE_FORAGEDIST_GL' = 'GOOSE_FORAGEDIST_GL (float)',
-		'GOOSE_MINFORAGEDECAYRATE' = 'GOOSE_MINFORAGEDECAYRATE (float)',
-		'GOOSE_ENERGYCALIBRATION' = 'GOOSE_ENERGYCALIBRATION (float)',
-		'GOOSE_FEEDINGTIME' = 'GOOSE_FEEDINGTIME (float)',
-		'GOOSE_ROOSTLEAVINGLIKELYHOOD' = 'GOOSE_ROOSTLEAVINGLIKELYHOOD (int)',
-		'GOOSE_MEM_DISTPENALTY' = 'GOOSE_MEM_DISTPENALTY (float)',
-		'GOOSE_MEM_MINMEMVALUE' = 'GOOSE_MEM_MINMEMVALUE (int)',
-		'GOOSE_GRAINDECAYRATE' = 'GOOSE_GRAINDECAYRATE (float)',
-		'HUNTERS_MAXDENSITY' = 'HUNTERS_MAXDENSITY (float)',
-        'CLOSESTFARMPROBPARAMONE' = 'CLOSESTFARMPROBPARAMONE (float)'
-        )
 }
