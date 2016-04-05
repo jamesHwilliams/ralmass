@@ -14,5 +14,5 @@ EditConfig = function(file = NULL, config = NULL, value = NULL) {
 	}
 	TheConfig = GetParamType(config)
 	TheLine = paste(TheConfig, '=', value, sep = ' ')
-	write(TheLinee, file, append = TRUE)
+	write(TheLine, file, append = TRUE)
 }
