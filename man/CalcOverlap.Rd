@@ -4,11 +4,11 @@
 \alias{CalcOverlap}
 \title{Calculate the overlap of kernel densities}
 \usage{
-CalcOverlap(data, species = NULL)
+CalcOverlap(data = NULL, species = NULL)
 }
 \arguments{
 \item{data}{data.table An object containing both the simulated and observed 
-flock sizes}
+flock sizes and the three columns 'Species', 'Numbers' and 'Type'}
 
 \item{species}{character The species for which the calculated for.
 Either 'Barnacle', 'Pinkfoot','Greylag' or 'Hunter'}

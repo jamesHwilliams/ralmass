@@ -9,14 +9,14 @@
 #'-between-empirical-probability-densities
 #' 
 #' @param data data.table An object containing both the simulated and observed 
-#' flock sizes
+#' flock sizes and the three columns 'Species', 'Numbers' and 'Type'
 #' @param species character The species for which the calculated for.
 #' Either 'Barnacle', 'Pinkfoot','Greylag' or 'Hunter'
 #' @return numeric The overlap
 #' @export
-CalcOverlap = function(data, species = NULL) 
+CalcOverlap = function(data = NULL, species = NULL) 
 {
-	if(any(is.null(data), is.null(species)) {
+	if(any(is.null(data), is.null(species))) {
 		stop('Input argument missing \n')
 	}
 	if(tolower(species) != 'hunter'){
@@ -24,6 +24,11 @@ CalcOverlap = function(data, species = NULL)
 												  # right case.
 		var = c(species, paste0(species, 'Timed'))
 		data = data[Species %in% var,][,Numbers:=log10(Numbers)]
+		ndatatypes = length(unique(data[,Type]))
+		if(ndatatypes < 2) 
+		{
+			return(0)
+		}
 	}
 
   # The actual calculation is based on this CV question: 
