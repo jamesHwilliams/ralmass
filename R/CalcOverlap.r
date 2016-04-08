@@ -16,20 +16,14 @@
 #' @export
 CalcOverlap = function(data, species = NULL) 
 {
-	if(is.null(data)) {stop('data argument empty \n')}
-	if(is.null(species)) {stop('species argument empty \n')}
-    # The capwords function from the examples in ?tolower
-	capwords = function(s, strict = FALSE) {
-		cap = function(s) paste(toupper(substring(s, 1, 1)),
-			{s <- substring(s, 2); if(strict) tolower(s) else s},
-			sep = "", collapse = " " )
-		sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
+	if(any(is.null(data), is.null(species)) {
+		stop('Input argument missing \n')
 	}
-
-	# species = capwords(species)
-	if(species != 'Hunter'){
-		var = c(species, paste(species, 'Timed', sep = ''))
-		data = data[Species %in% var,][, Numbers:=log10(Numbers)]
+	if(tolower(species) != 'hunter'){
+		species = stringr::str_to_title(species)  # Ensuring species has the 
+												  # right case.
+		var = c(species, paste0(species, 'Timed'))
+		data = data[Species %in% var,][,Numbers:=log10(Numbers)]
 	}
 
   # The actual calculation is based on this CV question: 
