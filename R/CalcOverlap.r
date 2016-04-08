@@ -9,27 +9,26 @@
 #'-between-empirical-probability-densities
 #' 
 #' @param data data.table An object containing both the simulated and observed 
-#' flock sizes
+#' flock sizes and the three columns 'Species', 'Numbers' and 'Type'
 #' @param species character The species for which the calculated for.
 #' Either 'Barnacle', 'Pinkfoot','Greylag' or 'Hunter'
 #' @return numeric The overlap
 #' @export
-CalcOverlap = function(data, species = NULL) 
+CalcOverlap = function(data = NULL, species = NULL) 
 {
-	if(is.null(data)) {stop('data argument empty \n')}
-	if(is.null(species)) {stop('species argument empty \n')}
-    # The capwords function from the examples in ?tolower
-	capwords = function(s, strict = FALSE) {
-		cap = function(s) paste(toupper(substring(s, 1, 1)),
-			{s <- substring(s, 2); if(strict) tolower(s) else s},
-			sep = "", collapse = " " )
-		sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
+	if(any(is.null(data), is.null(species))) {
+		stop('Input argument missing \n')
 	}
-
-	# species = capwords(species)
-	if(species != 'Hunter'){
-		var = c(species, paste(species, 'Timed', sep = ''))
-		data = data[Species %in% var,][, Numbers:=log10(Numbers)]
+	if(tolower(species) != 'hunter'){
+		species = stringr::str_to_title(species)  # Ensuring species has the 
+												  # right case.
+		var = c(species, paste0(species, 'Timed'))
+		data = data[Species %in% var,][,Numbers:=log10(Numbers)]
+		ndatatypes = length(unique(data[,Type]))
+		if(ndatatypes < 2) 
+		{
+			return(0)
+		}
 	}
 
   # The actual calculation is based on this CV question: 
