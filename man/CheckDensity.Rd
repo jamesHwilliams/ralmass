@@ -4,12 +4,15 @@
 \alias{CheckDensity}
 \title{Check densities of hunters per farm}
 \usage{
-CheckDensity(data = NULL, MaxDensity = NULL)
+CheckDensity(data = NULL, maxdensity = NULL, area = NULL)
 }
 \arguments{
 \item{data}{data.table The file HuntingLocationsFarm.txt}
 
-\item{MaxDensity}{numeric The density paramter setting}
+\item{maxdensity}{numeric The density paramter setting}
+
+\item{area}{character The name of the column on which the area calculation
+should be based.}
 }
 \value{
 logical TRUE if all densities legal, FALSE otherwise

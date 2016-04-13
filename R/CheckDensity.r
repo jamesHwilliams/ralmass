@@ -6,16 +6,18 @@
 #' 
 #' @param data data.table The file HuntingLocationsFarm.txt
 #' @param maxdensity numeric The density paramter setting
-#' @param colname character The name of the column with the deinsities to check
+#' @param area character The name of the column on which the area calculation
+#' should be based.
 #' @return logical TRUE if all densities legal, FALSE otherwise
 #' @export
-CheckDensity = function(data = NULL, maxdensity = NULL, colname = NULL) 
+CheckDensity = function(data = NULL, maxdensity = NULL, area = NULL) 
 {
-	if(any(is.null(data), is.null(maxdensity), is.null(colname)))
+	if(any(is.null(data), is.null(maxdensity), is.null(area)))
 	{
 		stop('Input parameter missing')
 	}
 	vals = eval(as.name(colname), farms)
-	return(all(vals <= maxdensity))
+	densities = data[,NoHunters]/(vals/10000)
+	return(all(densities <= maxdensity))
 }
 
