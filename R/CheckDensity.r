@@ -5,23 +5,17 @@
 #' 
 #' 
 #' @param data data.table The file HuntingLocationsFarm.txt
-#' @param MaxDensity numeric The density paramter setting
+#' @param maxdensity numeric The density paramter setting
+#' @param colname character The name of the column with the deinsities to check
 #' @return logical TRUE if all densities legal, FALSE otherwise
 #' @export
-CheckDensity = function(data = NULL, MaxDensity = NULL) 
+CheckDensity = function(data = NULL, maxdensity = NULL, colname = NULL) 
 {
-	if(any(is.null(data), is.null(MaxDensity)))
+	if(any(is.null(data), is.null(maxdensity), is.null(colname)))
 	{
 		stop('Input parameter missing')
 	}
-	AnyRows = nrow(data[Numbers > MaxDensity]) != 0
-	if(AnyRows != 0)
-	{
-		return(FALSE)
-	}
-	if(AnyRows == 0)
-	{
-		return(TRUE)
-	}
+	vals = eval(as.name(colname), farms)
+	return(all(vals <= maxdensity))
 }
 
