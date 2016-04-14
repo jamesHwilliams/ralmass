@@ -16,7 +16,7 @@ CheckDensity = function(data = NULL, maxdensity = NULL, area = NULL)
 	{
 		stop('Input parameter missing')
 	}
-	vals = eval(as.name(colname), farms)
+	vals = eval(as.name(area), farms)
 	densities = data[,NoHunters]/(vals/10000)
 	return(all(densities <= maxdensity))
 }
