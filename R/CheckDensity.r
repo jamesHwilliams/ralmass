@@ -18,6 +18,6 @@ CheckDensity = function(data = NULL, maxdensity = NULL, area = NULL)
 	}
 	vals = eval(as.name(area), data)
 	densities = data[,NoHunters]/(vals/10000)
-	return(all(densities <= maxdensity))
+	return(all(densities <= maxdensity, na.rm = TRUE))
 }
 
