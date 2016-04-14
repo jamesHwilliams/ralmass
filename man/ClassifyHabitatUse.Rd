@@ -4,12 +4,15 @@
 \alias{ClassifyHabitatUse}
 \title{Classify animal habitat use}
 \usage{
-ClassifyHabitatUse(data, species = NULL)
+ClassifyHabitatUse(data, species = NULL, timed = TRUE)
 }
 \arguments{
 \item{data}{data.table A data.table with the habitat use from ALMaSS}
 
 \item{species}{character String giving the species (or animal model)}
+
+\item{timed}{logical Should we use timed counts (TRUE, default) or daily
+maximum (FALSE)?}
 }
 \value{
 A data.table with the classifed habitat use.

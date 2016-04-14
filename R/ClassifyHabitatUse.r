@@ -5,9 +5,11 @@
 #' 
 #' @param data data.table A data.table with the habitat use from ALMaSS
 #' @param species character String giving the species (or animal model)
+#' @param timed logical Should we use timed counts (TRUE, default) or daily
+#' maximum (FALSE)?
 #' @return A data.table with the classifed habitat use.
 #' @export
-ClassifyHabitatUse = function(data, species = NULL) {
+ClassifyHabitatUse = function(data, species = NULL, timed = TRUE) {
 	if(is.null(species))
 	{
 		stop('Input parameter species missing')
@@ -16,7 +18,7 @@ ClassifyHabitatUse = function(data, species = NULL) {
 	{
 		stop('Currently only implemented for geese')
 	}
-	if(tolower(species) == 'goose')
+	if(tolower(species) == 'goose' & !timed)
 	{
 	# Remove extra white spaces and make combined variable:
 		data[, LastSownVeg:=stringr::str_trim(LastSownVeg, side = 'right')]
@@ -64,6 +66,57 @@ ClassifyHabitatUse = function(data, species = NULL) {
 		data[Greylag > 0 & PreviousCrop == 'SpringBarley' &
 			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseGL:='Stubble']
 		data[Barnacle > 0 & PreviousCrop == 'SpringBarley' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseBN:='Stubble']
+		return(data)
+	}
+	if(tolower(species) == 'goose' & timed)
+	{
+	# Remove extra white spaces and make combined variable:
+		data[, LastSownVeg:=stringr::str_trim(LastSownVeg, side = 'right')]
+		data[, VegTypeCombo:=paste(LastSownVeg, VegPhase, sep = '-')]
+		data[PinkfootTimed > 0, HabitatUsePF:=sapply(VegTypeCombo, ClassifyVegType)]
+		data[GreylagTimed > 0, HabitatUseGL:=sapply(VegTypeCombo, ClassifyVegType)]
+		data[BarnacleTimed > 0, HabitatUseBN:=sapply(VegTypeCombo, ClassifyVegType)]
+		# Fix for a rare bug:
+		data[PinkfootTimed > 0 & VegTypeCombo == 'OFieldPeas-3', HabitatUsePF:='Stubble']
+		data[GreylagTimed > 0 & VegTypeCombo == 'OFieldPeas-3', HabitatUseGL:='Stubble']
+		data[BarnacleTimed > 0 & VegTypeCombo == 'OFieldPeas-3', HabitatUseBN:='Stubble']
+		# Fix natural grass types:
+		data[PinkfootTimed > 0 & VegTypeChr == 'NaturalGrass', HabitatUsePF:='Grass']
+		data[GreylagTimed > 0 & VegTypeChr == 'NaturalGrass', HabitatUseGL:='Grass']
+		data[BarnacleTimed > 0 & VegTypeChr == 'NaturalGrass', HabitatUseBN:='Grass']
+		# Fix undersown spring barley - CGG1:
+		data[PinkfootTimed > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUsePF:='Stubble']
+		data[GreylagTimed > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseGL:='Stubble']
+		data[BarnacleTimed > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseBN:='Stubble']
+		data[PinkfootTimed > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUsePF:='Stubble']
+		data[GreylagTimed > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseGL:='Stubble']
+		data[BarnacleTimed > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseBN:='Stubble']
+		# SG1
+		data[PinkfootTimed > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'SeedGrass1', HabitatUsePF:='Stubble']
+		data[GreylagTimed > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'SeedGrass1', HabitatUseGL:='Stubble']
+		data[BarnacleTimed > 0 & VegTypeChr == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'SeedGrass1', HabitatUseBN:='Stubble']
+		data[PinkfootTimed > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'SeedGrass1', HabitatUsePF:='Stubble']
+		data[GreylagTimed > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'SeedGrass1', HabitatUseGL:='Stubble']
+		data[BarnacleTimed > 0 & PreviousCrop == 'SprBarleyCloverGrass' &
+			 LastSownVeg == 'SeedGrass1', HabitatUseBN:='Stubble']
+		# Spring barley that is not undersown
+		data[PinkfootTimed > 0 & PreviousCrop == 'SpringBarley' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUsePF:='Stubble']
+		data[GreylagTimed > 0 & PreviousCrop == 'SpringBarley' &
+			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseGL:='Stubble']
+		data[BarnacleTimed > 0 & PreviousCrop == 'SpringBarley' &
 			 LastSownVeg == 'CloverGrassGrazed1', HabitatUseBN:='Stubble']
 		return(data)
 	}
