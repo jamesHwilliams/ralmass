@@ -61,8 +61,8 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 	data.table::setkeyv(temp, cols)
 
 	HabFit = merge(temp, fielddata)
-	cols = c('Species', 'Month')
-	HabFit = HabFit[, Fit:=1-sum((PropSim-PropField)^2), by = cols]
+	cols = c('Species', 'Month', 'HabitatUse')
+	HabFit = HabFit[, Fit:=1-sum(abs(PropSim-PropField)), by = cols]
 	HabFit = HabFit[, .(Species, Month, Fit)] %>% unique
 	# Knock out cases where popn in sim went extinct:
 	HabFit[Species == 'Barnacle' & !Month %in% hbbnMonths, Fit:=NA]
