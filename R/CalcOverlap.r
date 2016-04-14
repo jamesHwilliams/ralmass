@@ -29,25 +29,44 @@ CalcOverlap = function(data = NULL, species = NULL)
 		{
 			return(0)
 		}
-	}
-
   # The actual calculation is based on this CV question: 
   # http://stats.stackexchange.com/questions/97596/how-to-calculate-overlap-between-empirical-probability-densities
   # Set limits of a common grid, ensuring that tails aren't cut off
-	min = min(data[, Numbers]) - 1
-	max = max(data[, Numbers]) + 1
 
-	simdens = density(data[Type == 'Simulated', Numbers], from=min, to=max)
-	obsdens = density(data[Type == 'Fieldobs', Numbers], from=min, to=max)
-	d = data.frame(x=simdens$x, a=simdens$y, b=obsdens$y)
+		min = min(data[, Numbers]) - 1
+		max = max(data[, Numbers]) + 1
+
+		simdens = density(data[Type == 'Simulated', Numbers], from=min, to=max)
+		obsdens = density(data[Type == 'Fieldobs', Numbers], from=min, to=max)
+		d = data.frame(x=simdens$x, a=simdens$y, b=obsdens$y)
 
   # calculate intersection densities
-	d$w = pmin(d$a, d$b)
+		d$w = pmin(d$a, d$b)
 
   # Integrate the area under the curves
-	total = sfsmisc::integrate.xy(d$x, d$a) + sfsmisc::integrate.xy(d$x, d$b)
-	intersection = sfsmisc::integrate.xy(d$x, d$w)
+		total = sfsmisc::integrate.xy(d$x, d$a) + sfsmisc::integrate.xy(d$x, d$b)
+		intersection = sfsmisc::integrate.xy(d$x, d$w)
 
-	return(2 * intersection / total)
+		return(2 * intersection / total)
+	}
+	if(tolower(species) == 'hunter')
+	{
+		min = min(data[, Density]) - 1
+		max = max(data[, Density]) + 1
+
+		simdens = density(data[Type == 'Simulated', Density], from=min, to=max)
+		obsdens = density(data[Type == 'Fieldobs', Density], from=min, to=max)
+		d = data.frame(x=simdens$x, a=simdens$y, b=obsdens$y)
+
+  # calculate intersection densities
+		d$w = pmin(d$a, d$b)
+
+  # Integrate the area under the curves
+		total = sfsmisc::integrate.xy(d$x, d$a) + sfsmisc::integrate.xy(d$x, d$b)
+		intersection = sfsmisc::integrate.xy(d$x, d$w)
+
+		return(2 * intersection / total)
+	}
 }
+
 
