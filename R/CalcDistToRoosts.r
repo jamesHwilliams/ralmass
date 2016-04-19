@@ -4,13 +4,18 @@
 #' Using the centroids from the polyref file distances can be calculated 
 #' outside of ALMaSS. 
 #' 
-#' @param roost data.table The object with the GooseRoosts.txt file
-#' @param fields data.table The object with the GooseFieldForageData.txt file
-#' @param polyref data.table The object with the polyref file
-#' @param species character The species for which the distances should be 
+#' @param roost data.table The GooseRoosts.txt file
+#' @param fields data.table If fieldobs = FALSE then the GooseFieldForageData.txt
+#'  file otherwise a data.table with field observations converted to ALMaSS 
+#' coordinates using the UtmToAlmass function.
+#' @param fieldobs logical If TRUE then input is fieldobservations otherwise
+#' output from ALMaSS simulations
+#' @param polyref data.table The object with the polyref file (only if
+#' fieldobs = FALSE)
+#' @param species character A vector of species names for which the distances should be 
 #' calculated for. Either 'Barnacle', 'Pinkfoot' or 'Greylag'
-#' @return data.table A data.table with the polyrefnumber, distances for
-#' each roost and a column with the shortest distance.
+#' @return data.table A data.table with the polyrefnumber or if fieldobs then
+#'  PolyID, distances for each roost and a column with the shortest distance.
 #' @export
 CalcDistToRoosts = function(roost = NULL, fields = NULL, fieldobs = NULL, polyref = NULL, species = NULL) {
 	if(any(is.null(roost),is.null(fields),is.null(fieldobs),is.null(species))){
@@ -29,7 +34,7 @@ CalcDistToRoosts = function(roost = NULL, fields = NULL, fieldobs = NULL, polyre
 		Roost = roost[Type == species[i],]  # Get the roost for the species
 		if(fieldobs) {
 			Fields = fields[Species == species[i], .(CentroidX, CentroidY)]
-			DT = fields[,.(PolyID)]
+			DT = fields[Species == species[i],.(PolyID)]
 		}
 		if(!fieldobs) {
 			spobs = eval(as.name(species[i]), fields)
@@ -46,7 +51,7 @@ CalcDistToRoosts = function(roost = NULL, fields = NULL, fieldobs = NULL, polyre
 		DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
 		DT[,GooseType:=species[i]]
 		nullcols = grep('Roost', names(DT))
-		DT[, nullcols:=NULL]
+		DT[, (nullcols):=NULL]
 		TheList[[i]] = DT
 	}
 	return(data.table::rbindlist(TheList))

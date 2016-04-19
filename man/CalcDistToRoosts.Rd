@@ -4,21 +4,28 @@
 \alias{CalcDistToRoosts}
 \title{Calculate the distance from fields to goose roosts}
 \usage{
-CalcDistToRoosts(roost, fields, polyref, species)
+CalcDistToRoosts(roost = NULL, fields = NULL, fieldobs = NULL,
+  polyref = NULL, species = NULL)
 }
 \arguments{
-\item{roost}{data.table The object with the GooseRoosts.txt file}
+\item{roost}{data.table The GooseRoosts.txt file}
 
-\item{fields}{data.table The object with the GooseFieldForageData.txt file}
+\item{fields}{data.table If fieldobs = FALSE then the GooseFieldForageData.txt
+ file otherwise a data.table with field observations converted to ALMaSS 
+coordinates using the UtmToAlmass function.}
 
-\item{polyref}{data.table The object with the polyref file}
+\item{fieldobs}{logical If TRUE then input is fieldobservations otherwise
+output from ALMaSS simulations}
 
-\item{species}{character The species for which the distances should be 
+\item{polyref}{data.table The object with the polyref file (only if
+fieldobs = FALSE)}
+
+\item{species}{character A vector of species names for which the distances should be 
 calculated for. Either 'Barnacle', 'Pinkfoot' or 'Greylag'}
 }
 \value{
-data.table A data.table with the polyrefnumber, distances for
-each roost and a column with the shortest distance.
+data.table A data.table with the polyrefnumber or if fieldobs then
+ PolyID, distances for each roost and a column with the shortest distance.
 }
 \description{
 Calculate the distance from fields to goose roosts (in this case)
