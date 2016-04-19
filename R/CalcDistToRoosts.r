@@ -13,8 +13,7 @@
 #' each roost and a column with the shortest distance.
 #' @export
 
-CalcDistToRoosts = function(roost, fields, polyref, species)
-{
+CalcDistToRoosts = function(roost, fields, polyref, species) {
 	setnames(roost, c('Type', 'CentroidX', 'CentroidY'))
 	if(tolower(species) == 'all') 
 	{
