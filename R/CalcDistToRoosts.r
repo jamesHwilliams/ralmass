@@ -12,83 +12,51 @@
 #' @return data.table A data.table with the polyrefnumber, distances for
 #' each roost and a column with the shortest distance.
 #' @export
-
-CalcDistToRoosts = function(roost, fields, polyref, species) {
+CalcDistToRoosts = function(roost = NULL, fields = NULL, fieldobs = NULL, polyref = NULL, species = NULL) {
+	if(any(is.null(roost),is.null(fields),is.null(fieldobs),is.null(species))){
+		stop('Required input argument missing')
+	}
+	if(!fieldobs && is.null(polyref)) {
+		stop('Provide polyref file when fieldobs = FALSE')
+	}
 	setnames(roost, c('Type', 'CentroidX', 'CentroidY'))
-	if(tolower(species) == 'all') 
-	{
-		TheList = vector('list', 3)
-	# Pinkfoot
-		ForagePolys = unique(fields[Pinkfoot != 0,Polyref])
-		Roost = roost[Type == 0,]
-		Fields = polyref[PolyRefNum %in% ForagePolys, .(CentroidX, CentroidY)]
-		DT = polyref[PolyRefNum %in% ForagePolys, .(PolyRefNum)]
-		for(i in 1:nrow(Roost))
-		{
-			TheDistances = dist(rbind(Roost[i,.(CentroidX, CentroidY)], Fields))[1:nrow(Fields)]
-			newcolname = paste0('Roost', i)
-			DT[,newcolname:=TheDistances, with = FALSE]
-		}
-		DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
-		DT[,GooseType:='Pinkfoot']
-		TheList[[1]] = DT[, .(PolyRefNum, Shortest, GooseType)]
-	# Barnacle
-		ForagePolys = unique(fields[Barnacle != 0,Polyref])
-		Roost = roost[Type == 1,]
-		Fields = polyref[PolyRefNum %in% ForagePolys, .(CentroidX, CentroidY)]
-		DT = polyref[PolyRefNum %in% ForagePolys, .(PolyRefNum)]
-		for(i in 1:nrow(Roost))
-		{
-			TheDistances = dist(rbind(Roost[i,.(CentroidX, CentroidY)], Fields))[1:nrow(Fields)]
-			newcolname = paste0('Roost', i)
-			DT[,newcolname:=TheDistances, with = FALSE]
-		}
-		DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
-		DT[,GooseType:='Barnacle']
-		TheList[[2]] = DT[, .(PolyRefNum, Shortest, GooseType)]
-	# Greylag
-		ForagePolys = unique(fields[Greylag != 0,Polyref])
-		Roost = roost[Type == 2,]
-		Fields = polyref[PolyRefNum %in% ForagePolys, .(CentroidX, CentroidY)]
-		DT = polyref[PolyRefNum %in% ForagePolys, .(PolyRefNum)]
-		for(i in 1:nrow(Roost))
-		{
-			TheDistances = dist(rbind(Roost[i,.(CentroidX, CentroidY)], Fields))[1:nrow(Fields)]
-			newcolname = paste0('Roost', i)
-			DT[,newcolname:=TheDistances, with = FALSE]
-		}
-		DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
-		DT[,GooseType:='Greylag']
-		TheList[[3]] = DT[, .(PolyRefNum, Shortest, GooseType)]
-		return(data.table::rbindlist(TheList))
+	if(fieldobs) {
+			setnames(fields, old = c('ALong', 'ALat'), new = c('CentroidX', 'CentroidY'))
 	}
-	if(tolower(species) != 'all') 
-	{
-		
-		if(tolower(species) == 'pinkfoot') 
-		{
-			ForagePolys = unique(fields[Pinkfoot != 0,Polyref])
-			roost = roost[Type == 0,]
+	roost[, Type:=sapply(Type, FUN = SwapType)]
+	TheList = vector('list', length(species))
+	for (i in seq_along(species)) {
+		Roost = roost[Type == species[i],]  # Get the roost for the species
+		if(fieldobs) {
+			Fields = fields[Species == species[i], .(CentroidX, CentroidY)]
+			DT = fields[,.(PolyID)]
 		}
-		if(tolower(species) == 'barnacle') 
-		{
-			ForagePolys = unique(fields[Barnacle != 0,Polyref])
-			roost = roost[Type == 1,]
+		if(!fieldobs) {
+			spobs = eval(as.name(species[i]), fields)
+			ForagePolys = unique(fields[spobs != 0,Polyref])
+			Fields = polyref[PolyRefNum %in% ForagePolys, .(CentroidX, CentroidY)]
+			DT = polyref[PolyRefNum %in% ForagePolys, .(PolyRefNum)]
 		}
-		if(tolower(species) == 'greylag') 
+		for(j in 1:nrow(Roost))
 		{
-			ForagePolys = unique(fields[Greylag != 0,Polyref])
-			roost = roost[Type == 2,]
-		}
-		Fields = polyref[PolyRefNum %in% ForagePolys, .(CentroidX, CentroidY)]
-		DT = polyref[PolyRefNum %in% ForagePolys, .(PolyRefNum)]
-		for(i in 1:nrow(roost))
-		{
-			TheDistances = dist(rbind(roost[i,.(CentroidX, CentroidY)], Fields))[1:nrow(Fields)]
-			newcolname = paste0('Roost', i)
+			TheDistances = dist(rbind(Roost[j,.(CentroidX, CentroidY)], Fields))[1:nrow(Fields)]
+			newcolname = paste0('Roost', j)
 			DT[,newcolname:=TheDistances, with = FALSE]
 		}
 		DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
-		return(DT)
+		DT[,GooseType:=species[i]]
+		nullcols = grep('Roost', names(DT))
+		DT[, nullcols:=NULL]
+		TheList[[i]] = DT
 	}
+	return(data.table::rbindlist(TheList))
+}
+
+# Helper function
+SwapType = function(Type) {
+	switch(EXPR = as.character(Type),
+		'0' = 'Pinkfoot',
+		'1' = 'Barnacle',
+		'2' = 'Greylag',
+		'Undefined species')
 }
