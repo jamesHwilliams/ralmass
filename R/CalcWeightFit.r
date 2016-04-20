@@ -31,8 +31,11 @@ CalcWeightFit = function(SimData, FieldData) {
 		denum = themax-themin
 		full[, AvgWeightSim:=(AvgWeightSim-themin)/denum, by = Week]
 		full[, AvgWeightField:=(AvgWeightField-themin)/denum, by = Week]
-		lsfits[i] = with(full, 1-sum((AvgWeightSim-AvgWeightField)^2))
+		lsfits[i] = with(full, sum(1-(AvgWeightSim-AvgWeightField)^2)/length(unique(Week)))
 	}
 	names(lsfits) = paste0('Season', seasons)
+	if(any(lsfits < 0) | any(lsfits > 1)) {
+		stop('Fit less than 0 or greater than 1')
+	}
 	return(lsfits)
 }
