@@ -4,7 +4,7 @@
 \alias{CalcOverlap}
 \title{Calculate the overlap of kernel densities}
 \usage{
-CalcOverlap(data = NULL, species = NULL)
+CalcOverlap(data = NULL, species = NULL, metric = NULL)
 }
 \arguments{
 \item{data}{data.table An object containing both the simulated and observed 
@@ -12,6 +12,9 @@ flock sizes and the three columns 'Species', 'Numbers' and 'Type'}
 
 \item{species}{character The species for which the calculated for.
 Either 'Barnacle', 'Pinkfoot','Greylag' or 'Hunter'}
+
+\item{metric}{character The name of the column with the metric on which 
+to calculate the kernel density overlap}
 }
 \value{
 numeric The overlap

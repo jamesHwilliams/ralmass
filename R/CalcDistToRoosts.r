@@ -51,7 +51,7 @@ CalcDistToRoosts = function(roost = NULL, fields = NULL, fieldobs = NULL, polyre
 			DT[,newcolname:=TheDistances, with = FALSE]
 		}
 		DT[,Shortest:=apply(DT[,2:ncol(DT), with = FALSE], FUN = min, MARGIN = 1)]
-		DT[,GooseType:=species[i]]
+		DT[,Species:=species[i]]
 		nullcols = grep('Roost', names(DT))
 		DT[, (nullcols):=NULL]
 		TheList[[i]] = DT
