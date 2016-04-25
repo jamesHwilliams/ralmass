@@ -25,11 +25,11 @@ CalcDistToRoosts = function(roost = NULL, fields = NULL, fieldobs = NULL, polyre
 		stop('Provide polyref file when fieldobs = FALSE')
 	}
 	setnames(roost, c('Type', 'CentroidX', 'CentroidY'))
+	if(roost[, Type] %in% species) {
+		roost[, Type:=sapply(Type, FUN = SwapType)]
+	}
 	if(fieldobs & names(fields) %in% c('ALong', 'ALat')) {
 			setnames(fields, old = c('ALong', 'ALat'), new = c('CentroidX', 'CentroidY'))
-	}
-	if(roost[,1, with = FALSE] %in% species) {
-		roost[, Type:=sapply(Type, FUN = SwapType)]
 	}
 	TheList = vector('list', length(species))
 	for (i in seq_along(species)) {
