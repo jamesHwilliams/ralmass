@@ -12,18 +12,22 @@
 #' flock sizes and the three columns 'Species', 'Numbers' and 'Type'
 #' @param species character The species for which the calculated for.
 #' Either 'Barnacle', 'Pinkfoot','Greylag' or 'Hunter'
+#' @param metric character The name of the column with the metric on which 
+#' to calculate the kernel density overlap
 #' @return numeric The overlap
 #' @export
-CalcOverlap = function(data = NULL, species = NULL) 
-{
+CalcOverlap = function(data = NULL, species = NULL, metric = NULL) {
 	if(any(is.null(data), is.null(species))) {
 		stop('Input argument missing \n')
 	}
 	if(tolower(species) != 'hunter'){
+		if(is.null(metric)) {
+			stop('Input parameter metric missing')
+		}
 		species = stringr::str_to_title(species)  # Ensuring species has the 
 												  # right case.
 		var = c(species, paste0(species, 'Timed'))
-		data = data[Species %in% var,][,Numbers:=log10(Numbers)]
+		data = data[Species %in% var,]
 		ndatatypes = length(unique(data[,Type]))
 		if(ndatatypes < 2) 
 		{
@@ -32,12 +36,14 @@ CalcOverlap = function(data = NULL, species = NULL)
   # The actual calculation is based on this CV question: 
   # http://stats.stackexchange.com/questions/97596/how-to-calculate-overlap-between-empirical-probability-densities
   # Set limits of a common grid, ensuring that tails aren't cut off
+		themetric = as.name(metric)
+		min = min(eval(themetric, data)) - 1
+		max = max(eval(themetric, data)) + 1
 
-		min = min(data[, Numbers]) - 1
-		max = max(data[, Numbers]) + 1
-
-		simdens = density(data[Type == 'Simulated', Numbers], from=min, to=max)
-		obsdens = density(data[Type == 'Fieldobs', Numbers], from=min, to=max)
+		sim = eval(themetric, data[Type == 'Simulated',])
+		simdens = density(sim, from=min, to=max)
+		obs = eval(themetric, data[Type == 'Fieldobs',])
+		obsdens = density(obs, from=min, to=max)
 		d = data.frame(x=simdens$x, a=simdens$y, b=obsdens$y)
 
   # calculate intersection densities
