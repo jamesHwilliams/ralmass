@@ -12,6 +12,8 @@
 #' @param splits numeric The number of files to split the scenarios into. 
 #' (Optional). If not NULL the files gets written to disk.
 #' @param replicates numeric The number of replicates to run (Optional).
+#' @param expand logical Should we expand an n by n grid (TRUE, defalut) or 
+#' should we just generate a list of parameter ranges provided (FALSE)?
 #' @return data.frame One column data.frame where each line is a text string
 #' with the config variable and its value
 #' @export
@@ -21,7 +23,7 @@
 #' GenerateParams('GOOSE_MINFORAGEOPENNESS' = val,
 #' 'HUNTERS_MAXDENSITY' = val2, write = FALSE)
 GenerateParams = function (..., write = FALSE, splits = NULL, 
-	replicates = NULL ) {
+	replicates = NULL, expand = TRUE ) {
 	# Code from the base expand.grid with the KEEP.ATTR.OUT and StringAsFactor
 	# bits removed.
 	nargs <- length(args <- list(...))
@@ -53,15 +55,25 @@ GenerateParams = function (..., write = FALSE, splits = NULL,
 	else {
 		for (i in iArgs) {
 			x <- args[[i]]
-			nx <- length(x)
-			orep <- orep/nx
-			x <- x[rep.int(rep.int(seq_len(nx), rep.int(rep.fac, nx)), orep)]
+			if(!expand) {
+				orep = 1
+			}
+			else {
+				nx <- length(x)
+				orep <- orep/nx
+				x <- x[rep.int(rep.int(seq_len(nx), rep.int(rep.fac, nx)), orep)]
+				rep.fac <- rep.fac * nx
+			}
 			cargs[[i]] <- x
-			rep.fac <- rep.fac * nx
 		}
 	}
 
-	rn <- .set_row_names(as.integer(prod(d)))
+	if(!expand) {
+		rn <- .set_row_names(as.integer(d[1]))
+	}
+	if(expand) {
+		rn <- .set_row_names(as.integer(prod(d)))
+	}
     # The ralmass modification
 	exgrid = structure(cargs, class = "data.frame", row.names = rn)
 	values = as.vector(t(exgrid))

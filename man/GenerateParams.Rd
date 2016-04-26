@@ -4,7 +4,8 @@
 \alias{GenerateParams}
 \title{Generate a range combinations of paramter values}
 \usage{
-GenerateParams(..., write = FALSE, splits = NULL, replicates = NULL)
+GenerateParams(..., write = FALSE, splits = NULL, replicates = NULL,
+  expand = TRUE)
 }
 \arguments{
 \item{...}{numeric One or more vectors (usually made with seq and the
@@ -16,6 +17,9 @@ length.out argument)}
 (Optional). If not NULL the files gets written to disk.}
 
 \item{replicates}{numeric The number of replicates to run (Optional).}
+
+\item{expand}{logical Should we expand an n by n grid (TRUE, defalut) or 
+should we just generate a list of parameter ranges provided (FALSE)?}
 }
 \value{
 data.frame One column data.frame where each line is a text string
