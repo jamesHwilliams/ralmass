@@ -2,7 +2,7 @@
 #'
 #' Add the input parameter type to the string of just the parameter name.
 #' 
-#' @param param character The input paramter
+#' @param param character The input parameter
 #' @return character param plus the type added in parantheses
 #' @export
 GetParamType <- function(param = NULL) {

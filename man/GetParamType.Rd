@@ -7,7 +7,7 @@
 GetParamType(param = NULL)
 }
 \arguments{
-\item{param}{character The input paramter}
+\item{param}{character The input parameter}
 }
 \value{
 character param plus the type added in parantheses
