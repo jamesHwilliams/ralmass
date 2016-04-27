@@ -44,7 +44,7 @@ ConvertParam <- function(param = NULL) {
 		'GOOSE_MEM_MINMEMVALUE' = 'GOOSE_MEM_MINMEMVALUE (int)',
 		'GOOSE_GRAINDECAYRATE (float)' = 'Grain decay rate',
 		'GOOSE_GRAINDECAYRATE' = 'Grain decay rate',
-        'GOOSE_MEM_EXPECTEDFORAGINGTIME (int)' = 'Expected foraging time'
+        'GOOSE_MEM_EXPECTEDFORAGINGTIME (int)' = 'Expected foraging time',
         'GOOSE_MEM_EXPECTEDFORAGINGTIME' = 'Expected foraging time'
         )
 }
