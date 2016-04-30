@@ -14,6 +14,7 @@ ConvertParam <- function(param = NULL) {
     switch(EXPR = param,
   	# Names of the paramters:
   		'GOOSE_MINFORAGEOPENNESS' = 'Minimum openness',
+  		'GOOSE_AFTERDARKTIME' = 'Past sunset active time',
         'BGOOSE_FOLLOWINGLIKELYHOOD' = 'Following likelyhood',
 		'PFGOOSE_FOLLOWINGLIKELYHOOD' = 'Following likelyhood',
 		'GLGOOSE_FOLLOWINGLIKELYHOOD' = 'Following likelyhood',
