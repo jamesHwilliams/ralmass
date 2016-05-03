@@ -29,6 +29,7 @@ ConvertParam <- function(param = NULL) {
 		'GOOSE_ROOSTLEAVINGLIKELYHOOD' = 'Roost leaving likelyhood',
 		'GOOSE_MEM_MINMEMVALUE' = 'Memory duration',
 		'GOOSE_GRAINDECAYRATE' = 'Grain decay rate',
+		'GOOSE_ROOSTLEAVEDISTSD' = 'SD of roost leave time distribution',
         'GOOSE_MEM_EXPECTEDFORAGINGTIME' = 'Expected foraging time'
         )
 }
