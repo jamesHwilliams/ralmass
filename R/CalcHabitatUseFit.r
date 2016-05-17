@@ -8,6 +8,8 @@
 #' @param SimData data.table The field forage output file from ALMaSS
 #' @return data.table The fit per species and month
 #' @export
+FieldData = FieldData
+SimData = forage
 CalcHabitatUseFit = function(FieldData, SimData) {
 # Field data:
 	fielddata = FieldData[, .(Month, HabitatUse, N, Species)]
@@ -48,8 +50,8 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 	hbglMonths = unique(hb[Species == 'Greylag', Month])
 	hbbnMonths = unique(hb[Species == 'Barnacle', Month])
 # Fill in zeros in all habitat classes
-	h = unique(c(hb[,HabitatUse], h))
-	combs = expand.grid(N = 0, HabitatUse = h, Month = mths,
+	totalh = unique(c(hb[,HabitatUse], h))
+	combs = expand.grid(N = 0, HabitatUse = totalh, Month = mths,
 		Species = sp, stringsAsFactors = FALSE) 
 	combs = data.table::as.data.table(combs)
 
@@ -62,11 +64,17 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 
 	HabFit = merge(temp, fielddata)
 	HabFit = HabFit[, Fit:=1-sum(abs(PropSim-PropField)), by = cols]
+	
 	# Knock out cases where popn in sim went extinct:
 	HabFit[Species == 'Barnacle' & !Month %in% hbbnMonths, Fit:=NA]
 	HabFit[Species == 'Greylag' & !Month %in% hbglMonths, Fit:=NA]
 	HabFit[Species == 'Pinkfoot' & !Month %in% hbpfMonths, Fit:=NA]
-	HabFit[, Month:=as.factor(Month)]
-	data.table::setkeyv(HabFit, cols)
+	# HabFit[, Month:=as.factor(Month)]
+	# Calculate the sesonal fit as the mean of the monthly fits:
+	HabFit[, MonthlyFit:=sum(Fit, na.rm = TRUE)/length(h), by = c('Species', 'Month')]
+	HabFit = unique(HabFit[!is.na(Fit), .(Species, MonthlyFit)])
+	HabFit[,Fit:=sum(MonthlyFit)/.N, by = 'Species']
+	HabFit = unique(HabFit[, .(Species, Fit)])
+	# data.table::setkeyv(HabFit, cols)
 	return(HabFit)
 }
