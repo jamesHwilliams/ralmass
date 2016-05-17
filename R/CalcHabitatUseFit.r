@@ -8,8 +8,6 @@
 #' @param SimData data.table The field forage output file from ALMaSS
 #' @return data.table The fit per species and month
 #' @export
-FieldData = FieldData
-SimData = forage
 CalcHabitatUseFit = function(FieldData, SimData) {
 # Field data:
 	fielddata = FieldData[, .(Month, HabitatUse, N, Species)]
