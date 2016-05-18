@@ -32,12 +32,12 @@ CleanAttrTable = function(AttrTable, Soiltype = TRUE) {
 		AttrTable$Area = gsub(pattern = ',', replacement = '', x = AttrTable$Area, fixed = FALSE)
 		AttrTable$Area = as.numeric(AttrTable$Area)
 	}
-	if(!is.character(AttrTable$PolyType))
+	if(is.character(AttrTable$PolyType))
 	{
 		AttrTable$PolyType = gsub(pattern = ',', replacement = '', x = AttrTable$PolyType, fixed = FALSE)
 		AttrTable$PolyType = as.numeric(AttrTable$PolyType)
 	}
-	if(!is.character(AttrTable$PolyRefNum))
+	if(is.character(AttrTable$PolyRefNum))
 	{
 		AttrTable$PolyRefNum = gsub(pattern = ',', replacement = '', x = AttrTable$PolyRefNum, fixed = FALSE)
 		AttrTable$PolyRefNum = as.numeric(AttrTable$PolyRefNum)
