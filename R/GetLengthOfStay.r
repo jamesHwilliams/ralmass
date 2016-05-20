@@ -12,11 +12,11 @@ GetLengthOfStay = function(config = NULL, species = NULL) {
 	if(tolower(species) == 'pinkfoot'){ sp = 'PF'}
 	if(tolower(species) == 'barnacle'){ sp = 'BN'}
 	matchstring = paste('GOOSE', sp, 'LEAVINGDATEEND', sep = '_')
-	leavedate = cfg[grep(matchstring, cfg)] 
+	leavedate = config[grep(matchstring, config)] 
 	leavestrings = stringr::str_split(leavedate[1], '=')
 	leavedate = as.numeric(stringr::str_trim(leavestrings[[1]][2]))
 	matchstring = paste('GOOSE', sp, 'ARRIVEDATESTART', sep = '_')
-	startdate = cfg[grep(matchstring, cfg)] 
+	startdate = config[grep(matchstring, config)] 
 	startstrings = stringr::str_split(startdate[1], '=')
 	startdate = as.numeric(stringr::str_trim(startstrings[[1]][2]))
 	lengthofstay = 366-startdate + leavedate
