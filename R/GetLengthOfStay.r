@@ -4,6 +4,7 @@
 #' simulation.
 #' 
 #' @param config character Path to the file to read start and  leave date from
+#' @param species character The species to the length of stay for
 #' @return numeric The length of the stay
 #' @export
 GetLengthOfStay = function(config = NULL, species = NULL) {
