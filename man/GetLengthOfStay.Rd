@@ -8,12 +8,15 @@ GetLengthOfStay(config = NULL, species = NULL)
 }
 \arguments{
 \item{config}{character Path to the file to read start and  leave date from}
+
+\item{species}{character The species to the length of stay for}
 }
 \value{
 numeric The length of the stay
 }
 \description{
 Read the config file and figure out how many days geese should stay in the 
-simulation.
+simulation. The answer is corrected for the situation where the model exit
+day is set before the leave date for the goose species in question.
 }
 
