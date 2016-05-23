@@ -14,18 +14,13 @@ GetLengthOfStay = function(config = NULL, species = NULL) {
 	if(tolower(species) == 'barnacle'){ sp = 'BN'}
 	# Get leavedate
 	matchstring = paste('GOOSE', sp, 'LEAVINGDATEEND', sep = '_')
-	leavedate = config[grep(matchstring, config)] 
-	leavestrings = stringr::str_split(leavedate[1], '=')
-	leavedate = as.numeric(stringr::str_trim(leavestrings[[1]][2]))
+	leavedate = GetParamValue(config, matchstring)
 	# Get startdate
 	matchstring = paste('GOOSE', sp, 'ARRIVEDATESTART', sep = '_')
-	startdate = config[grep(matchstring, config)] 
-	startstrings = stringr::str_split(startdate[1], '=')
-	startdate = as.numeric(stringr::str_trim(startstrings[[1]][2]))
+	startdate = GetParamValue(config, matchstring)
 	# Get exitday
-	exitday = config[grep('MODELEXITDAY', config)]
-	exitstrings = stringr::str_split(exitday[1], '=')
-	exitday = as.numeric(stringr::str_trim(exitstrings[[1]][2]))
+	matchstring = config[grep('MODELEXITDAY', config)]
+	exitday = GetParamValue(config, matchstring)
 	exitday = exitday %% 365  # To get day in year
 	if(leavedate < exitday) 
 	{
@@ -36,4 +31,11 @@ GetLengthOfStay = function(config = NULL, species = NULL) {
 		lengthofstay = 366-startdate + exitday
 	}
 	return(lengthofstay)
+}
+# ---- Helper function
+	GetParamValue = function(config, param) {
+	value = config[grep(param, config)] 
+	valuestring = stringr::str_split(value[1], '=')
+	value = as.numeric(stringr::str_trim(valuestring[[1]][2]))
+	return(value)
 }
