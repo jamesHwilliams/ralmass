@@ -19,8 +19,7 @@ GetLengthOfStay = function(config = NULL, species = NULL) {
 	matchstring = paste('GOOSE', sp, 'ARRIVEDATESTART', sep = '_')
 	startdate = GetParamValue(config, matchstring)
 	# Get exitday
-	matchstring = config[grep('MODELEXITDAY', config)]
-	exitday = GetParamValue(config, matchstring)
+	exitday = GetParamValue(config, 'MODELEXITDAY')
 	exitday = exitday %% 365  # To get day in year
 	if(leavedate < exitday) 
 	{
