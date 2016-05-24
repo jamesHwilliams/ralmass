@@ -32,7 +32,7 @@ GetLengthOfStay = function(config = NULL, species = NULL) {
 	}
 	return(lengthofstay)
 }
-# ---- Helper function
+#' @export 
 	GetParamValue = function(config, param) {
 	value = config[grep(param, config)] 
 	valuestring = stringr::str_split(value[1], '=')
