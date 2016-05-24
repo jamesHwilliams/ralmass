@@ -4,12 +4,10 @@
 \alias{PlotGoosePopulation}
 \title{Plot goose population data}
 \usage{
-PlotGoosePopulation(data, type = "point")
+PlotGoosePopulation(data)
 }
 \arguments{
-\item{data}{data.frame or data.table The ALMaSS data file GoosePopulationData.txt}
-
-\item{type}{character The plot type. Either 'point' or 'line'.}
+\item{data}{data.table The ALMaSS data file GoosePopulationData.txt}
 }
 \value{
 A nice plot
