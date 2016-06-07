@@ -20,6 +20,9 @@ CalcOverlap = function(data = NULL, species = NULL, metric = NULL) {
 	if(any(is.null(data), is.null(species))) {
 		stop('Input argument missing \n')
 	}
+	if(!tolower(species) %in% c('barnacle', 'greylag', 'pinkfoot', 'hunter')) {
+		stop('Invalid species argument \n')
+	}
 	if(tolower(species) != 'hunter'){
 		if(is.null(metric)) {
 			stop('Input parameter metric missing')
