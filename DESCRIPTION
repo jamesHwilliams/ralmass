@@ -16,9 +16,7 @@ Imports:
     gridExtra,
     lubridate,
     stringr,
-    plyr,
     RColorBrewer,
-    reshape2,
     rgdal,
     sp,
     sfsmisc
