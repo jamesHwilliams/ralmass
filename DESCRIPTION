@@ -17,6 +17,7 @@ Imports:
     lubridate,
     stringr,
     RColorBrewer,
+    plyr,
     rgdal,
     sp,
     sfsmisc
