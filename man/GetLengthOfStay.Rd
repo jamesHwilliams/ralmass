@@ -7,7 +7,7 @@
 GetLengthOfStay(config = NULL, species = NULL)
 }
 \arguments{
-\item{config}{character Path to the file to read start and  leave date from}
+\item{config}{character Path to the file to read start and leave date from}
 
 \item{species}{character The species to the length of stay for}
 }

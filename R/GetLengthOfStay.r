@@ -4,7 +4,7 @@
 #' simulation. The answer is corrected for the situation where the model exit
 #' day is set before the leave date for the goose species in question. 
 #' 
-#' @param config character Path to the file to read start and  leave date from
+#' @param config character Path to the file to read start and leave date from
 #' @param species character The species to the length of stay for
 #' @return numeric The length of the stay
 #' @export
@@ -31,6 +31,8 @@ GetLengthOfStay = function(config = NULL, species = NULL) {
 	}
 	return(lengthofstay)
 }
+#' @param config character Path to the file to read start and leave date from
+#' @param param character The name of the config variables
 #' @export 
 	GetParamValue = function(config, param) {
 	value = config[grep(param, config)] 
