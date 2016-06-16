@@ -12,7 +12,7 @@
 #' normally be 'mean', 'min' or 'max'
 #' @export
 ExtractEOBS = function(eobs = NULL, spobject = NULL, metric = 'mean') {
-	if(any(is.null(eobs, spobject))) {
+	if(any(is.null(eobs),is.null(spobject))) {
 		stop('Input missing')
 	}
 	eobsnames = basename(eobs)
@@ -27,7 +27,7 @@ ExtractEOBS = function(eobs = NULL, spobject = NULL, metric = 'mean') {
 		if("SpatialPoints" == class(spobject)) {
 			vals = raster::extract(b, spobject, df = FALSE)
 		}
-		if("SpatialPolygon" == class(spobject)) {
+		if("SpatialPolygons" == class(spobject)) {
 			vals = raster::extract(b, spobject, fun = metric, df = FALSE)
 		}
 		vals = data.table::as.data.table(t(vals))
@@ -36,7 +36,10 @@ ExtractEOBS = function(eobs = NULL, spobject = NULL, metric = 'mean') {
 		data.table::setkey(vals, Date)
 		VarList[[i]] = vals
 	}
-	vals = do.call(merge, VarList)
+	if(length(vars) > 1) 
+	{
+		vals = do.call(merge, VarList)
+	}
 	vals[, Date:=as.Date(Date)]
 	vals[, Month:=data.table::month(Date)]
 	vals[, Day:=data.table::mday(Date)]
