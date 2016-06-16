@@ -31,12 +31,3 @@ GetLengthOfStay = function(config = NULL, species = NULL) {
 	}
 	return(lengthofstay)
 }
-#' @param config character Path to the file to read start and leave date from
-#' @param param character The name of the config variables
-#' @export 
-	GetParamValue = function(config, param) {
-	value = config[grep(param, config)] 
-	valuestring = stringr::str_split(value[1], '=')
-	value = as.numeric(stringr::str_trim(valuestring[[1]][2]))
-	return(value)
-}
