@@ -20,5 +20,6 @@ Imports:
     plyr,
     rgdal,
     sp,
+    raster,
     sfsmisc
 RoxygenNote: 5.0.1
