@@ -18,7 +18,9 @@ ExtractEOBS = function(eobs = NULL, spobject = NULL, metric = 'mean') {
 	eobsnames = basename(eobs)
 	vars = sapply(eobsnames, FUN = strsplit, split = '_') 
 	vars = sapply(vars, '[',1)
-	VarList = vector('list', length(vars))
+	if(length(vars) > 1){
+		VarList = vector('list', length(vars))
+	}
 	for (i in seq_along(vars)) {
 		b = raster::brick(eobs[i], varname = vars[i], level = 3)
 		if(!identical(raster::projection(b), raster::projection(spobject))) {
@@ -34,10 +36,11 @@ ExtractEOBS = function(eobs = NULL, spobject = NULL, metric = 'mean') {
 		vals[, Date:=raster::getZ(b)]
 		data.table::setnames(vals, old = 'V1', new = GetVarName(vars[i]))
 		data.table::setkey(vals, Date)
+		if(length(vars) > 1) {
 		VarList[[i]] = vals
+		}
 	}
-	if(length(vars) > 1) 
-	{
+	if(length(vars) > 1) {
 		vals = do.call(merge, VarList)
 	}
 	vals[, Date:=as.Date(Date)]
