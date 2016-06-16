@@ -22,11 +22,11 @@ WritePolyref = function(Table, PathToFile, Headers = TRUE, Type = 'Poly'){
 	if(Type == 'Poly')
 	{
 		Table[,`:=`(Openness = -1, CentroidX = -1, CentroidY = -1)]
-	    write.table(Table, file = filecon, sep = '\t', append = TRUE, row.names = FALSE, col.names = Headers, quote = FALSE)
+	    utils::write.table(Table, file = filecon, sep = '\t', append = TRUE, row.names = FALSE, col.names = Headers, quote = FALSE)
 			}
 	if(Type == 'Farm') 
 	{
-		write.table(Table, file = filecon, sep = '\t', append = TRUE, row.names = FALSE, col.names = FALSE, quote = FALSE)
+		utils::write.table(Table, file = filecon, sep = '\t', append = TRUE, row.names = FALSE, col.names = FALSE, quote = FALSE)
 	}
 	close(filecon)
 	options(scipen = ScipenDefault)  # Reset scipen option to default

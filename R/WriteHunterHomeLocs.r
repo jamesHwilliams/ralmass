@@ -23,7 +23,7 @@ WriteHunterHomeLocs = function(Locs = NULL, PathToFile = NULL){
 	options(scipen = 99)  # To avoid scientific notation in the resulting file
 	Locs[,ID:=0:(rows-1)]
 	setcolorder(Locs, neworder = c(3,1,2))
-	write.table(Locs, file = filecon, sep = '\t', append = TRUE,
+	utils::write.table(Locs, file = filecon, sep = '\t', append = TRUE,
 	 row.names = FALSE, col.names = FALSE, quote = FALSE)
 	close(filecon)
 	options(scipen = ScipenDefault)  # Reset scipen option to default

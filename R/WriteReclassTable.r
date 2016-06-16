@@ -13,6 +13,6 @@ WriteReclassTable = function(Table, PathToFile) {
 	if(any(is.null(Table), is.null(PathToFile))) {
 		stop('Input argument missing')
 	} 
-	write.table(Table, file = PathToFile, sep = ' : ', row.names = FALSE,
+	utils::write.table(Table, file = PathToFile, sep = ' : ', row.names = FALSE,
 	 col.names = FALSE, quote = FALSE)
 }
