@@ -54,6 +54,7 @@ PlotEnergetics = function(SimData, FieldData, Sample = NULL) {
 	geom_point(alpha = 1/50) + 
 	geom_smooth(aes(group = Season)) +
 	theme_bw() + 
-	theme(axis.text=element_text(size=8))
+	theme(axis.text=element_text(size=8)) + 
+	scale_x_date(date_breaks = "1 month", date_labels = "%b")
 	return(p)
 }
