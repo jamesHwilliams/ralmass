@@ -6,7 +6,7 @@
 #' @param dates logical Should we plot day numbers as dates?
 #' @return A nice plot
 #' @export
-PlotGoosePopulation = function(data){
+PlotGoosePopulation = function(data, dates = FALSE){
 	melted = data.table::melt(data, id.vars = c('Day', 'SeasonNumber'),
 		variable.name = 'GooseType', value.name = 'Numbers')
 	melted = melted[Numbers != 0,]
