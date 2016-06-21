@@ -10,5 +10,4 @@
 #' @import rgdal
 #' @import gridExtra
 #' @import ggplot2
-#' @import raster
 NULL
