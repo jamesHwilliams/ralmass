@@ -30,7 +30,8 @@ ExtractEOBS = function(eobs = NULL, spobject = NULL, metric = 'mean') {
 			vals = raster::extract(b, spobject, df = FALSE)
 		}
 		if("SpatialPolygons" == class(spobject)) {
-			vals = raster::extract(b, spobject, fun = metric, df = FALSE)
+			vals = raster::extract(b, spobject, fun = metric,
+			 df = FALSE, na.rm = TRUE)
 		}
 		vals = data.table::as.data.table(t(vals))
 		vals[, Date:=raster::getZ(b)]
