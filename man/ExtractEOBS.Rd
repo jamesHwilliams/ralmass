@@ -15,10 +15,17 @@ ExtractEOBS(eobs = NULL, spobject = NULL, metric = "mean")
 normally be 'mean', 'min' or 'max'}
 }
 \description{
-Extract values based on a spatial object form the E-OBS data.
+Extract values based on a spatial object from the E-OBS data.
 Useful when making weather files for ALMaSS. Often a point in the center
 of the landscape can be used to extract values. For the bigger landscapes
 a mean for the landscapes might make more sense. The function can handle
 that too.
+}
+\details{
+If the polygon does not overlap any cell centroids in the E-OBS raster or 
+if the point does not fall within any of the cells, the 'bilinear' method is
+used. This will interpolate the value from the nearest four cells from
+either the centroid (if spobject is a SpatialPolygon) or the point (if 
+spobject is a SpatialPoint)
 }
 
