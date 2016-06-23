@@ -34,20 +34,20 @@ ExtractEOBS = function(eobs = NULL, spobject = NULL, metric = 'mean') {
 		}
 		if("SpatialPoints" == class(spobject)) {
 			vals = raster::extract(b, spobject, df = FALSE)
-			vals = data.table::as.data.table(t(vals))
 			if(all(is.na(vals))) {
 				vals = raster::extract(b, spobject, fun = metric,
 					df = FALSE, na.rm = TRUE, method = 'bilinear')
 			}
+			vals = data.table::as.data.table(t(vals))
 		}
 		if("SpatialPolygons" == class(spobject)) {
 			vals = raster::extract(b, spobject, fun = metric,
 				df = FALSE, na.rm = TRUE)
-			vals = data.table::as.data.table(t(vals))
 			if(all(is.na(vals))) {
 				vals = raster::extract(b, coordinates(spobject), fun = metric,
 					df = FALSE, na.rm = TRUE, method = 'bilinear')
 			}
+			vals = data.table::as.data.table(t(vals))
 		}
 		vals[, Date:=raster::getZ(b)]
 		data.table::setnames(vals, old = 'V1', new = GetVarName(vars[i]))
