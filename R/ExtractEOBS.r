@@ -1,10 +1,16 @@
 #' Extract values from E-OBS netCDF files
 #'
-#' Extract values based on a spatial object form the E-OBS data.
+#' Extract values based on a spatial object from the E-OBS data.
 #' Useful when making weather files for ALMaSS. Often a point in the center
 #' of the landscape can be used to extract values. For the bigger landscapes
 #' a mean for the landscapes might make more sense. The function can handle
 #' that too. 
+#' 
+#' If the polygon does not overlap any cell centroids in the E-OBS raster or 
+#' if the point does not fall within any of the cells, the 'bilinear' method is
+#' used. This will interpolate the value from the nearest four cells from
+#' either the centroid (if spobject is a SpatialPolygon) or the point (if 
+#' spobject is a SpatialPoint)
 #' 
 #' @param eobs character Vector of full paths to the eobs nc files
 #' @param spobject Spatial* The geometry to extract with (point of polygon)
@@ -28,17 +34,26 @@ ExtractEOBS = function(eobs = NULL, spobject = NULL, metric = 'mean') {
 		}
 		if("SpatialPoints" == class(spobject)) {
 			vals = raster::extract(b, spobject, df = FALSE)
+			vals = data.table::as.data.table(t(vals))
+			if(all(is.na(vals))) {
+				vals = raster::extract(b, spobject, fun = metric,
+					df = FALSE, na.rm = TRUE, method = 'bilinear')
+			}
 		}
 		if("SpatialPolygons" == class(spobject)) {
 			vals = raster::extract(b, spobject, fun = metric,
-			 df = FALSE, na.rm = TRUE)
+				df = FALSE, na.rm = TRUE)
+			vals = data.table::as.data.table(t(vals))
+			if(all(is.na(vals))) {
+				vals = raster::extract(b, coordinates(spobject), fun = metric,
+					df = FALSE, na.rm = TRUE, method = 'bilinear')
+			}
 		}
-		vals = data.table::as.data.table(t(vals))
 		vals[, Date:=raster::getZ(b)]
 		data.table::setnames(vals, old = 'V1', new = GetVarName(vars[i]))
 		data.table::setkey(vals, Date)
 		if(length(vars) > 1) {
-		VarList[[i]] = vals
+			VarList[[i]] = vals
 		}
 	}
 	if(length(vars) > 1) {
