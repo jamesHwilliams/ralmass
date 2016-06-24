@@ -21,8 +21,7 @@ PlotGoosePopulation = function(data, dates = FALSE){
 	  p = p + ggplot2::scale_x_date(date_breaks = "1 month", date_labels = "%b") +
 	    ggplot2::xlab('Month')
 	}
-
-	return(p)
+	return(p + scale_color_brewer(palette = 'Paired'))
 }
 
 
