@@ -10,7 +10,8 @@
 		if(any(is.null(config), is.null(param))){
 			stop('Input parameter missing')
 		}
-	value = config[grep(param, config)] 
+	value = config[grep(param, config)]
+	value = value[length(value)] 
 	valuestring = stringr::str_split(value[1], '=')
 	value = as.numeric(stringr::str_trim(valuestring[[1]][2]))
 	return(value)
