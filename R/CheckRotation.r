@@ -70,6 +70,21 @@ CheckRotation = function(path = NULL) {
 					}
 				}
 			}
+			if(crops[j] == 'OWinterWheatUndersown') 
+			{
+				if(j != length(crops)) {
+					if(crops[j+1] == 'OSilageMaize') 
+					{
+						cat(paste0('OSilageMaize following OWinterWheatUndersown on line ', j+4, ' in ', wd[i], '\n'))
+					}
+				}
+				if(j == length(crops)) {
+					if(crops[1] == 'OSilageMaize') 
+					{
+						cat(paste0('OSilageMaize following OWinterWheatUndersown. Check last and first crop in in ', wd[i], '\n'))
+					}
+				}
+			}
 		}
 	}
 	cat('Checking done \n')

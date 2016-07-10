@@ -57,7 +57,7 @@ CalcHabitatUseFit = function(FieldData, SimData) {
 	temp[,NMTotal:=sum(N), by=.(Month, Species)]
 	temp[, PropSim:=N/NMTotal]
 	temp = temp[, lapply(.SD, sum, na.rm = TRUE), by = cols]
-	temp = temp[, .(HabitatUse, Month, Species, PropSim)][is.na(PropSim), PropSim:=0] %>% unique
+	temp = unique(temp[, .(HabitatUse, Month, Species, PropSim)][is.na(PropSim), PropSim:=0])
 	data.table::setkeyv(temp, cols)
 
 	HabFit = merge(temp, fielddata)
