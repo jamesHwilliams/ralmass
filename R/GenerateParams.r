@@ -14,6 +14,7 @@
 #' @param replicates numeric The number of replicates to run (Optional).
 #' @param expand logical Should we expand an n by n grid (TRUE, defalut) or 
 #' should we just generate a list of parameter ranges provided (FALSE)?
+#' @param path character Path where ParameterValues.txt will be written to.
 #' @return data.frame One column data.frame where each line is a text string
 #' with the config variable and its value
 #' @export
@@ -23,7 +24,7 @@
 #' GenerateParams('GOOSE_MINFORAGEOPENNESS' = val,
 #' 'HUNTERS_MAXDENSITY' = val2, write = FALSE)
 GenerateParams = function (..., write = FALSE, splits = NULL, 
-	replicates = NULL, expand = TRUE ) {
+	replicates = NULL, expand = TRUE, path = NULL) {
 	# Code from the base expand.grid with the KEEP.ATTR.OUT and StringAsFactor
 	# bits removed.
 	nargs <- length(args <- list(...))
@@ -105,9 +106,14 @@ GenerateParams = function (..., write = FALSE, splits = NULL,
 
 	if(write) 
 	{
-		write.table(df, file = 'ParameterValues.txt', sep = '\t', quote = FALSE,
+		dst = 'ParameterValues.txt'
+		if(!is.null(path)){
+		dst = file.path(path, 'ParameterValues.txt')
+		}
+		write.table(df, file = dst, sep = '\t', quote = FALSE,
 			row.names = FALSE, col.names = FALSE)
 		cat('Printed following to ParameterValues.txt:\n')
 	}
 	return(df)
 }
+
