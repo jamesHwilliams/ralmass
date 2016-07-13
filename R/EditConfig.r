@@ -17,7 +17,7 @@ EditConfig = function(file = NULL, config = NULL, value = NULL) {
 		stop('GetParamType: Missing parameter')
 	}
 	if(length(grep('(string)', TheConfig)) == 1){
-		value = paste0('", value, "')
+		value = paste0("\"", value, "\"")
 	}
 	TheLine = paste(TheConfig, '=', value, sep = ' ')
 	write(TheLine, file, append = TRUE)
