@@ -16,7 +16,7 @@ EditConfig = function(file = NULL, config = NULL, value = NULL) {
 	if(TheConfig == 'MissingParameter'){
 		stop('GetParamType: Missing parameter')
 	}
-	if(grep('(string)', TheConfig) == 1){
+	if(length(grep('(string)', TheConfig)) == 1){
 		value = paste0('", value, "')
 	}
 	TheLine = paste(TheConfig, '=', value, sep = ' ')
