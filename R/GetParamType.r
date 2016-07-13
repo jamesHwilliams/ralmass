@@ -34,6 +34,7 @@ GetParamType <- function(param = NULL) {
         'GOOSE_ROOSTLEAVEDISTSD' = 'GOOSE_ROOSTLEAVEDISTSD (int)',
         'GOOSE_MEM_EXPECTEDFORAGINGTIME' = 'GOOSE_MEM_EXPECTEDFORAGINGTIME (int)',
         'GOOSE_MODELEXITDAY' = 'GOOSE_MODELEXITDAY (int)',
+        'MAP_WEATHER_FILE' = 'MAP_WEATHER_FILE (string)',
         'MissingParameter'
         )
 }
