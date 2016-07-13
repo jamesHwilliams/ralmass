@@ -4,17 +4,22 @@
 \alias{PlotWeather}
 \title{Plot an Almass weather file}
 \usage{
-PlotWeather(file, subset = NULL)
+PlotWeather(file, from = NULL, to = NULL)
 }
 \arguments{
 \item{file}{character The full path to the weather file}
 
-\item{subset}{numeric Either a year or a sequence of years. If left blank - plot the whole thing.}
+\item{from}{character Date in format year-month-day}
+
+\item{to}{character Date in format year-month-day}
 }
 \value{
 A nice plot
 }
 \description{
 Plot an Almass weather file or a subset of it
+}
+\details{
+If from or to are left blank the entire range of data is plotted
 }
 
